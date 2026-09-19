@@ -1,0 +1,30 @@
+# Build output
+build/
+dist/
+*.spec
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Extracted game data and caches derived from it.
+#
+# These are NOT redistributable: they are unpacked copies of the game's own
+# asset files. The tool runs from the derived JSON in data/*.json instead
+# (see tools/parse_dlbin.py and tests/test_data_equivalent.py), so a clone
+# works without any of this. Regenerate locally if you want to re-derive.
+data/raw/
+data/strings.json
+data/strings_out/
+data/all_names.txt
+data/all_names.err
+data/wiki/pages/
+
+# Editor / OS noise
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

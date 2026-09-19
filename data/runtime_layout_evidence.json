@@ -1,0 +1,114 @@
+{
+  "verified_at": "2026-09-19",
+  "game_build": {
+    "game_dll_sha256": "cc75948d90fdfde259dcb519e9933db7ffa3ccb281ce4fb89e6b1b011557470c",
+    "game_dll_size": 15582312,
+    "matches_codex_claim": true,
+    "note": "独立核对通过：本机 game.dll 的 sha256 与 Codex build.json 声称值一致，说明其守卫针对当前游戏版本"
+  },
+  "file_offsets_are_runtime_layout": {
+    "conclusion": "PASS — .dl_bin 文件布局与 Codex 使用的运行时布局一致",
+    "evidence": [
+      {
+        "table": "generated_projectile_settings.dl_bin",
+        "codex_record_offset": "0xf9dc",
+        "my_array_start": "0x2c",
+        "my_stride": 272,
+        "row": 235,
+        "my_computed_offset": "0xf9dc",
+        "delta_bytes": 0,
+        "field_check": {
+          "speed": [
+            850.0,
+            850.0
+          ],
+          "mass": [
+            20.0,
+            20.0
+          ],
+          "calibre": [
+            8.0,
+            8.0
+          ],
+          "damage_info_type": [
+            132,
+            132
+          ],
+          "projectile_type": [
+            278,
+            278
+          ]
+        },
+        "result": "5/5 命中"
+      },
+      {
+        "table": "generated_damage_settings.dl_bin",
+        "damage_index": 132,
+        "check": {
+          "normal": [
+            180,
+            180
+          ],
+          "durable": [
+            50,
+            50
+          ],
+          "ap": [
+            [
+              3,
+              3,
+              3,
+              0
+            ],
+            [
+              3,
+              3,
+              3,
+              0
+            ]
+          ],
+          "forces": [
+            [
+              10,
+              20,
+              14
+            ],
+            [
+              10,
+              20,
+              14
+            ]
+          ]
+        },
+        "result": "4/4 命中"
+      },
+      {
+        "table": "entities.dl_bin",
+        "codex_record_offset": "0x18ECB3E",
+        "component": "WeaponDataComponentData",
+        "record_size": "0x4C0",
+        "checks": {
+          "aim_zoom +0x64 = [1,1,1]": true,
+          "ergonomics 65.0 in record": true,
+          "recoil drift 25.0 in record": true,
+          "recoil climb 60.0 in record": true
+        },
+        "result": "4/4 命中"
+      }
+    ]
+  },
+  "unresolved": [
+    {
+      "item": "projectile_weapon_record @ 0x2B73776",
+      "observation": "Codex 报 rpm_baseline=[0.0,60.0,0.0]，实测在 +0x4 处命中，+0x0 处为 [0.0,0.0,60.0]",
+      "delta": "4 字节",
+      "status": "偏移差 4 字节，未解释；不影响主链路"
+    },
+    {
+      "item": "rounds_record @ 0x552F5E",
+      "observation": "该偏移处读出连续 1.0f，非 rounds 记录；全表搜 int278+float5.0 无命中",
+      "status": "未定位；可能是间接引用或另一张表。不臆断。"
+    }
+  ],
+  "significance": "阶段一的核心问题（运行时布局是否等于文件布局）**已回答：是**。这意味着解析出的行号可以直接用于内存写入，无需额外的布局探测。"
+}

@@ -1,0 +1,4679 @@
+{
+ "weapons": [
+  {
+   "page": "AC-8 Autocannon",
+   "damage_index": 363,
+   "damage_position": 347,
+   "impact_damage_index": 213,
+   "impact_damage_position": 207,
+   "payload": "explosion",
+   "projectile_row": 29,
+   "ammo": "20mm APHET Rounds",
+   "ammo_wiki": null,
+   "speed": 820.0,
+   "damage": 150,
+   "durable": 150,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    40,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "SHRAPNEL P",
+    "velocity": 820.0,
+    "standard": 325,
+    "durable": 260,
+    "ap_direct": 4,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.0,
+     "outer_radius": 4.0,
+     "shockwave_radius": 5.5,
+     "explosion_damage": 150,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR-23 Liberator",
+   "damage_index": 104,
+   "damage_position": 104,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 197,
+   "ammo": "5.5x50mm Full Metal Jacket",
+   "ammo_wiki": "5.5x50mm FULL METAL JACKET",
+   "speed": 900.0,
+   "damage": 90,
+   "durable": 22,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "5.5x50mm FULL METAL JACKET P",
+    "velocity": 900.0,
+    "standard": 90,
+    "durable": 22,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [
+    "AR-23A Liberator Carbine",
+    "M-105 Stalwart",
+    "StA-52 Assault Rifle"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR-23A Liberator Carbine",
+   "damage_index": 104,
+   "damage_position": 104,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 197,
+   "ammo": "5.5x50mm Full Metal Jacket",
+   "ammo_wiki": "5.5x50mm FULL METAL JACKET",
+   "speed": 900.0,
+   "damage": 90,
+   "durable": 22,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "5.5x50mm FULL METAL JACKET P",
+    "velocity": 900.0,
+    "standard": 90,
+    "durable": 22,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [
+    "AR-23 Liberator",
+    "M-105 Stalwart",
+    "StA-52 Assault Rifle"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR-23C Liberator Concussive",
+   "damage_index": 103,
+   "damage_position": 103,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 201,
+   "ammo": "5.5x50mm Explosive",
+   "ammo_wiki": "5.5x50mm EXPLOSIVE",
+   "speed": 800.0,
+   "damage": 75,
+   "durable": 35,
+   "ap": [
+    2,
+    2,
+    2,
+    2
+   ],
+   "forces": [
+    10,
+    35,
+    60
+   ],
+   "wiki": {
+    "ammo_raw": "5.5x50mm EXPLOSIVE P",
+    "velocity": 800.0,
+    "standard": 75,
+    "durable": 35,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR-23P Liberator Penetrator",
+   "damage_index": 101,
+   "damage_position": 101,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 198,
+   "ammo": "5.5x50mm Penetrator",
+   "ammo_wiki": "5.5x50mm PENETRATOR",
+   "speed": 1000.0,
+   "damage": 65,
+   "durable": 15,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "5.5x50mm PENETRATOR P",
+    "velocity": 1000.0,
+    "standard": 65,
+    "durable": 15,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [
+    "M-103 Supply FRV"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR-2 Coyote",
+   "damage_index": 114,
+   "damage_position": 114,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 214,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 650.0,
+   "damage": 75,
+   "durable": 10,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    12,
+    12
+   ],
+   "wiki": {
+    "ammo_raw": "AR-2 P",
+    "velocity": 650.0,
+    "standard": 75,
+    "durable": 10,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR-32 Pacifier",
+   "damage_index": 112,
+   "damage_position": 112,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 210,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 900.0,
+   "damage": 55,
+   "durable": 10,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "AR-32 P",
+    "velocity": 900.0,
+    "standard": 55,
+    "durable": 10,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR-59 Suppressor",
+   "damage_index": 110,
+   "damage_position": 110,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 207,
+   "ammo": "5.5x50mm Subsonic",
+   "ammo_wiki": "5.5x50mm SUBSONIC",
+   "speed": 330.0,
+   "damage": 80,
+   "durable": 20,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "5.5x50mm SUBSONIC P",
+    "velocity": 330.0,
+    "standard": 80,
+    "durable": 20,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR-61 Tenderizer",
+   "damage_index": 130,
+   "damage_position": 130,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 233,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 820.0,
+   "damage": 105,
+   "durable": 30,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "AR-61 P",
+    "velocity": 820.0,
+    "standard": 105,
+    "durable": 30,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "AR/GL-21 One-Two",
+   "damage_index": 368,
+   "damage_position": 352,
+   "impact_damage_index": 35,
+   "impact_damage_position": 32,
+   "payload": "explosion",
+   "projectile_row": 81,
+   "ammo": null,
+   "ammo_wiki": "40mm HEAT GRENADE",
+   "speed": 100.0,
+   "damage": 400,
+   "durable": 400,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    25,
+    30
+   ],
+   "wiki": {
+    "ammo_raw": "40mm HEAT GRENADE P",
+    "velocity": 920.0,
+    "standard": 95,
+    "durable": 24,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.25,
+     "outer_radius": 6.5,
+     "shockwave_radius": 8.0,
+     "explosion_damage": 400,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [
+    "GL-21 Grenade Launcher",
+    "GP-31 Grenade Pistol"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [
+    "GL-21 Grenade Launcher",
+    "GL-52 De-Escalator",
+    "GP-31 Grenade Pistol",
+    "StA-X3 W.A.S.P. Launcher"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "ARC-12 Blitzer",
+   "damage_index": 193,
+   "damage_position": 188,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 0.0,
+   "damage": 50,
+   "durable": 35,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    30,
+    25
+   ],
+   "wiki": {
+    "ammo_raw": "(arc)",
+    "standard": 50,
+    "durable": 35,
+    "ap_direct": 3,
+    "explosion": null,
+    "arc": {
+     "damage": 50,
+     "element": "Arc",
+     "durable": 35,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "arc",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "ARC-3 Arc Thrower",
+   "damage_index": 191,
+   "damage_position": 186,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 0.0,
+   "damage": 250,
+   "durable": 100,
+   "ap": [
+    7,
+    7,
+    7,
+    0
+   ],
+   "forces": [
+    20,
+    35,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "(arc)",
+    "standard": 250,
+    "durable": 100,
+    "ap_direct": 7,
+    "explosion": null,
+    "arc": {
+     "damage": 250,
+     "element": "Arc",
+     "durable": 100,
+     "ap_direct": 7,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "arc",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "B/MD C4 Pack",
+   "damage_index": 356,
+   "damage_position": 343,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "explosion",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": "B/MD C4 PACK E",
+   "speed": 0.0,
+   "damage": 2000,
+   "durable": 2000,
+   "ap": [
+    7,
+    7,
+    7,
+    7
+   ],
+   "forces": [
+    40,
+    30,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "B/MD C4 PACK E",
+    "explosion": {
+     "inner_radius": 3.0,
+     "outer_radius": 7.0,
+     "shockwave_radius": 8.0,
+     "explosion_damage": 2000,
+     "ap_direct": 7,
+     "ap_name": null,
+     "ammo_raw": "B/MD C4 PACK E"
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "BR-14 Adjudicator",
+   "damage_index": 129,
+   "damage_position": 129,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 232,
+   "ammo": null,
+   "ammo_wiki": "8x60mm FULL METAL JACKET",
+   "speed": 820.0,
+   "damage": 95,
+   "durable": 23,
+   "ap": [
+    3,
+    3,
+    3,
+    1
+   ],
+   "forces": [
+    10,
+    15,
+    12
+   ],
+   "wiki": {
+    "ammo_raw": "8x60mm FULL METAL JACKET P",
+    "velocity": 820.0,
+    "standard": 95,
+    "durable": 23,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "CB-9 Exploding Crossbow",
+   "damage_index": 203,
+   "damage_position": 197,
+   "impact_damage_index": 208,
+   "impact_damage_position": 202,
+   "payload": "explosion",
+   "projectile_row": 250,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 100.0,
+   "damage": 350,
+   "durable": 350,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    20,
+    25,
+    30
+   ],
+   "wiki": {
+    "ammo_raw": "CB-9 P",
+    "velocity": 100.0,
+    "standard": 270,
+    "durable": 50,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 3.0,
+     "outer_radius": 6.0,
+     "shockwave_radius": 7.0,
+     "explosion_damage": 350,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "DBS-2 Double Freedom",
+   "damage_index": 154,
+   "damage_position": 153,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 342,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 385.0,
+   "damage": 70,
+   "durable": 35,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    35,
+    30
+   ],
+   "wiki": {
+    "ammo_raw": "DBS-2 P",
+    "velocity": 385.0,
+    "standard": 70,
+    "durable": 35,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "EAT-17 Expendable Anti-Tank",
+   "damage_index": 374,
+   "damage_position": 358,
+   "impact_damage_index": 226,
+   "impact_damage_position": 221,
+   "payload": "explosion",
+   "projectile_row": 91,
+   "ammo": "75mm HEAT Grenade",
+   "ammo_wiki": "75mm HEAT GRENADE",
+   "speed": 200.0,
+   "damage": 150,
+   "durable": 150,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    60,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "75mm HEAT GRENADE P",
+    "velocity": 200.0,
+    "standard": 2000,
+    "durable": 2000,
+    "ap_direct": 6,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.5,
+     "outer_radius": 3.0,
+     "shockwave_radius": 6.0,
+     "explosion_damage": 150,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [
+    "GR-8 Recoilless Rifle",
+    "LAS-99 Quasar Cannon"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [
+    "GR-8 Recoilless Rifle",
+    "LAS-99 Quasar Cannon"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "EAT-411 Leveller",
+   "damage_index": 446,
+   "damage_position": 433,
+   "impact_damage_index": 455,
+   "impact_damage_position": 445,
+   "payload": "explosion",
+   "projectile_row": 145,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 50.0,
+   "damage": 2500,
+   "durable": 2500,
+   "ap": [
+    6,
+    6,
+    6,
+    6
+   ],
+   "forces": [
+    40,
+    100,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "EAT-411 P",
+    "velocity": 50.0,
+    "standard": 1000,
+    "durable": 1000,
+    "ap_direct": 6,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 10.0,
+     "outer_radius": 25.0,
+     "shockwave_radius": 35.0,
+     "explosion_damage": 2500,
+     "ap_direct": 6,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "EAT-700 Expendable Napalm",
+   "damage_index": 310,
+   "damage_position": 214,
+   "impact_damage_index": 283,
+   "impact_damage_position": 268,
+   "payload": "explosion",
+   "projectile_row": 92,
+   "ammo": null,
+   "ammo_wiki": "20mm FLAK ROUNDS",
+   "speed": 200.0,
+   "damage": 250,
+   "durable": 250,
+   "ap": [
+    6,
+    6,
+    6,
+    3
+   ],
+   "forces": [
+    30,
+    50,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "20mm FLAK ROUNDS P1",
+    "velocity": 200.0,
+    "standard": 500,
+    "durable": 500,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.60000002,
+     "outer_radius": 8.0,
+     "shockwave_radius": 10.0,
+     "explosion_damage": 250,
+     "ap_direct": 6,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "FAF-14 Spear",
+   "damage_index": 389,
+   "damage_position": 373,
+   "impact_damage_index": 244,
+   "impact_damage_position": 239,
+   "payload": "explosion",
+   "projectile_row": 123,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 70.0,
+   "damage": 200,
+   "durable": 200,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    60,
+    70
+   ],
+   "wiki": {
+    "ammo_raw": "HOMING GROUND MISSILE P",
+    "velocity": 70.0,
+    "standard": 4000,
+    "durable": 4000,
+    "ap_direct": 7,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.5,
+     "outer_radius": 3.0,
+     "shockwave_radius": 6.0,
+     "explosion_damage": 200,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "G-12 High Explosive",
+   "damage_index": 350,
+   "damage_position": 337,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "explosion",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": "G-12 HIGH EXPLOSIVE E",
+   "speed": 0.0,
+   "damage": 800,
+   "durable": 800,
+   "ap": [
+    4,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    30,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "G-12 HIGH EXPLOSIVE E",
+    "explosion": {
+     "inner_radius": 2.5,
+     "outer_radius": 7.0,
+     "shockwave_radius": 9.0,
+     "explosion_damage": 800,
+     "ap_direct": 4,
+     "ap_name": null,
+     "ammo_raw": "G-12 HIGH EXPLOSIVE E"
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "G-16 Impact",
+   "damage_index": 351,
+   "damage_position": 339,
+   "impact_damage_index": 63,
+   "impact_damage_position": 63,
+   "payload": "explosion",
+   "projectile_row": 317,
+   "ammo": null,
+   "ammo_wiki": "G-16 IMPACT E",
+   "speed": 300.0,
+   "damage": 400,
+   "durable": 400,
+   "ap": [
+    4,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    30,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "G-16 IMPACT E",
+    "explosion": {
+     "inner_radius": 2.5,
+     "outer_radius": 7.0,
+     "shockwave_radius": 8.0,
+     "explosion_damage": 400,
+     "ap_direct": 4,
+     "ap_name": null,
+     "ammo_raw": "G-16 IMPACT E"
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [
+    "S-11 Speargun"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "G-31 Arc",
+   "damage_index": 206,
+   "damage_position": 200,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 0.0,
+   "damage": 100,
+   "durable": 70,
+   "ap": [
+    4,
+    4,
+    4,
+    0
+   ],
+   "forces": [
+    20,
+    35,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "(arc)",
+    "standard": 100,
+    "durable": 70,
+    "ap_direct": 4,
+    "explosion": null,
+    "arc": {
+     "damage": 100,
+     "element": "Arc",
+     "durable": 70,
+     "ap_direct": 4,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "arc",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "G-48 Giga Grenade",
+   "damage_index": 355,
+   "damage_position": 342,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "explosion",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": "G-48 GIGA GRENADE E",
+   "speed": 0.0,
+   "damage": 2000,
+   "durable": 2000,
+   "ap": [
+    5,
+    5,
+    5,
+    4
+   ],
+   "forces": [
+    40,
+    40,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "G-48 GIGA GRENADE E",
+    "explosion": {
+     "inner_radius": 2.0,
+     "outer_radius": 12.0,
+     "shockwave_radius": 16.0,
+     "explosion_damage": 2000,
+     "ap_direct": 5,
+     "ap_name": null,
+     "ammo_raw": "G-48 GIGA GRENADE E"
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "G-50 Seeker",
+   "damage_index": 338,
+   "damage_position": 323,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "explosion",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": "G-50 SEEKER E",
+   "speed": 0.0,
+   "damage": 500,
+   "durable": 500,
+   "ap": [
+    4,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    30,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "G-50 SEEKER E",
+    "explosion": {
+     "inner_radius": 3.5,
+     "outer_radius": 7.0,
+     "shockwave_radius": 8.0,
+     "explosion_damage": 500,
+     "ap_direct": 4,
+     "ap_name": null,
+     "ammo_raw": "G-50 SEEKER E"
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "G-7 Pineapple",
+   "damage_index": 345,
+   "damage_position": 330,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 103,
+   "ammo": "Cluster Bomb",
+   "ammo_wiki": null,
+   "speed": 25.0,
+   "damage": 300,
+   "durable": 300,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    20,
+    5,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "CLUSTER BOMB P",
+    "velocity": 25.0,
+    "standard": 300,
+    "durable": 300,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 4.0,
+     "outer_radius": 10.0,
+     "shockwave_radius": 14.0,
+     "explosion_damage": 300,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "G/40-K Melta Mine",
+   "damage_index": 401,
+   "damage_position": 385,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "explosion",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 0.0,
+   "damage": 2000,
+   "durable": 2000,
+   "ap": [
+    7,
+    7,
+    7,
+    0
+   ],
+   "forces": [
+    40,
+    40,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "FLAMEWALL",
+    "explosion": {
+     "inner_radius": 2.5,
+     "outer_radius": 6.0,
+     "shockwave_radius": 15.0,
+     "explosion_damage": 2000,
+     "ap_direct": 7,
+     "ap_name": null,
+     "ammo_raw": "FLAMEWALL"
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "GL-21 Grenade Launcher",
+   "damage_index": 368,
+   "damage_position": 352,
+   "impact_damage_index": 35,
+   "impact_damage_position": 32,
+   "payload": "explosion",
+   "projectile_row": 80,
+   "ammo": "40mm HE Grenade",
+   "ammo_wiki": "40mm HE GRENADE",
+   "speed": 100.0,
+   "damage": 400,
+   "durable": 400,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    25,
+    30
+   ],
+   "wiki": {
+    "ammo_raw": "40mm HE GRENADE P",
+    "velocity": 100.0,
+    "standard": 0,
+    "durable": 0,
+    "ap_direct": 4,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 3.5,
+     "outer_radius": 7.5,
+     "shockwave_radius": 8.0,
+     "explosion_damage": 400,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [
+    "AR/GL-21 One-Two",
+    "GP-31 Grenade Pistol"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [
+    "AR/GL-21 One-Two",
+    "GL-52 De-Escalator",
+    "GP-31 Grenade Pistol",
+    "StA-X3 W.A.S.P. Launcher"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "GL-28 Belt-Fed Grenade Launcher",
+   "damage_index": 31,
+   "damage_position": 27,
+   "impact_damage_index": 266,
+   "impact_damage_position": 30,
+   "payload": "explosion",
+   "projectile_row": 79,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 100.0,
+   "damage": 150,
+   "durable": 150,
+   "ap": [
+    4,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    20,
+    20
+   ],
+   "wiki": {
+    "ammo_raw": "GL-28 P",
+    "velocity": 100.0,
+    "standard": 0,
+    "durable": 0,
+    "ap_direct": 4,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.0,
+     "outer_radius": 4.0,
+     "shockwave_radius": 5.5,
+     "explosion_damage": 150,
+     "ap_direct": 4,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "GL-52 De-Escalator",
+   "damage_index": 359,
+   "damage_position": 620,
+   "impact_damage_index": 35,
+   "impact_damage_position": 32,
+   "payload": "explosion",
+   "projectile_row": 86,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 100.0,
+   "damage": 0,
+   "durable": 0,
+   "ap": [
+    6,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    0,
+    0,
+    0
+   ],
+   "wiki": {
+    "ammo_raw": "GL-52 P",
+    "velocity": 100.0,
+    "standard": 20,
+    "durable": 2,
+    "ap_direct": 0,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.0,
+     "outer_radius": 3.0,
+     "shockwave_radius": 4.0,
+     "ap_direct": 6,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [
+    "AR/GL-21 One-Two",
+    "GL-21 Grenade Launcher",
+    "GP-31 Grenade Pistol",
+    "StA-X3 W.A.S.P. Launcher"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "GP-20 Ultimatum",
+   "damage_index": 275,
+   "damage_position": 261,
+   "impact_damage_index": 31,
+   "impact_damage_position": 27,
+   "payload": "explosion",
+   "projectile_row": 144,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 20.0,
+   "damage": 2000,
+   "durable": 2000,
+   "ap": [
+    6,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    40,
+    70,
+    60
+   ],
+   "wiki": {
+    "ammo_raw": "GP-20 P",
+    "velocity": 20.0,
+    "standard": 1000,
+    "durable": 1000,
+    "ap_direct": 6,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.0,
+     "outer_radius": 12.0,
+     "shockwave_radius": 25.0,
+     "explosion_damage": 2000,
+     "ap_direct": 6,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "GP-31 Grenade Pistol",
+   "damage_index": 368,
+   "damage_position": 352,
+   "impact_damage_index": 35,
+   "impact_damage_position": 32,
+   "payload": "explosion",
+   "projectile_row": 81,
+   "ammo": null,
+   "ammo_wiki": "40mm HEAT GRENADE",
+   "speed": 100.0,
+   "damage": 400,
+   "durable": 400,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    25,
+    30
+   ],
+   "wiki": {
+    "ammo_raw": "40mm HEAT GRENADE P",
+    "velocity": 100.0,
+    "standard": 250,
+    "durable": 250,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.25,
+     "outer_radius": 6.5,
+     "shockwave_radius": 8.0,
+     "explosion_damage": 400,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [
+    "AR/GL-21 One-Two",
+    "GL-21 Grenade Launcher"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [
+    "AR/GL-21 One-Two",
+    "GL-21 Grenade Launcher",
+    "GL-52 De-Escalator",
+    "StA-X3 W.A.S.P. Launcher"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "GR-8 Recoilless Rifle",
+   "damage_index": 374,
+   "damage_position": 358,
+   "impact_damage_index": 226,
+   "impact_damage_position": 221,
+   "payload": "explosion",
+   "projectile_row": 91,
+   "ammo": "75mm HEAT Grenade",
+   "ammo_wiki": "85mm HIGH-EXPLOSIVE GRENADE",
+   "speed": 200.0,
+   "damage": 150,
+   "durable": 150,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    60,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "85mm HIGH-EXPLOSIVE GRENADE P",
+    "velocity": 250.0,
+    "standard": 3200,
+    "durable": 3200,
+    "ap_direct": 6,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.5,
+     "outer_radius": 3.0,
+     "shockwave_radius": 6.0,
+     "explosion_damage": 150,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [
+    "EAT-17 Expendable Anti-Tank",
+    "LAS-99 Quasar Cannon"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [
+    "EAT-17 Expendable Anti-Tank",
+    "LAS-99 Quasar Cannon"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "JAR-5 Dominator",
+   "damage_index": 148,
+   "damage_position": 148,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 258,
+   "ammo": "15x100mm Standard Rocket",
+   "ammo_wiki": "15x100mm STANDARD ROCKET",
+   "speed": 180.0,
+   "damage": 275,
+   "durable": 90,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    35,
+    15
+   ],
+   "wiki": {
+    "ammo_raw": "15x100mm STANDARD ROCKET P",
+    "velocity": 180.0,
+    "standard": 275,
+    "durable": 90,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "LAS-16 Sickle",
+   "damage_index": 47,
+   "damage_position": 47,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 320,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 1300.0,
+   "damage": 60,
+   "durable": 6,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "LASER P",
+    "velocity": 1300.0,
+    "standard": 60,
+    "durable": 6,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [
+    "LAS-17 Double-Edge Sickle"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "LAS-17 Double-Edge Sickle",
+   "damage_index": 47,
+   "damage_position": 47,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 320,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 1300.0,
+   "damage": 60,
+   "durable": 6,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "LASER P3",
+    "velocity": 1300.0,
+    "standard": 60,
+    "durable": 6,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [
+    "LAS-16 Sickle"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "LAS-58 Talon",
+   "damage_index": 52,
+   "damage_position": 52,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 325,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 1300.0,
+   "damage": 200,
+   "durable": 20,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "LASER P4",
+    "velocity": 1300.0,
+    "standard": 200,
+    "durable": 20,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "LAS-99 Quasar Cannon",
+   "damage_index": 374,
+   "damage_position": 358,
+   "impact_damage_index": 226,
+   "impact_damage_position": 221,
+   "payload": "explosion",
+   "projectile_row": 91,
+   "ammo": "75mm HEAT Grenade",
+   "ammo_wiki": null,
+   "speed": 200.0,
+   "damage": 150,
+   "durable": 150,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    60,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "LASER P5",
+    "velocity": 1300.0,
+    "standard": 2000,
+    "durable": 2000,
+    "ap_direct": 6,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.5,
+     "outer_radius": 3.0,
+     "shockwave_radius": 6.0,
+     "explosion_damage": 150,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [
+    "EAT-17 Expendable Anti-Tank",
+    "GR-8 Recoilless Rifle"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [
+    "EAT-17 Expendable Anti-Tank",
+    "GR-8 Recoilless Rifle"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "M-1000 Maxigun",
+   "damage_index": 123,
+   "damage_position": 123,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 223,
+   "ammo": "8x60mm High Velocity",
+   "ammo_wiki": "8x60mm HIGH VELOCITY",
+   "speed": 920.0,
+   "damage": 80,
+   "durable": 18,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    12
+   ],
+   "wiki": {
+    "ammo_raw": "8x60mm HIGH VELOCITY P",
+    "velocity": 920.0,
+    "standard": 80,
+    "durable": 18,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "M-103 Supply FRV",
+   "damage_index": 101,
+   "damage_position": 101,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 198,
+   "ammo": "5.5x50mm Penetrator",
+   "ammo_wiki": "5.5x50mm PENETRATOR",
+   "speed": 1000.0,
+   "damage": 65,
+   "durable": 15,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "5.5x50mm PENETRATOR P",
+    "velocity": 1000.0,
+    "standard": 65,
+    "durable": 15,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [
+    "AR-23P Liberator Penetrator"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "M-105 Stalwart",
+   "damage_index": 104,
+   "damage_position": 104,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 197,
+   "ammo": "5.5x50mm Full Metal Jacket",
+   "ammo_wiki": "5.5x50mm FULL METAL JACKET",
+   "speed": 900.0,
+   "damage": 90,
+   "durable": 22,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "5.5x50mm FULL METAL JACKET P",
+    "velocity": 900.0,
+    "standard": 90,
+    "durable": 22,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [
+    "AR-23 Liberator",
+    "AR-23A Liberator Carbine",
+    "StA-52 Assault Rifle"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "M6C/SOCOM Pistol",
+   "damage_index": 89,
+   "damage_position": 89,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 182,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 285.0,
+   "damage": 125,
+   "durable": 28,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "M6C/SOCOM P",
+    "velocity": 285.0,
+    "standard": 125,
+    "durable": 28,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "M7S SMG",
+   "damage_index": 67,
+   "damage_position": 67,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 160,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 320.0,
+   "damage": 90,
+   "durable": 18,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    5
+   ],
+   "wiki": {
+    "ammo_raw": "M7S P",
+    "velocity": 320.0,
+    "standard": 90,
+    "durable": 18,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "M90A Shotgun",
+   "damage_index": 152,
+   "damage_position": 152,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 293,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 385.0,
+   "damage": 55,
+   "durable": 20,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    35,
+    30
+   ],
+   "wiki": {
+    "ammo_raw": "BUCKSHOT P",
+    "velocity": 385.0,
+    "standard": 55,
+    "durable": 20,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "MA5C Assault Rifle",
+   "damage_index": 131,
+   "damage_position": 131,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 234,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 820.0,
+   "damage": 90,
+   "durable": 16,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "MA5C P",
+    "velocity": 820.0,
+    "standard": 90,
+    "durable": 16,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "MG-43 Machine Gun",
+   "damage_index": 121,
+   "damage_position": 121,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 219,
+   "ammo": null,
+   "ammo_wiki": "8x60mm FULL METAL JACKET",
+   "speed": 820.0,
+   "damage": 90,
+   "durable": 23,
+   "ap": [
+    3,
+    3,
+    3,
+    1
+   ],
+   "forces": [
+    10,
+    20,
+    12
+   ],
+   "wiki": {
+    "ammo_raw": "8x60mm FULL METAL JACKET P1",
+    "velocity": 820.0,
+    "standard": 90,
+    "durable": 23,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "MGX-42 Bullet Storm",
+   "damage_index": 113,
+   "damage_position": 113,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 211,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 450.0,
+   "damage": 100,
+   "durable": 25,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "MGX-42 P",
+    "velocity": 450.0,
+    "standard": 100,
+    "durable": 25,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "MLS-4X Commando",
+   "damage_index": 384,
+   "damage_position": 368,
+   "impact_damage_index": 236,
+   "impact_damage_position": 231,
+   "payload": "explosion",
+   "projectile_row": 120,
+   "ammo": "66mm Missile",
+   "ammo_wiki": "66mm MISSILE",
+   "speed": 70.0,
+   "damage": 150,
+   "durable": 150,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    40,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "66mm MISSILE P",
+    "velocity": 70.0,
+    "standard": 1100,
+    "durable": 1100,
+    "ap_direct": 6,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.0,
+     "outer_radius": 2.0,
+     "shockwave_radius": 4.0,
+     "explosion_damage": 150,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "MP-98 Knight",
+   "damage_index": 70,
+   "damage_position": 70,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 163,
+   "ammo": null,
+   "ammo_wiki": "9x20mm FULL METAL JACKET",
+   "speed": 375.0,
+   "damage": 90,
+   "durable": 18,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    5
+   ],
+   "wiki": {
+    "ammo_raw": "9x20mm FULL METAL JACKET P",
+    "velocity": 375.0,
+    "standard": 90,
+    "durable": 18,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [
+    "StA-11 SMG"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-113 Verdict",
+   "damage_index": 87,
+   "damage_position": 87,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 180,
+   "ammo": "12x25mm Full Metal Jacket",
+   "ammo_wiki": "12x25mm FULL METAL JACKET",
+   "speed": 285.0,
+   "damage": 140,
+   "durable": 32,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "12x25mm FULL METAL JACKET P",
+    "velocity": 285.0,
+    "standard": 140,
+    "durable": 32,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [
+    "SMG-32 Reprimand"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-11 Stim Pistol",
+   "damage_index": 233,
+   "damage_position": 228,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 0,
+   "ammo": "100kg Cluster Bomb",
+   "ammo_wiki": null,
+   "speed": 300.0,
+   "damage": 1250,
+   "durable": 1250,
+   "ap": [
+    6,
+    6,
+    5,
+    0
+   ],
+   "forces": [
+    30,
+    40,
+    25
+   ],
+   "wiki": {
+    "ammo_raw": "P-11 P",
+    "velocity": 300.0,
+    "ap_direct": null,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": false,
+    "durable": false,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": false,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-19 Redeemer",
+   "damage_index": 69,
+   "damage_position": 69,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 162,
+   "ammo": null,
+   "ammo_wiki": "9x20mm FULL METAL JACKET",
+   "speed": 375.0,
+   "damage": 70,
+   "durable": 12,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    4
+   ],
+   "wiki": {
+    "ammo_raw": "9x20mm FULL METAL JACKET P1",
+    "velocity": 375.0,
+    "standard": 70,
+    "durable": 12,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-2 Peacemaker",
+   "damage_index": 71,
+   "damage_position": 71,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 164,
+   "ammo": "9x20mm Hollow Point",
+   "ammo_wiki": "9x20mm HOLLOW POINT",
+   "speed": 320.0,
+   "damage": 100,
+   "durable": 32,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    4
+   ],
+   "wiki": {
+    "ammo_raw": "9x20mm HOLLOW POINT P",
+    "velocity": 320.0,
+    "standard": 100,
+    "durable": 32,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-33 Missile Pistol",
+   "damage_index": 553,
+   "damage_position": 375,
+   "impact_damage_index": 91,
+   "impact_damage_position": 91,
+   "payload": "explosion",
+   "projectile_row": 185,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 1.0,
+   "damage": 300,
+   "durable": 300,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    40,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "Non-Guided P",
+    "velocity": 1.0,
+    "standard": 1000,
+    "durable": 1000,
+    "ap_direct": 5,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.0,
+     "outer_radius": 4.0,
+     "shockwave_radius": 12.0,
+     "explosion_damage": 300,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-35 Re-Educator",
+   "damage_index": 65,
+   "damage_position": 65,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 318,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 150.0,
+   "damage": 60,
+   "durable": 10,
+   "ap": [
+    4,
+    4,
+    3,
+    0
+   ],
+   "forces": [
+    1,
+    1,
+    1
+   ],
+   "wiki": {
+    "ammo_raw": "P-35 P",
+    "velocity": 150.0,
+    "standard": 60,
+    "durable": 10,
+    "ap_direct": 4,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-4 Senator",
+   "damage_index": 95,
+   "damage_position": 95,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 190,
+   "ammo": null,
+   "ammo_wiki": "13x40mm FULL METAL JACKET",
+   "speed": 550.0,
+   "damage": 225,
+   "durable": 75,
+   "ap": [
+    4,
+    4,
+    4,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "13x40mm FULL METAL JACKET P",
+    "velocity": 550.0,
+    "standard": 225,
+    "durable": 75,
+    "ap_direct": 4,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-69 Veto",
+   "damage_index": 88,
+   "damage_position": 88,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 181,
+   "ammo": "15x100mm Standard Rocket",
+   "ammo_wiki": "15x100mm STANDARD ROCKET",
+   "speed": 375.0,
+   "damage": 105,
+   "durable": 35,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    35,
+    15
+   ],
+   "wiki": {
+    "ammo_raw": "15x100mm STANDARD ROCKET P1",
+    "velocity": 375.0,
+    "standard": 105,
+    "durable": 35,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P-92 Warrant",
+   "damage_index": 90,
+   "damage_position": 90,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 183,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 285.0,
+   "damage": 80,
+   "durable": 20,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "Non-Guided P1",
+    "velocity": 285.0,
+    "standard": 80,
+    "durable": 20,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "P/40-K Bolt Pistol",
+   "damage_index": 297,
+   "damage_position": 283,
+   "impact_damage_index": 151,
+   "impact_damage_position": 151,
+   "payload": "explosion",
+   "projectile_row": 256,
+   "ammo": "15x100mm Standard Rocket",
+   "ammo_wiki": null,
+   "speed": 350.0,
+   "damage": 175,
+   "durable": 175,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    10,
+    35,
+    5
+   ],
+   "wiki": {
+    "ammo_raw": "P/40-K P",
+    "velocity": 350.0,
+    "standard": 325,
+    "durable": 115,
+    "ap_direct": 4,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.0,
+     "outer_radius": 3.5,
+     "shockwave_radius": 5.0,
+     "explosion_damage": 175,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "PLAS-101 Purifier",
+   "damage_index": 308,
+   "damage_position": 292,
+   "impact_damage_index": 60,
+   "impact_damage_position": 60,
+   "payload": "explosion",
+   "projectile_row": 302,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 550.0,
+   "damage": 75,
+   "durable": 75,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    7
+   ],
+   "wiki": {
+    "ammo_raw": "PLAS-101 CHARGED P",
+    "velocity": 350.0,
+    "standard": 100,
+    "durable": 50,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.0,
+     "outer_radius": 2.0,
+     "shockwave_radius": 2.0,
+     "explosion_damage": 75,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "PLAS-15 Loyalist",
+   "damage_index": 299,
+   "damage_position": 285,
+   "impact_damage_index": 54,
+   "impact_damage_position": 54,
+   "payload": "explosion",
+   "projectile_row": 304,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 550.0,
+   "damage": 25,
+   "durable": 25,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    5
+   ],
+   "wiki": {
+    "ammo_raw": "SMALL PLASMA BOLT P2",
+    "velocity": 550.0,
+    "standard": 100,
+    "durable": 50,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 0.75,
+     "outer_radius": 1.5,
+     "shockwave_radius": 2.0,
+     "explosion_damage": 25,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [
+    "PLAS-1 Scorcher",
+    "PLAS-39 Accelerator Rifle"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "PLAS-1 Scorcher",
+   "damage_index": 300,
+   "damage_position": 286,
+   "impact_damage_index": 54,
+   "impact_damage_position": 54,
+   "payload": "explosion",
+   "projectile_row": 305,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 550.0,
+   "damage": 100,
+   "durable": 100,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    7
+   ],
+   "wiki": {
+    "ammo_raw": "MEDIUM PLASMA BOLT P",
+    "velocity": 550.0,
+    "standard": 100,
+    "durable": 50,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.0,
+     "outer_radius": 2.0,
+     "shockwave_radius": 2.0,
+     "explosion_damage": 100,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [
+    "PLAS-39 Accelerator Rifle"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [
+    "PLAS-15 Loyalist",
+    "PLAS-39 Accelerator Rifle"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "PLAS-39 Accelerator Rifle",
+   "damage_index": 300,
+   "damage_position": 286,
+   "impact_damage_index": 54,
+   "impact_damage_position": 54,
+   "payload": "explosion",
+   "projectile_row": 305,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 550.0,
+   "damage": 100,
+   "durable": 100,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    7
+   ],
+   "wiki": {
+    "ammo_raw": "MEDIUM PLASMA BOLT P1",
+    "velocity": 1000.0,
+    "standard": 250,
+    "durable": 125,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 1.0,
+     "outer_radius": 2.0,
+     "shockwave_radius": 2.0,
+     "explosion_damage": 100,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [
+    "PLAS-1 Scorcher"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [
+    "PLAS-15 Loyalist",
+    "PLAS-1 Scorcher"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "PLAS-45 Epoch",
+   "damage_index": 58,
+   "damage_position": 58,
+   "impact_damage_index": 56,
+   "impact_damage_position": 56,
+   "payload": "explosion",
+   "projectile_row": 312,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 250.0,
+   "damage": 500,
+   "durable": 500,
+   "ap": [
+    4,
+    4,
+    4,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    7
+   ],
+   "wiki": {
+    "ammo_raw": "LARGE PLASMA BOLT P2",
+    "velocity": 250.0,
+    "standard": 400,
+    "durable": 200,
+    "ap_direct": 4,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.29999995,
+     "outer_radius": 3.0,
+     "shockwave_radius": 4.0,
+     "explosion_damage": 500,
+     "ap_direct": 4,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "R-2124 Constitution",
+   "damage_index": 132,
+   "damage_position": 132,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 235,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 850.0,
+   "damage": 180,
+   "durable": 50,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    14
+   ],
+   "wiki": {
+    "ammo_raw": "R-2124 P",
+    "velocity": 850.0,
+    "standard": 180,
+    "durable": 50,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "R-2 Amendment",
+   "damage_index": 133,
+   "damage_position": 133,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 236,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 850.0,
+   "damage": 200,
+   "durable": 50,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    14
+   ],
+   "wiki": {
+    "ammo_raw": "R-2 P",
+    "velocity": 850.0,
+    "standard": 200,
+    "durable": 50,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "R-36 Eruptor",
+   "damage_index": 340,
+   "damage_position": 325,
+   "impact_damage_index": 144,
+   "impact_damage_position": 144,
+   "payload": "explosion",
+   "projectile_row": 261,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 180.0,
+   "damage": 225,
+   "durable": 225,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    20,
+    35,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "SHRAPNEL P",
+    "velocity": 180.0,
+    "standard": 230,
+    "durable": 115,
+    "ap_direct": 4,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 4.0,
+     "outer_radius": 7.0,
+     "shockwave_radius": 8.0,
+     "explosion_damage": 225,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "R-4 Hyena",
+   "damage_index": 137,
+   "damage_position": 137,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 245,
+   "ammo": "9x70mm Full Metal Jacket",
+   "ammo_wiki": "9x70mm FULL METAL JACKET",
+   "speed": 950.0,
+   "damage": 220,
+   "durable": 45,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    14
+   ],
+   "wiki": {
+    "ammo_raw": "9x70mm FULL METAL JACKET P1",
+    "velocity": 950.0,
+    "standard": 220,
+    "durable": 45,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "R-63 Diligence",
+   "damage_index": 136,
+   "damage_position": 136,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 239,
+   "ammo": "9x70mm Full Metal Jacket",
+   "ammo_wiki": "9x70mm FULL METAL JACKET",
+   "speed": 850.0,
+   "damage": 165,
+   "durable": 45,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    14
+   ],
+   "wiki": {
+    "ammo_raw": "9x70mm FULL METAL JACKET P",
+    "velocity": 850.0,
+    "standard": 165,
+    "durable": 45,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "R-63CS Diligence Counter Sniper",
+   "damage_index": 138,
+   "damage_position": 138,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 240,
+   "ammo": null,
+   "ammo_wiki": "9x70mm HIGH VELOCITY",
+   "speed": 940.0,
+   "damage": 200,
+   "durable": 50,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    14
+   ],
+   "wiki": {
+    "ammo_raw": "9x70mm HIGH VELOCITY P",
+    "velocity": 940.0,
+    "standard": 200,
+    "durable": 50,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "R-6 Deadeye",
+   "damage_index": 134,
+   "damage_position": 134,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 237,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 850.0,
+   "damage": 300,
+   "durable": 100,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    30,
+    35
+   ],
+   "wiki": {
+    "ammo_raw": "R-6 P",
+    "velocity": 850.0,
+    "standard": 300,
+    "durable": 100,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "R-72 Censor",
+   "damage_index": 126,
+   "damage_position": 126,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 226,
+   "ammo": "8x60mm Subsonic",
+   "ammo_wiki": "8x60mm SUBSONIC",
+   "speed": 330.0,
+   "damage": 165,
+   "durable": 45,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    14
+   ],
+   "wiki": {
+    "ammo_raw": "8x60mm SUBSONIC P",
+    "velocity": 330.0,
+    "standard": 165,
+    "durable": 45,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "RL-77 Airburst Rocket Launcher",
+   "damage_index": 271,
+   "damage_position": 318,
+   "impact_damage_index": 388,
+   "impact_damage_position": 372,
+   "payload": "explosion",
+   "projectile_row": 99,
+   "ammo": "20mm Flak Rounds",
+   "ammo_wiki": null,
+   "speed": 250.0,
+   "damage": 150,
+   "durable": 150,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    25,
+    25,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "CLUSTER BOMB P3",
+    "velocity": 250.0,
+    "standard": 350,
+    "durable": 350,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 3.0,
+     "outer_radius": 5.0,
+     "shockwave_radius": 7.0,
+     "explosion_damage": 150,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "RS-422 Railgun",
+   "damage_index": 62,
+   "damage_position": 62,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 315,
+   "ammo": "Railgun Round",
+   "ammo_wiki": null,
+   "speed": 2000.0,
+   "damage": 600,
+   "durable": 225,
+   "ap": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "forces": [
+    10,
+    35,
+    15
+   ],
+   "wiki": {
+    "ammo_raw": "RAILGUN ROUND P",
+    "velocity": 2000.0,
+    "standard": 600,
+    "durable": 225,
+    "ap_direct": 5,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 0.400000006,
+     "outer_radius": 2.0,
+     "shockwave_radius": 3.0,
+     "explosion_damage": 300,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "S-11 Speargun",
+   "damage_index": 64,
+   "damage_position": 64,
+   "impact_damage_index": 63,
+   "impact_damage_position": 63,
+   "payload": "explosion",
+   "projectile_row": 316,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 300.0,
+   "damage": 3,
+   "durable": 3,
+   "ap": [
+    6,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    10,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "S-11 P",
+    "velocity": 300.0,
+    "standard": 650,
+    "durable": 275,
+    "ap_direct": 5,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.0,
+     "outer_radius": 5.0,
+     "shockwave_radius": 7.0,
+     "explosion_damage": 3,
+     "ap_direct": 6,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [
+    "G-16 Impact"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "SG-20 Halt",
+   "damage_index": 160,
+   "damage_position": 159,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 280,
+   "ammo": null,
+   "ammo_wiki": "10g STUN ROUNDS",
+   "speed": 385.0,
+   "damage": 35,
+   "durable": 10,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    20,
+    20
+   ],
+   "wiki": {
+    "ammo_raw": "10g STUN ROUNDS P",
+    "velocity": 385.0,
+    "standard": 35,
+    "durable": 10,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "SG-8P Punisher Plasma",
+   "damage_index": 305,
+   "damage_position": 291,
+   "impact_damage_index": 55,
+   "impact_damage_position": 55,
+   "payload": "explosion",
+   "projectile_row": 311,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 90.0,
+   "damage": 225,
+   "durable": 225,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    35,
+    30
+   ],
+   "wiki": {
+    "ammo_raw": "LARGE PLASMA BOLT P3",
+    "velocity": 90.0,
+    "standard": 0,
+    "durable": 0,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 2.29999995,
+     "outer_radius": 3.0,
+     "shockwave_radius": 4.0,
+     "explosion_damage": 225,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "SMG-203 Gallant",
+   "damage_index": 73,
+   "damage_position": 73,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 165,
+   "ammo": null,
+   "ammo_wiki": "9x20mm HIGH VELOCITY",
+   "speed": 450.0,
+   "damage": 65,
+   "durable": 13,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    4
+   ],
+   "wiki": {
+    "ammo_raw": "9x20mm HIGH VELOCITY P",
+    "velocity": 450.0,
+    "standard": 65,
+    "durable": 13,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "SMG-32 Reprimand",
+   "damage_index": 87,
+   "damage_position": 87,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 180,
+   "ammo": "12x25mm Full Metal Jacket",
+   "ammo_wiki": "12x25mm FULL METAL JACKET",
+   "speed": 285.0,
+   "damage": 140,
+   "durable": 32,
+   "ap": [
+    3,
+    3,
+    3,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "12x25mm FULL METAL JACKET P1",
+    "velocity": 285.0,
+    "standard": 140,
+    "durable": 32,
+    "ap_direct": 3,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [
+    "P-113 Verdict"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "SMG-37 Defender",
+   "damage_index": 79,
+   "damage_position": 79,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 171,
+   "ammo": "12x25mm Full Metal Jacket",
+   "ammo_wiki": "12x25mm FULL METAL JACKET",
+   "speed": 285.0,
+   "damage": 110,
+   "durable": 22,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    5
+   ],
+   "wiki": {
+    "ammo_raw": "12x25mm FULL METAL JACKET P2",
+    "velocity": 285.0,
+    "standard": 110,
+    "durable": 22,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "SMG-72 Pummeler",
+   "damage_index": 86,
+   "damage_position": 86,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 179,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 210.0,
+   "damage": 85,
+   "durable": 17,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    5
+   ],
+   "wiki": {
+    "ammo_raw": "SMG-72 P",
+    "velocity": 210.0,
+    "standard": 85,
+    "durable": 17,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "SMG/FLAM-34 Stoker",
+   "damage_index": 93,
+   "damage_position": 93,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 188,
+   "ammo": "12x25mm Full Metal Jacket",
+   "ammo_wiki": "12x25mm FULL METAL JACKET",
+   "speed": 285.0,
+   "damage": 130,
+   "durable": 30,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "12x25mm FULL METAL JACKET P3",
+    "velocity": 285.0,
+    "standard": 130,
+    "durable": 30,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "StA-11 SMG",
+   "damage_index": 70,
+   "damage_position": 70,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 163,
+   "ammo": null,
+   "ammo_wiki": "9x20mm FULL METAL JACKET",
+   "speed": 375.0,
+   "damage": 90,
+   "durable": 18,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    5
+   ],
+   "wiki": {
+    "ammo_raw": "9x20mm FULL METAL JACKET P",
+    "velocity": 375.0,
+    "standard": 90,
+    "durable": 18,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [
+    "MP-98 Knight"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "StA-52 Assault Rifle",
+   "damage_index": 104,
+   "damage_position": 104,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 197,
+   "ammo": "5.5x50mm Full Metal Jacket",
+   "ammo_wiki": "5.5x50mm FULL METAL JACKET",
+   "speed": 900.0,
+   "damage": 90,
+   "durable": 22,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    15,
+    10
+   ],
+   "wiki": {
+    "ammo_raw": "5.5x50mm FULL METAL JACKET P",
+    "velocity": 900.0,
+    "standard": 90,
+    "durable": 22,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "name+stats",
+   "verified": true,
+   "shared_with": [
+    "AR-23 Liberator",
+    "AR-23A Liberator Carbine",
+    "M-105 Stalwart"
+   ],
+   "exclusive": false,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "StA-X3 W.A.S.P. Launcher",
+   "damage_index": 388,
+   "damage_position": 372,
+   "impact_damage_index": 35,
+   "impact_damage_position": 32,
+   "payload": "explosion",
+   "projectile_row": 126,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 500.0,
+   "damage": 600,
+   "durable": 600,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    30,
+    25,
+    50
+   ],
+   "wiki": {
+    "ammo_raw": "Burst P",
+    "velocity": 500.0,
+    "standard": 20,
+    "durable": 2,
+    "ap_direct": 0,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 3.0,
+     "outer_radius": 5.0,
+     "shockwave_radius": 7.0,
+     "explosion_damage": 600,
+     "ap_direct": 3,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [
+    "AR/GL-21 One-Two",
+    "GL-21 Grenade Launcher",
+    "GL-52 De-Escalator",
+    "GP-31 Grenade Pistol"
+   ],
+   "impact_exclusive": false
+  },
+  {
+   "page": "TD-220 Bastion MK XVI",
+   "damage_index": 635,
+   "damage_position": 424,
+   "impact_damage_index": 639,
+   "impact_damage_position": 633,
+   "payload": "explosion",
+   "projectile_row": 337,
+   "ammo": null,
+   "ammo_wiki": "12.5mm BCHP RIFLE ROUNDS",
+   "speed": 400.0,
+   "damage": 750,
+   "durable": 750,
+   "ap": [
+    5,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    40,
+    70,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "12.5mm BCHP RIFLE ROUNDS P",
+    "velocity": 400.0,
+    "standard": 3500,
+    "durable": 3500,
+    "ap_direct": 8,
+    "ap_name": null,
+    "explosion": {
+     "inner_radius": 3.29999995,
+     "outer_radius": 10.0,
+     "shockwave_radius": 11.0,
+     "explosion_damage": 750,
+     "ap_direct": 5,
+     "ap_name": null
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "TED-63 Dynamite",
+   "damage_index": 353,
+   "damage_position": 340,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "explosion",
+   "projectile_row": -1,
+   "ammo": null,
+   "ammo_wiki": "TED-63 DYNAMITE E",
+   "speed": 0.0,
+   "damage": 1000,
+   "durable": 1000,
+   "ap": [
+    4,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    40,
+    40,
+    40
+   ],
+   "wiki": {
+    "ammo_raw": "TED-63 DYNAMITE E",
+    "explosion": {
+     "inner_radius": 6.0,
+     "outer_radius": 12.0,
+     "shockwave_radius": 16.0,
+     "explosion_damage": 1000,
+     "ap_direct": 4,
+     "ap_name": null,
+     "ammo_raw": "TED-63 DYNAMITE E"
+    }
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "radii": true
+   },
+   "matched_by": "explosion-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
+   "page": "VG-70 Variable",
+   "damage_index": 72,
+   "damage_position": 72,
+   "impact_damage_index": null,
+   "impact_damage_position": null,
+   "payload": "projectile",
+   "projectile_row": 195,
+   "ammo": null,
+   "ammo_wiki": null,
+   "speed": 320.0,
+   "damage": 85,
+   "durable": 23,
+   "ap": [
+    2,
+    2,
+    2,
+    0
+   ],
+   "forces": [
+    10,
+    10,
+    4
+   ],
+   "wiki": {
+    "ammo_raw": "VG-70 P",
+    "velocity": 320.0,
+    "standard": 85,
+    "durable": 23,
+    "ap_direct": 2,
+    "ap_name": null,
+    "explosion": null
+   },
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "velocity": true
+   },
+   "matched_by": "stats-only",
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  }
+ ],
+ "unmatched": [
+  [
+   "40-K Meltagun",
+   "no ammo parsed"
+  ],
+  [
+   "April Fools/Budget Helldiver",
+   "no ammo parsed"
+  ],
+  [
+   "APW-1 Anti-Materiel Rifle",
+   "no projectile matches name='12.5mm eit rounds' v=880.0 450/225 AP4"
+  ],
+  [
+   "AR-11 Arbitrator",
+   "no ammo parsed"
+  ],
+  [
+   "B/FLAM-80 Cremator",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-19 Stun Lance",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-1 One True Flag",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-20 Breaching Hammer",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-2 Saber",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-30 Stun Baton",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-42 Machete",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-5 Combat Hatchet",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-72 Entrenchment Tool",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-73 Entrenchment Tool",
+   "no ammo parsed"
+  ],
+  [
+   "CQC-9 Defoliation Tool",
+   "no ammo parsed"
+  ],
+  [
+   "Equipment Traits",
+   "no ammo parsed"
+  ],
+  [
+   "FLAM-40 Flamethrower",
+   "no ammo parsed"
+  ],
+  [
+   "FLAM-66 Torcher",
+   "no ammo parsed"
+  ],
+  [
+   "G-109 Urchin",
+   "no ammo parsed"
+  ],
+  [
+   "G-10 Incendiary",
+   "no ammo parsed"
+  ],
+  [
+   "G-123 Thermite",
+   "no ammo parsed"
+  ],
+  [
+   "G-13 Incendiary Impact",
+   "no ammo parsed"
+  ],
+  [
+   "G-142 Pyrotech",
+   "no ammo parsed"
+  ],
+  [
+   "G-23 Stun",
+   "no ammo parsed"
+  ],
+  [
+   "G-3 Smoke",
+   "no ammo parsed"
+  ],
+  [
+   "G-4 Gas",
+   "no ammo parsed"
+  ],
+  [
+   "G-60 Anti-Tank Seeker",
+   "no ammo parsed"
+  ],
+  [
+   "G-6 Frag",
+   "no projectile matches name='shrapnel' v=30.0 110/35 AP3"
+  ],
+  [
+   "G-89 Smokescreen",
+   "no ammo parsed"
+  ],
+  [
+   "G-8 Immolation",
+   "no ammo parsed"
+  ],
+  [
+   "G/SH-39 Shield",
+   "no ammo parsed"
+  ],
+  [
+   "GL-15 Evictor",
+   "no ammo parsed"
+  ],
+  [
+   "K-2 Throwing Knife",
+   "no ammo parsed"
+  ],
+  [
+   "LAS-13 Trident",
+   "no ammo parsed"
+  ],
+  [
+   "LAS-5 Scythe",
+   "no ammo parsed"
+  ],
+  [
+   "LAS-7 Dagger",
+   "no ammo parsed"
+  ],
+  [
+   "LAS-98 Laser Cannon",
+   "no ammo parsed"
+  ],
+  [
+   "M-102 Gunner FRV",
+   "no projectile matches name='12.5mm bchp rifle rounds' v=980.0 150/35 AP4"
+  ],
+  [
+   "M-104 Incinerator FRV",
+   "no ammo parsed"
+  ],
+  [
+   "MG-206 Heavy Machine Gun",
+   "no projectile matches name='12.5mm bchp rifle rounds' v=980.0 150/35 AP4"
+  ],
+  [
+   "Mines (disambiguation)",
+   "no ammo parsed"
+  ],
+  [
+   "MS-11 Solo Silo",
+   "no projectile matches name='swp solo silo eimpact' v=None None/None APNone"
+  ],
+  [
+   "P-34 Breacher",
+   "no ammo parsed"
+  ],
+  [
+   "P-72 Crisper",
+   "no ammo parsed"
+  ],
+  [
+   "R/40-K Hot-Shot Marksman Rifle",
+   "no projectile matches name='r/40-k' v=500.0 275/40 AP3"
+  ],
+  [
+   "SG-225 Breaker",
+   "no projectile matches name='12g buckshot' v=360.0 30/6 AP2"
+  ],
+  [
+   "SG-225IE Breaker Incendiary",
+   "no projectile matches name='12g liberty fire' v=120.0 20/10 AP2"
+  ],
+  [
+   "SG-22 Bushwhacker",
+   "no projectile matches name='buckshot' v=385.0 45/12 AP2"
+  ],
+  [
+   "SG-451 Cookout",
+   "no projectile matches name='sg-451' v=120.0 16/3 AP2"
+  ],
+  [
+   "SG-88 Break-Action Shotgun",
+   "no projectile matches name='10g magnum' v=385.0 65/13 AP2"
+  ],
+  [
+   "SG-8 Punisher",
+   "no projectile matches name='buckshot' v=385.0 45/12 AP2"
+  ],
+  [
+   "SG-8S Slugger",
+   "no projectile matches name='10g rifled slugs' v=390.0 330/90 AP3"
+  ],
+  [
+   "SG-97 Sweeper",
+   "no projectile matches name='sg-97' v=385.0 42/11 AP3"
+  ],
+  [
+   "TM-1 Lure Mine",
+   "no projectile matches name='shrapnel' v=30.0 110/35 AP3"
+  ],
+  [
+   "TX-41 Sterilizer",
+   "no ammo parsed"
+  ]
+ ],
+ "shared_damage_rows": {
+  "104": [
+   "AR-23 Liberator",
+   "AR-23A Liberator Carbine",
+   "M-105 Stalwart",
+   "StA-52 Assault Rifle"
+  ],
+  "101": [
+   "AR-23P Liberator Penetrator",
+   "M-103 Supply FRV"
+  ],
+  "352": [
+   "AR/GL-21 One-Two",
+   "GL-21 Grenade Launcher",
+   "GP-31 Grenade Pistol"
+  ],
+  "358": [
+   "EAT-17 Expendable Anti-Tank",
+   "GR-8 Recoilless Rifle",
+   "LAS-99 Quasar Cannon"
+  ],
+  "47": [
+   "LAS-16 Sickle",
+   "LAS-17 Double-Edge Sickle"
+  ],
+  "70": [
+   "MP-98 Knight",
+   "StA-11 SMG"
+  ],
+  "87": [
+   "P-113 Verdict",
+   "SMG-32 Reprimand"
+  ],
+  "286": [
+   "PLAS-1 Scorcher",
+   "PLAS-39 Accelerator Rifle"
+  ]
+ },
+ "shared_impact_rows": {
+  "32": [
+   "AR/GL-21 One-Two",
+   "GL-21 Grenade Launcher",
+   "GL-52 De-Escalator",
+   "GP-31 Grenade Pistol",
+   "StA-X3 W.A.S.P. Launcher"
+  ],
+  "221": [
+   "EAT-17 Expendable Anti-Tank",
+   "GR-8 Recoilless Rifle",
+   "LAS-99 Quasar Cannon"
+  ],
+  "63": [
+   "G-16 Impact",
+   "S-11 Speargun"
+  ],
+  "54": [
+   "PLAS-15 Loyalist",
+   "PLAS-1 Scorcher",
+   "PLAS-39 Accelerator Rifle"
+  ]
+ }
+}

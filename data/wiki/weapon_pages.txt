@@ -1,0 +1,147 @@
+Damage Comparison
+Weapons
+Weapons/zh-tw
+AR-11 Arbitrator
+AR-2 Coyote
+AR-23A Liberator Carbine
+AR-23C Liberator Concussive
+AR-23P Liberator Penetrator
+AR-32 Pacifier
+AR-61 Tenderizer
+AR/GL-21 One-Two
+ARC-12 Blitzer
+BR-14 Adjudicator
+CB-9 Exploding Crossbow
+DBS-2 Double Freedom
+FLAM-66 Torcher
+GL-15 Evictor
+JAR-5 Dominator
+LAS-16 Sickle
+LAS-17 Double-Edge Sickle
+LAS-5 Scythe
+M7S SMG
+M90A Shotgun
+MA5C Assault Rifle
+MP-98 Knight
+P/40-K Bolt Pistol
+PLAS-1 Scorcher
+PLAS-101 Purifier
+PLAS-39 Accelerator Rifle
+R-2 Amendment
+R-2124 Constitution
+R-36 Eruptor
+R-4 Hyena
+R-6 Deadeye
+R-63 Diligence
+R-63CS Diligence Counter Sniper
+R/40-K Hot-Shot Marksman Rifle
+SG-20 Halt
+SG-225 Breaker
+SG-225IE Breaker Incendiary
+SG-225SP Breaker Spray&Pray
+SG-451 Cookout
+SG-8 Punisher
+SG-8P Punisher Plasma
+SG-8S Slugger
+SG-97 Sweeper
+SMG-203 Gallant
+SMG-32 Reprimand
+SMG-37 Defender
+SMG-72 Pummeler
+SMG/FLAM-34 Stoker
+StA-11 SMG
+StA-52 Assault Rifle
+VG-70 Variable
+AR-23 Liberator
+CQC-19 Stun Lance
+CQC-2 Saber
+CQC-30 Stun Baton
+CQC-42 Machete
+CQC-5 Combat Hatchet
+CQC-73 Entrenchment Tool
+GP-20 Ultimatum
+GP-31 Grenade Pistol
+LAS-58 Talon
+LAS-7 Dagger
+P-11 Stim Pistol
+P-113 Verdict
+P-19 Redeemer
+P-33 Missile Pistol
+P-34 Breacher
+P-4 Senator
+P-72 Crisper
+P-92 Warrant
+PLAS-15 Loyalist
+SG-22 Bushwhacker
+M6C/SOCOM Pistol
+P-2 Peacemaker
+P-69 Veto
+40-K Meltagun
+AC-8 Autocannon
+April Fools/Budget Helldiver
+APW-1 Anti-Materiel Rifle
+ARC-3 Arc Thrower
+B/FLAM-80 Cremator
+CQC-1 One True Flag
+CQC-20 Breaching Hammer
+CQC-72 Entrenchment Tool
+CQC-9 Defoliation Tool
+EAT-17 Expendable Anti-Tank
+EAT-411 Leveller
+EAT-700 Expendable Napalm
+FAF-14 Spear
+FLAM-40 Flamethrower
+GL-21 Grenade Launcher
+GL-28 Belt-Fed Grenade Launcher
+GL-52 De-Escalator
+LAS-98 Laser Cannon
+LAS-99 Quasar Cannon
+M-1000 Maxigun
+M-102 Gunner FRV
+M-103 Supply FRV
+M-104 Incinerator FRV
+M-105 Stalwart
+MG-206 Heavy Machine Gun
+MG-43 Machine Gun
+MGX-42 Bullet Storm
+MLS-4X Commando
+MS-11 Solo Silo
+PLAS-45 Epoch
+RL-77 Airburst Rocket Launcher
+RS-422 Railgun
+S-11 Speargun
+SG-88 Break-Action Shotgun
+TD-220 Bastion MK XVI
+TX-41 Sterilizer
+G-10 Incendiary
+G-109 Urchin
+G-123 Thermite
+G-13 Incendiary Impact
+G-16 Impact
+G-23 Stun
+G-3 Smoke
+G-31 Arc
+G-50 Seeker
+G-6 Frag
+G-60 Anti-Tank Seeker
+G-7 Pineapple
+G-8 Immolation
+G/SH-39 Shield
+K-2 Throwing Knife
+G-12 High Explosive
+B/MD C4 Pack
+G-142 Pyrotech
+G-48 Giga Grenade
+G-89 Smokescreen
+G/40-K Melta Mine
+GR-8 Recoilless Rifle
+LAS-13 Trident
+Mines (disambiguation)
+P-35 Re-Educator
+R-72 Censor
+TED-63 Dynamite
+TM-1 Lure Mine
+AR-59 Suppressor
+Equipment Traits
+G-4 Gas
+StA-X3 W.A.S.P. Launcher
