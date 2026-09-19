@@ -1,162 +1,121 @@
-# HD2 Weapon Stat Editor
+# HD2 武器数值编辑器
 
-A GUI tool that edits **weapon damage values** in Helldivers 2 at runtime, and
-packages the change as a mod you install like any other.
+[English](README.en.md)
 
-Pick a weapon, change its numbers, generate a mod. Nothing on disk is
-modified — the mod writes the new values into the running game's memory after
-it starts, so the change applies to that session and disappears when you close
-the game.
+一个图形界面工具，可以在**运行时**修改《绝地潜兵 2》的武器伤害数值，并把改动打包成 Mod 安装。
 
-![Weapon panel](docs/gui_r4.png)
+选武器 → 改数值 → 生成 Mod。**不会修改磁盘上的任何文件** —— Mod 会在游戏启动后把新数值写进游戏内存，所以改动只在本次游戏会话内生效，关掉游戏就恢复。
 
-## What it can change
+![武器面板](docs/gui_r4.png)
 
-Every weapon has a damage record holding:
+## 能改什么
 
-| Field | Meaning |
+每把武器对应一条伤害记录，包含：
+
+| 字段 | 含义 |
 |---|---|
-| 肉伤 / damage | damage against unarmoured targets |
-| 耐伤 / durable | damage against armoured parts |
-| 穿甲 / armor penetration | per impact angle (4 values, usually all the same) |
-| 爆破力 / 硬直力 / 推力 | demolition strength, stagger force, push impulse |
+| 肉伤 (Standard) | 打无甲目标的伤害 |
+| 耐伤 (Durable) | 打有甲部位的伤害 |
+| 穿甲 (Armor Penetration) | 按命中角度分 4 个值，通常前三个相同 |
+| 爆破力 / 硬直力 / 推力 | 拆毁力、硬直力、击退冲量 |
 
-Explosive weapons deal damage **twice** — once when the projectile hits, once
-when it explodes. Those are two separate records with separate values, so the
-panel shows both and lets you edit each independently.
+**爆炸类武器造成两段伤害** —— 弹头命中一次、爆炸一次。这是**两条独立的记录**，数值和归属都不同，所以界面会把两段分别显示、分别编辑。
 
-## Requirements
+## 使用要求
 
-- Helldivers 2 on Windows
-- [Bingus Shared Loader](https://www.nexusmods.com/helldivers2/mods/908020)
-  v14 or newer, installed and enabled
-- HD2 Arsenal (or any mod manager that can import a ZIP) to install the
-  generated mod
+- Windows 上的《绝地潜兵 2》
+- [Bingus Shared Loader](https://www.nexusmods.com/helldivers2/mods/908020) v14 或更高版本，已安装并启用
+- HD2 Arsenal（或任何能导入 ZIP 的 Mod 管理器）用来安装生成的 Mod
 
-The loader is what makes third-party Lua run. The generated mod registers
-itself into a slot the loader already declares, so it coexists with the other
-mods installed there — nothing gets displaced.
+Loader 是让第三方 Lua 能运行的前提。生成的 Mod 会注册到 Loader 已声明的某个槽位，因此**与其他已装 Mod 共存**，不会顶掉任何一个。
 
-## Using it
+## 怎么用
 
-**Easiest:** run `HD2WeaponEditor-Standalone.exe`. No Python needed.
+**最简单**：直接运行 `HD2WeaponEditor-Standalone.exe`，不需要装 Python。
 
-**From source:**
+**从源码运行**：
 
 ```
 pip install flask pywebview
-python gui/desktop.py          # native window
-python gui/app.py              # or: browser at http://127.0.0.1:8777
+python gui/desktop.py          # 原生窗口
+python gui/app.py              # 或用浏览器打开 http://127.0.0.1:8777
 ```
 
-Then:
+然后：
 
-1. Pick a weapon from the list.
-2. Change the values. The **original value** is shown next to each field.
-3. Click **生成 Mod / Generate** — or **加入列表 / Add to queue** to batch
-   several weapons into one mod.
-4. Install the resulting ZIP (`build/HD2-Weapon-Stat-Editor.zip`) with your mod
-   manager.
-5. Start the game. The log at
-   `%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\WeaponEditor.log` says what
-   happened.
+1. 从左侧列表选一把武器
+2. 修改数值（每个字段右边显示**原始值**供对照）
+3. 点 **生成 Mod**；或者点 **加入列表** 把多把武器攒起来一次生成
+4. 用 Mod 管理器安装生成的 ZIP
+5. 启动游戏。日志在 `%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\WeaponEditor.log`
 
-Editing several weapons in one mod costs **one** memory scan, not one per
-weapon: the first record located fixes the damage table's base address and the
-rest are addressed by offset.
+**生成的 ZIP 位置**：EXE 同级的 `build\` 文件夹。例如 EXE 在 `D:\下载\`，ZIP 就在 `D:\下载\build\HD2-Weapon-Stat-Editor.zip`。界面里也会显示完整路径。
 
-## Warnings you will see
+**改多把武器只扫描一次内存**，不是每把扫一次：第一条记录定位成功后即确定了伤害表的基址，其余按偏移直接寻址。
 
-**The tool refuses to edit anything it cannot verify.** Before offering a
-weapon it cross-checks the game's table against the wiki — damage, durable
-damage, armor penetration and muzzle velocity. If those disagree, one of the
-two is stale, the row number may be wrong, and generating is blocked.
+## 你会看到的警告
 
-**Some weapons share a damage record.** Editing one changes all of them. The
-panel names exactly which weapons are affected and which half of the weapon
-(impact or explosion) they share. You can still proceed — there is a checkbox
-for it — but the change is not limited to one weapon.
+**改不了的武器会被拦下。** 在列出某把武器之前，工具会把游戏表和 wiki 交叉核对 —— 肉伤、耐伤、穿甲和初速。任何一项对不上，说明其中一方已过时、行号可能不准，此时**禁止生成**。
 
-**A weapon can share its impact record and not its explosion record**, or the
-reverse. The list badges (`直击共享` / `爆炸共享`) and the detail panel show
-each half separately, because they are independent rows with independent
-owners.
+**有些武器共用同一条伤害记录。** 改一把会连带动到其他几把。界面会明确列出**具体哪些武器**受影响，以及共用的是**哪一段**（直击还是爆炸）。你仍然可以继续改（有个复选框），但这个改动**不限于一把武器**。
 
-## Repository contents
+**一把武器可能直击段共用、而爆炸段独占**，或者反过来。列表上的徽章（`直击共享` / `爆炸共享`）和详情面板都会**分段**显示，因为它们是两条独立的记录、各有各的共用方。
+
+## 仓库结构
 
 ```
-gui/            the interface (Flask + HTML, wrapped in a native window)
-tools/          data parsing, weapon mapping, mod generation
-mod_template/   the Lua that ships inside a generated mod
-tests/          26 offline suites + a headless-browser DOM test
-data/           derived tables (see below)
-docs/           status notes and screenshots
+gui/            界面（Flask + HTML，包在原生窗口里）
+tools/          数据解析、武器映射、Mod 生成
+mod_template/   打包进 Mod 的 Lua 源码
+tests/          26 个离线套件 + 无头浏览器 DOM 测试
+data/           派生数据（见下）
+docs/           状态说明与截图
 ```
 
-### About `data/`
+### 关于 `data/`
 
-The repository ships **only derived data** — `data/*.json`, produced by parsing
-a local game install. It contains no game assets.
+仓库**只包含派生数据** —— `data/*.json`，由本地游戏安装解析而来，不含任何游戏素材。
 
-The extracted game tables themselves (`data/raw/*.dl_bin`, `data/strings.json`,
-…) are deliberately **not** committed: they are unpacked copies of the game's
-own files. `tests/test_data_equivalent.py` asserts the derived JSON matches the
-game table row for row, so the substitution is checked rather than assumed.
+解包出的游戏表（`data/raw/*.dl_bin`、`data/strings.json` 等）**刻意不提交**：它们是游戏本体文件的副本。`tests/test_data_equivalent.py` 会逐行断言派生 JSON 与游戏表一致，所以这个替换是被验证过的，不是假设。
 
-To re-derive everything from a local install, see `tools/parse_dlbin.py` and
-`tools/wiki_names.py`.
+想从本地安装重新派生，见 `tools/parse_dlbin.py` 和 `tools/wiki_names.py`。
 
-## Tests
+## 测试
 
 ```
 python tools/gen_mod.py --weapon "R-4 Hyena" --damage 400 --durable 200 --ap 7 --out build
 for t in tests/test_*.py; do python "$t"; done
-node tests/test_gui.mjs        # needs the GUI server running
-bash tests/test_gui_dom.sh     # headless Chromium against the real DOM
+node tests/test_gui.mjs        # 需要 GUI 服务器在运行
+bash tests/test_gui_dom.sh     # 无头 Chromium 跑真实 DOM
 ```
 
-Most suites load the **real compiled Lua** into a stubbed engine and assert the
-degraded paths too, not just the happy path. Several were written to fail on
-the pre-fix code first, so they pin behaviour rather than describe it.
+多数套件会把**真实编译后的 Lua** 载入桩引擎运行，并且会覆盖各种降级路径，不只是正常流程。其中有几个是先确认能在修复前的代码上变红才留下的，因此它们是在**锁定行为**，而不只是描述行为。
 
-Some suites need the game's `lua51.dll` to compile bytecode. Point `HD2_LUA_DLL`
-at it, or put the game in the default Steam location.
+部分套件需要游戏的 `lua51.dll` 来编译字节码。用 `HD2_LUA_DLL` 指向它，或把游戏装在默认 Steam 路径。
 
-## How it works
+## 工作原理
 
 ```
-weapon  ──uses──▶  projectile  ──points at──▶  damage record
-(R-4)              (9x70mm FMJ)                (220 / 45, AP 3)
+武器  ──使用──▶  弹种  ──指向──▶  伤害记录
+(R-4)          (9x70mm FMJ)      (220 / 45, 穿甲 3)
 ```
 
-A weapon stores **no damage of its own** — only which projectile it fires. The
-damage numbers live on a record that the projectile references, so "change the
-weapon's damage" and "change its ammo's damage" are the same write.
+**武器本身不存储伤害数值**，只记录它发射哪个弹种。伤害数值在弹种所引用的记录上，所以「改武器的伤害」和「改它弹药的伤害」是**同一个写入**。
 
-The generated mod finds that record in memory and overwrites it. It is
-deliberately conservative:
+生成的 Mod 会在内存里找到那条记录并覆写。它刻意做得很保守：
 
-- scans are **budgeted per call** and resume across frames, so the game keeps
-  its frame time while the search runs;
-- the address space is walked **once**, not once per weapon;
-- it **stops the moment it succeeds**, and writes nothing if any guard fails.
+- 扫描**每次调用都有字节上限**，并跨帧续扫，游戏在搜索期间帧率不受影响
+- 地址空间**只走一遍**，不是每把武器走一遍
+- **一旦成功立即停止**；任何守卫不过就一个字节都不写
 
-Guards: the game module's SHA-256 must match the build it was generated for;
-the record's identity must match (its type id plus a four-field fingerprint
-and its neighbours); and the target must be committed, writable, private
-memory.
+守卫包括：游戏模块的 SHA-256 必须与生成时一致；记录身份必须匹配（类型 id + 四字段指纹 + 邻居行）；目标必须是已提交、可写、私有的内存。
 
-## Credits
+## 致谢
 
-Damage table layout and archive format were derived with
-[`xypwn/filediver`](https://github.com/xypwn/filediver). Weapon and ammunition
-names come from the community wiki. The runtime-memory approach follows the
-technique used by existing published mods.
+伤害表布局与归档格式的解析参考了 [`xypwn/filediver`](https://github.com/xypwn/filediver)。武器与弹药名称来自社区 wiki。运行时内存读写的思路沿用现有已发布 Mod 的做法。
 
-## Legal
+## 法律声明
 
-Not affiliated with Arrowhead Game Studios or Sony. Helldivers 2 is their
-property. No game assets are redistributed here.
+与 Arrowhead Game Studios 或 Sony 无关联。《绝地潜兵 2》是他们的财产。本仓库不重新分发任何游戏素材。
 
-Modifying gameplay data can violate the game's terms of service and carries
-whatever risk that implies. Use at your own risk.
+修改游戏数据可能违反游戏服务条款，风险自负。
