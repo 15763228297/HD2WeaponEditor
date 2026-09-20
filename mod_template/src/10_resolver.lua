@@ -63,6 +63,17 @@ function M.table_base()
     return M.table_base_value
 end
 
+-- Set the table base from an outside source (the static route in
+-- 16_static_chain.lua) rather than from a scan.
+--
+-- The value arriving here has already been verified against a real row, so this
+-- is not a way to skip verification - it is how a resolved route publishes the
+-- same fact a successful scan would. Keeping one storage location means every
+-- consumer addresses rows the same way whatever found the table.
+function M.set_table_base(value)
+    M.table_base_value = value
+end
+
 -- Where the address-space walk starts.
 --
 -- It must start LOW, not at the module base. A Windows x64 process puts modules

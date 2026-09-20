@@ -78,6 +78,8 @@ FIELD_ORDER = ["damage", "durable", "ap0", "ap1", "ap2", "ap3"]
 
 MODULES = [
     "10_resolver.lua",
+    "15_static_route.lua",
+    "16_static_chain.lua",
     "20_guard.lua",
     "30_write.lua",
     "40_log.lua",
@@ -472,6 +474,8 @@ def render_module(specs: list, sources: dict[str, str]) -> str:
 local ffi = require("ffi")
 
 local resolver = load_10_resolver_lua()
+local static_route = load_15_static_route_lua()
+local static_chain = load_16_static_chain_lua()
 local guard    = load_20_guard_lua()
 local writer   = load_30_write_lua().init(guard)
 local log      = load_40_log_lua()
@@ -540,22 +544,107 @@ local function main()
     -- tables it waits for are not loaded yet at that point anyway.
     local WARMUP_FRAMES = 180      -- ~3s at 60fps
 
+    -- Static-route probe (see 15_static_route.lua).
+    --
+    -- DISABLED. It did its job: two independent launches reported the same
+    -- three rvas, which is what 16_static_chain.lua now uses to address the
+    -- table in one read. Re-running it would scan 24 MB of game.dll on every
+    -- launch to re-derive a fact that is already baked in.
+    --
+    -- Kept as a switch rather than deleted: if the static route ever stops
+    -- resolving (a game patch moving the table), turning this back on prints
+    -- the rvas that ARE live for the new build, which is the whole diagnosis.
+    local PROBE_STATIC_ROUTE = false
+    local probe_state = nil
+    local probe_finished = false
+
+    local function probe_frame()
+        if probe_finished or not PROBE_STATIC_ROUTE then return end
+
+        local table_base = resolver.table_base()
+        if table_base == nil then return end
+        local mb = resolver.module_base("game.dll")
+        if mb == nil then return end
+
+        if probe_state == nil then
+            -- The record address, when one is known, is carried as an extra
+            -- target: a module global might hold the record rather than the
+            -- table, and which of the two it holds changes the chain shape.
+            local record_address = nil
+            for _, plan in ipairs(PLANS) do
+                local known = resolver.known_addresses
+                    and resolver.known_addresses[plan.type_id]
+                if known ~= nil then record_address = known break end
+            end
+
+            local ok, state = pcall(static_route.begin, api, mb, table_base, {{
+                array_start = resolver.ARRAY_START,
+                record_address = record_address,
+            }})
+            if not ok then
+                probe_finished = true
+                log.line("static route probe failed to start: " .. tostring(state))
+                return
+            end
+            probe_state = state
+            log.section("static route probe")
+            log.line(("table_base 0x%x; scanning game.dll writable data (%d bytes) "
+                .. "for a pointer to it"):format(table_base, state.total or 0))
+        end
+
+        local ok, finished, message = pcall(static_route.step, api, probe_state)
+        if not ok then
+            probe_finished = true
+            log.line("static route probe error: " .. tostring(finished))
+            return
+        end
+        if finished then
+            probe_finished = true
+            for _, line in ipairs(static_route.describe_hits(probe_state)) do
+                log.line(line)
+            end
+        end
+        -- Progress is deliberately NOT logged. The module scan takes a handful
+        -- of frames; a per-frame line was the same noise that made the weapon
+        -- sections spam ~950 lines into the log during the search. Only the
+        -- final result carries information.
+    end
+
     local function frame(dt, ...)
         if not done then
             frame_number = frame_number + 1
             if frame_number > WARMUP_FRAMES
                and (frame_number - WARMUP_FRAMES) % ATTEMPT_EVERY == 1 then
                 attempts = attempts + 1
-                log.line(("attempt %d (frame %d)"):format(attempts, frame_number))
+                -- Throttled, not silenced.
+                --
+                -- An earlier version printed this once and then went quiet, so a
+                -- run of ~95 attempts produced a two-line log and the round
+                -- proved nothing: there was no way to tell "still walking" from
+                -- "stuck re-reading one giant region". The opposite mistake -
+                -- every attempt - writes ~477 lines of file I/O per launch into
+                -- the game process, inside the stall the user is complaining
+                -- about.
+                --
+                -- Progress is still evidenced: first attempt, then a heartbeat
+                -- every 64, then the outcome. The (scanned bytes, regions) pair
+                -- that actually distinguishes progress from a stall is logged by
+                -- the scan itself when it reports.
+                if attempts == 1 or attempts % 64 == 0 then
+                    log.line(("attempt %d (frame %d)"):format(attempts, frame_number))
+                end
                 local ok, finished = pcall(apply_all, api)
                 if ok and finished then
                     done = true
+                    log.line(("settled after %d attempt(s)"):format(attempts))
                 elseif attempts >= MAX_ATTEMPTS then
                     done = true
                     log.line("giving up after " .. attempts .. " attempts")
                     log.line("(nothing was changed)")
                 end
             end
+        else
+            probe_frame()
         end
         if previous_update then return previous_update(dt, ...) end
     end
@@ -585,9 +674,23 @@ function apply_one(api, plan)
         return false
     end
 
-    log.section("weapon: " .. plan.weapon)
-    log.line(("record: position %d, type id %d")
-        :format(plan.position, plan.type_id))
+    -- ONE-TIME header, not per attempt.
+    --
+    -- This block runs inside a frame callback that fires ~477 times before the
+    -- table is found, so these two lines were being written ~950 times per
+    -- launch - as file I/O, inside the game process, during exactly the window
+    -- the user experiences as a one-minute startup stall. The per-attempt
+    -- information (progress, outcome) is still logged below.
+    --
+    -- The same reasoning applies to the "attempt N (frame M)" line: it is
+    -- useful when diagnosing, useless 477 times, and cheap to keep at the
+    -- edges - first attempt, then every 64th, then the result.
+    if not plan.announced then
+        plan.announced = true
+        log.section("weapon: " .. plan.weapon)
+        log.line(("record: position %d, type id %d")
+            :format(plan.position, plan.type_id))
+    end
 
     local record = {{
         type_id = plan.type_id,
@@ -605,12 +708,45 @@ function apply_one(api, plan)
             or nil,
     }}
 
-    -- FAST PATH: once one plan has located the table, every other record is a
-    -- fixed offset from it, so address it directly instead of walking the whole
-    -- address space again. That is what makes N edits cost one scan, not N.
+    -- ROUTE 1: the static route (see 16_static_chain.lua).
+    --
+    -- A fixed offset in game.dll holds a pointer to the damage array, and that
+    -- offset was identical across independent launches. One read resolves the
+    -- whole table:
+    --
+    --     array = *(game_dll_base + 0x2ac7cb0)
+    --
+    -- This is what replaces the 35-57 second address-space walk. It is tried
+    -- FIRST because it costs microseconds, and it is verified like any other
+    -- candidate - an rva is only a hint, and a game patch can leave it pointing
+    -- at unrelated memory.
+    --
+    -- Attempted once per session: if it fails there is no point retrying it 400
+    -- times, because the offset will not start working on its own.
     local table_base = resolver.table_base()
     local ok, address, near
-    if table_base ~= nil then
+
+    if not plan.route_checked then
+        plan.route_checked = true
+        local array_base, route, reason = static_chain.resolve(
+            api, base, resolver.verify_record, record, expect)
+        if array_base ~= nil then
+            resolver.set_table_base(array_base - static_chain.ARRAY_START)
+            table_base = resolver.table_base()
+            log.line(("static route hit: game.dll+0x%x -> array 0x%x (no scan needed)")
+                :format(route.rva, array_base))
+        else
+            -- Not an error: the route is a fast path, and the scan below is the
+            -- path that has always worked. Logged so a build where the offset
+            -- moved is diagnosable rather than mysterious.
+            log.line("static route unavailable (" .. tostring(reason) .. ")")
+            log.line("  -> falling back to the address-space scan")
+        end
+    end
+
+    -- ROUTE 2: another plan already found the table this session, so this
+    -- record is a fixed offset from it. One scan for N edits, not N scans.
+    if table_base ~= nil and ok ~= true then
         local candidate = ffi.cast("uint8_t *", table_base + (plan.record_offset or 0))
         local vok, detail = resolver.verify_record(api, candidate, record)
         if vok then
@@ -627,6 +763,7 @@ function apply_one(api, plan)
         end
     end
 
+    -- ROUTE 3: the scan.
     if ok ~= true then
         ok, address, near = resolver.find_record(api, base, record, expect)
     end
@@ -646,12 +783,22 @@ function apply_one(api, plan)
         local resumable = detail:find("not found yet", 1, true) ~= nil
 
         if resumable then
-            -- PROGRESS IS EVIDENCE. An earlier version logged this once and
-            -- stayed silent afterwards, so a run that made ~90 attempts produced
-            -- a two-line log and the round proved nothing. Report every attempt:
-            -- the (scanned bytes, regions covered) pair is what distinguishes
-            -- "still walking" from "stuck re-reading one giant region".
-            log.line("scanning: " .. detail)
+            -- PROGRESS IS EVIDENCE, so this is throttled rather than silenced.
+            --
+            -- An earlier version logged once and went quiet, so a run of ~90
+            -- attempts produced a two-line log and the round proved nothing:
+            -- there was no way to distinguish "still walking" from "stuck
+            -- re-reading one giant region". The opposite mistake - every
+            -- attempt - writes hundreds of lines of file I/O into the game
+            -- process during exactly the stall being investigated.
+            --
+            -- The (scanned bytes, regions covered) pair is what carries the
+            -- evidence, and it is still sampled: first, every 64th, and in the
+            -- final line when the search completes.
+            plan.scan_reports = (plan.scan_reports or 0) + 1
+            if plan.scan_reports == 1 or plan.scan_reports % 64 == 0 then
+                log.line("scanning: " .. detail)
+            end
         elseif not plan.reported_missing then
             plan.reported_missing = true
             log.line("NOT FOUND (search complete): " .. detail)

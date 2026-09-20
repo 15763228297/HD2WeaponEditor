@@ -9,6 +9,7 @@ Run:  python gui/desktop.py
 
 from __future__ import annotations
 
+import os
 import socket
 import sys
 import threading
@@ -29,7 +30,10 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tools"))
 
 HOST = "127.0.0.1"
-PORT = 8777
+# Overridable so a test (or a second copy) can pick a free port. Hardcoding it
+# made the packaged EXE untestable in parallel with a dev server on the default.
+PORT = int(os.environ.get("HD2_WEAPON_EDITOR_PORT", "8777"))
+NO_WINDOW = os.environ.get("HD2_WEAPON_EDITOR_HEADLESS") == "1"
 
 # Imported at module level and deliberately BEFORE webview: compiler mode must
 # be able to run without ever loading the WebView2 runtime.
@@ -79,6 +83,17 @@ def main() -> int:
             return 1
     else:
         print(f"reusing the server already on {HOST}:{PORT}")
+
+    if NO_WINDOW:
+        # Headless: serve and block. Used by tests, which drive the same HTTP
+        # API the window's buttons call. Without this the packaged EXE opens a
+        # window on every test run.
+        print(f"serving headless on http://{HOST}:{PORT}")
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            return 0
 
     try:
         import webview

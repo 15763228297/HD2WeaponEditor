@@ -2,6 +2,14 @@
 
 [中文](README.md)
 
+> **This is cheating, and it is not for public lobbies.**
+>
+> The mod this tool generates changes real weapon damage values. In theory only
+> you see the effect, but that is beside the point: it is cheating, injected
+> through the mod system rather than a trainer. **Do not use it in public
+> lobbies.** It was built for play inside a small private group, and that is the
+> only way it should be used.
+
 A GUI tool that edits **weapon damage values** in Helldivers 2 at runtime, and
 packages the change as a mod you install like any other.
 
@@ -65,9 +73,12 @@ Then:
    `%LOCALAPPDATA%\CowboyBingus\Helldivers2\Logs\WeaponEditor.log` says what
    happened.
 
-Editing several weapons in one mod costs **one** memory scan, not one per
-weapon: the first record located fixes the damage table's base address and the
-rest are addressed by offset.
+Editing several weapons in one mod costs **one** lookup, not one per weapon:
+the first record resolved fixes the damage table's base address and the rest are
+addressed by offset.
+
+Startup does **not** stall. See [How it works](#how-it-works) — the table is
+reached through a fixed offset in the game module, not by searching for it.
 
 ## Warnings you will see
 
@@ -92,7 +103,7 @@ owners.
 gui/            the interface (Flask + HTML, wrapped in a native window)
 tools/          data parsing, weapon mapping, mod generation
 mod_template/   the Lua that ships inside a generated mod
-tests/          26 offline suites + a headless-browser DOM test
+tests/          28 offline suites + a headless-browser DOM test
 data/           derived tables (see below)
 docs/           status notes and screenshots
 ```
@@ -137,11 +148,38 @@ A weapon stores **no damage of its own** — only which projectile it fires. The
 damage numbers live on a record that the projectile references, so "change the
 weapon's damage" and "change its ammo's damage" are the same write.
 
-The generated mod finds that record in memory and overwrites it. It is
-deliberately conservative:
+The generated mod finds that record in memory and overwrites it.
 
-- scans are **budgeted per call** and resume across frames, so the game keeps
-  its frame time while the search runs;
+### Finding the table
+
+The damage table is game state on the heap, and its address is different on
+every launch — the module base is randomised by ASLR and the allocation lands
+wherever the heap puts it. The first version of this tool therefore had to
+**search** for the record: several GB of the process, walking it in budgeted
+chunks. That worked, but it cost 35–57 seconds on every launch, and the player
+felt it as a startup stall.
+
+The table is now reached through a **fixed offset in the game module**:
+
+```
+array = *(game.dll + 0x2ac7cb0)
+```
+
+`game.dll` itself moves every launch, but that offset held a pointer to the
+damage array at the same value across independent launches, so the whole table
+resolves in one read. The search is still there as a fallback.
+
+Failure is designed to be free: the address read through the offset is verified
+before use — it must be committed memory, and a row reached through it must pass
+the same identity check the search uses. If either fails, the offset is
+abandoned for that session and the scan runs instead, which is exactly what the
+tool did before. A game patch that moves the table costs you the old behaviour,
+not a broken mod.
+
+### Being conservative
+
+- reads are **budgeted per call** and resume across frames, so the game keeps
+  its frame time if the fallback scan runs;
 - the address space is walked **once**, not once per weapon;
 - it **stops the moment it succeeds**, and writes nothing if any guard fails.
 
