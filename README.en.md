@@ -134,8 +134,26 @@ Most suites load the **real compiled Lua** into a stubbed engine and assert the
 degraded paths too, not just the happy path. Several were written to fail on
 the pre-fix code first, so they pin behaviour rather than describe it.
 
-Some suites need the game's `lua51.dll` to compile bytecode. Point `HD2_LUA_DLL`
-at it, or put the game in the default Steam location.
+The tool needs the game's own `lua51.dll` to compile Lua into the bytecode the
+game loads, so it has to be able to locate your install.
+
+It finds it automatically, in this order:
+
+1. the `HD2_LUA_DLL` environment variable, if you set one
+2. a `lua51_dll` path in `hd2editor.json` next to the exe
+3. **Steam's own records** — the Steam path from the registry, plus every
+   library registered in `libraryfolders.vdf`, so a game installed on any drive
+   is found
+
+If yours is a non-Steam install, or discovery fails, create `hd2editor.json`
+next to the exe:
+
+```json
+{ "lua51_dll": "X:\\your\\path\\Helldivers 2\\bin\\lua51.dll" }
+```
+
+When it cannot find the file the interface lists **every path it tried** and
+**the Steam libraries it detected**, so the message can be acted on directly.
 
 ## How it works
 

@@ -13,6 +13,7 @@ No window is shown: the EXE is launched headless and polled over HTTP.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 import time
@@ -57,7 +58,6 @@ def main() -> int:
 
     # Launch with the env var the desktop shell reads to select a port, so the
     # test cannot collide with a dev server on 8777.
-    import os
     env = dict(os.environ)
     env["HD2_WEAPON_EDITOR_PORT"] = str(PORT)
     env["HD2_WEAPON_EDITOR_HEADLESS"] = "1"
@@ -124,9 +124,37 @@ def main() -> int:
             proc.wait(timeout=15)
         except Exception:
             proc.kill()
+            try:
+                proc.wait(timeout=10)
+            except Exception:
+                pass
+
+        # The EXE spawns a child for Lua compilation (see ljcompile), and on
+        # Windows a terminated parent does not necessarily take its children
+        # with it. A surviving process keeps a handle on the .exe file, which
+        # makes the NEXT build fail with "PermissionError: [WinError 5]" - a
+        # failure that looks like a build problem but is a test-cleanup problem.
+        _kill_leftovers()
 
     print(f"\n{checks - failures}/{checks} checks passed")
     return 1 if failures else 0
+
+
+def _kill_leftovers() -> None:
+    """Terminate any process still holding the packaged EXE open.
+
+    Uses `taskkill /IM <name> /F` rather than enumerating PIDs: it is one call,
+    it matches by image name, and it does not depend on parsing tasklist output
+    (whose column layout and encoding vary with the system locale - a parse that
+    silently returned None was how this cleanup first failed to work).
+    """
+    if os.name != "nt":
+        return
+    try:
+        subprocess.run(["taskkill", "/IM", EXE.name, "/F"],
+                       capture_output=True, timeout=30)
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

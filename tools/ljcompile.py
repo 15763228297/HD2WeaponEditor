@@ -12,9 +12,12 @@ Usage:
 from __future__ import annotations
 
 import ctypes
+import json
 import os
+import re
 import struct
 import sys
+from pathlib import Path
 
 LUA_OK = 0
 LUA_MULTRET = -1
@@ -23,25 +26,243 @@ LUA_TTABLE = 5
 LUA_TFUNCTION = 6
 LUA_GLOBALSINDEX = -10002
 
+# Helldivers 2's Steam app id. Used to find the install through Steam's own
+# metadata rather than guessing at paths.
+HD2_APPID = "553850"
+
+# Where the game is, relative to a Steam library root.
+GAME_SUBPATH = ("steamapps", "common", "Helldivers 2", "bin", "lua51.dll")
+
+# Last-resort guesses, kept for machines with no readable Steam metadata.
 DEFAULT_DLL_CANDIDATES = [
     os.path.expandvars(r"%PROGRAMFILES(X86)%\Steam\steamapps\common\Helldivers 2\bin\lua51.dll"),
-    r"D:\program files (x86)\steam\steamapps\common\Helldivers 2\bin\lua51.dll",
     r"C:\Program Files (x86)\Steam\steamapps\common\Helldivers 2\bin\lua51.dll",
 ]
 
 
+def config_path() -> Path:
+    """Where a user's manual lua51.dll path is remembered.
+
+    A packaged exe has no command line, so `HD2_LUA_DLL` and `--dll` are
+    unreachable for the people most likely to need them. A file next to the
+    executable (or in the user profile when that is not writable) gives them an
+    escape hatch that does not require editing the tool.
+    """
+    if getattr(sys, "frozen", False):
+        beside = Path(sys.executable).resolve().parent / "hd2editor.json"
+        if os.access(beside.parent, os.W_OK):
+            return beside
+    return Path.home() / ".hd2weaponeditor.json"
+
+
+def load_config() -> dict:
+    """Read the optional config file. Any problem yields {} - never raises."""
+    try:
+        path = config_path()
+        if path.is_file():
+            data = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(data, dict):
+                return data
+    except (OSError, ValueError):
+        pass
+    return {}
+
+
+def _config_lua_dll() -> str | None:
+    value = load_config().get("lua51_dll")
+    return value if isinstance(value, str) and value else None
+
+
+def _steam_roots() -> list[str]:
+    """Every Steam library root on this machine.
+
+    Steam does not keep the game in the Steam install directory - it lives in
+    whichever library the user chose, which may be on another drive entirely.
+    A hardcoded list of "typical" paths therefore misses most real installs:
+    the first user to hit this had the game on a library the tool never looked
+    at, and got "lua51.dll not found" from a tool that had shipped a path from
+    the developer's own disk.
+
+    Sources, in order of reliability:
+      1. libraryfolders.vdf under the Steam install - the authoritative list
+      2. the Steam install directory itself, and its default library
+      3. every drive letter, for a library Steam was not asked about
+    """
+    roots: list[str] = []
+    seen: set[str] = set()
+
+    def add(path: str | None) -> None:
+        if not path:
+            return
+        norm = os.path.normpath(path)
+        key = norm.lower()
+        if key not in seen and os.path.isdir(norm):
+            seen.add(key)
+            roots.append(norm)
+
+    steam_dirs: list[str] = []
+
+    # 1. Registry: where Steam itself is installed.
+    if os.name == "nt":
+        try:
+            import winreg
+            for hive, key in (
+                (winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam"),
+                (winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\WOW6432Node\Valve\Steam"),
+                (winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Valve\Steam"),
+            ):
+                try:
+                    with winreg.OpenKey(hive, key) as handle:
+                        for value in ("SteamPath", "InstallPath"):
+                            try:
+                                raw, _ = winreg.QueryValueEx(handle, value)
+                                if raw:
+                                    steam_dirs.append(str(raw))
+                            except OSError:
+                                pass
+                except OSError:
+                    pass
+        except ImportError:
+            pass
+
+    # 2. Steam's own library list - this is what catches other drives.
+    for steam in list(steam_dirs):
+        add(steam)
+        vdf = os.path.join(steam, "steamapps", "libraryfolders.vdf")
+        for library in _parse_library_folders(vdf):
+            add(library)
+
+    # 3. Every drive letter, so a library Steam was never asked about is still
+    #    reachable. Cheap: a few os.path.isdir calls.
+    if os.name == "nt":
+        for letter in "CDEFGHIJKLMNOPQRSTUVWXYZ":
+            for pattern in (
+                rf"{letter}:\SteamLibrary",
+                rf"{letter}:\Program Files (x86)\Steam",
+                rf"{letter}:\Program Files\Steam",
+                rf"{letter}:\Steam",
+                rf"{letter}:\Games\Steam",
+            ):
+                add(pattern)
+
+    return roots
+
+
+def _parse_library_folders(vdf_path: str) -> list[str]:
+    """Pull library paths out of Steam's libraryfolders.vdf.
+
+    Parsed with a regex rather than a VDF library: the file only ever needs one
+    field read from it, and a dependency-free parse keeps the packaged exe
+    small and the failure mode obvious. Handles the escaped backslashes Steam
+    writes (``"D:\\\\Program Files (x86)\\\\Steam"``).
+    """
+    try:
+        with open(vdf_path, encoding="utf-8", errors="replace") as handle:
+            text = handle.read()
+    except OSError:
+        return []
+
+    libraries = []
+    for match in re.finditer(r'"path"\s*"([^"]+)"', text):
+        raw = match.group(1).replace("\\\\", "\\")
+        libraries.append(raw)
+    return libraries
+
+
+def _candidate_dll_paths() -> list[str]:
+    """Every plausible lua51.dll location, best guess first.
+
+    Deduplicated: the fallback list overlaps with the discovered Steam roots on
+    a default install, and a path listed twice makes the failure message look
+    like it searched more places than it did.
+    """
+    candidates: list[str] = []
+    seen: set[str] = set()
+
+    def add(path: str) -> None:
+        norm = os.path.normpath(path)
+        key = norm.lower()
+        if key not in seen:
+            seen.add(key)
+            candidates.append(norm)
+
+    for root in _steam_roots():
+        add(os.path.join(root, *GAME_SUBPATH))
+
+    for fallback in DEFAULT_DLL_CANDIDATES:
+        add(fallback)
+
+    return candidates
+
+
 def find_lua_dll(explicit: str | None = None) -> str:
-    for candidate in ([explicit] if explicit else []) + DEFAULT_DLL_CANDIDATES:
-        if candidate and os.path.isfile(candidate):
+    """Locate the game's lua51.dll, or raise with something actionable.
+
+    Order: an explicit argument (or HD2_LUA_DLL), then a path the user saved in
+    the config file, then Steam's own metadata.
+
+    The error message matters as much as the search: the previous one told the
+    user to "pass --dll or set HD2_LUA_DLL", which is impossible advice for
+    someone running a packaged exe with no command line. A GUI user needs to be
+    told where the tool looked and what to do about it, in the interface.
+    """
+    searched: list[str] = []
+
+    explicit = explicit or os.environ.get("HD2_LUA_DLL") or _config_lua_dll()
+    if explicit:
+        if os.path.isfile(explicit):
+            return explicit
+        searched.append(explicit)
+
+    for candidate in _candidate_dll_paths():
+        if os.path.isfile(candidate):
             return candidate
-    raise FileNotFoundError("lua51.dll not found; pass --dll or set HD2_LUA_DLL")
+        searched.append(candidate)
+
+    raise LuaDllNotFound(searched)
+
+
+class LuaDllNotFound(FileNotFoundError):
+    """Raised when the game's LuaJIT runtime cannot be located.
+
+    Carries the paths that were tried so the UI can show them, and so a user
+    can tell the difference between "the game is somewhere unusual" and "the
+    game is not installed on this machine at all".
+    """
+
+    def __init__(self, searched: list[str]):
+        self.searched = searched
+        roots = _steam_roots()
+        detail = [
+            "找不到游戏的 lua51.dll，无法编译 Mod。",
+            "",
+            "本工具需要游戏自带的 LuaJIT 来把 Lua 编译成游戏能读的字节码，",
+            "所以必须能读到你安装《绝地潜兵 2》的位置。",
+            "",
+            "已查找以下位置：",
+        ]
+        for path in searched[:12]:
+            detail.append(f"  {path}")
+        if len(searched) > 12:
+            detail.append(f"  ...（共 {len(searched)} 处）")
+        if roots:
+            detail.append("")
+            detail.append("检测到的 Steam 库：")
+            for root in roots[:8]:
+                detail.append(f"  {root}")
+        detail.append("")
+        detail.append("如果你确认游戏已安装，请把这段信息发给作者。")
+        super().__init__("\n".join(detail))
 
 
 class LuaJIT:
     """Minimal binding: enough to compile and strip-dump a chunk."""
 
     def __init__(self, dll_path: str | None = None):
-        self.path = find_lua_dll(dll_path or os.environ.get("HD2_LUA_DLL"))
+        # find_lua_dll already consults HD2_LUA_DLL and the config file, so
+        # passing the environment value here as well would just duplicate that
+        # order and make the precedence harder to reason about.
+        self.path = find_lua_dll(dll_path)
         # Preload lua51.dll with the game's bin dir on the DLL search path, so
         # the runtime's own imports (MSVCR110 for this build) resolve. Without
         # this, luaL_newstate returns NULL inside a frozen process and the only

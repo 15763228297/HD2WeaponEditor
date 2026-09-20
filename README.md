@@ -102,7 +102,21 @@ python tests/test_frozen_exe.py   # 需要先打包 EXE
 
 `test_frozen_exe.py` 启动**打包后的 EXE**，走它自己的 HTTP 接口点「生成」—— 因为已有三个只在 frozen 下才出现的 bug（漏打包 `tools/`、WebView2 抢占 LuaJIT 需要的地址空间、ZIP 写进临时目录）在源码模式下完全看不出来。
 
-部分套件需要游戏的 `lua51.dll` 来编译字节码。用 `HD2_LUA_DLL` 指向它，或把游戏装在默认 Steam 路径。
+工具需要读取游戏自带的 `lua51.dll` 来把 Lua 编译成游戏能读的字节码，所以必须能定位到你的游戏安装位置。
+
+它会自动查找，顺序是：
+
+1. `HD2_LUA_DLL` 环境变量（如果你设了）
+2. 配置文件 `hd2editor.json` 里的 `lua51_dll`（放在 EXE 同级目录）
+3. **Steam 自己的记录** —— 注册表里的 Steam 路径 + `libraryfolders.vdf` 里登记的所有游戏库，所以游戏装在哪个盘都能找到
+
+如果你是非 Steam 安装、或者自动查找失败，在 EXE 同级目录建一个 `hd2editor.json`：
+
+```json
+{ "lua51_dll": "X:\\你的路径\\Helldivers 2\\bin\\lua51.dll" }
+```
+
+界面上如果报「找不到 lua51.dll」，会把**查过的所有路径**和**检测到的 Steam 库**都列出来，照着那个信息排查即可。
 
 ## 工作原理
 
