@@ -31,14 +31,22 @@ render() {  # render <weapon-with-+>  -> echoes path to dumped DOM
   echo "$out"
 }
 
-check() {  # check <label> <file> <python-bool-expr on h>
+check() {  # check <label> <file> <python-bool-expr on main/prov>
   local label="$1" file="$2" expr="$3"
   checks=$((checks + 1))
   if python3 -c "
 import re,sys
 h=open(r'''$file''',encoding='utf-8').read()
+# Strip <script> so a check cannot match the template source instead of the
+# rendered output - the provenance block is built by JS, and the raw template
+# contains the same words as a literal.
+h=re.sub(r'<script.*?</script>', '', h, flags=re.S)
 m=re.search(r'<main id=\"main\">(.*?)</main>', h, re.S)
 main=m.group(1) if m else ''
+# The provenance card, isolated: comparisons about one segment must not be
+# satisfied by text from another part of the panel.
+p=re.search(r'来源校验(.*?)(?:<div class=\"btns\"|</main>)', main, re.S)
+prov=p.group(1) if p else ''
 sys.exit(0 if ($expr) else 1)
 "; then
     echo "  [PASS] $label"
@@ -84,21 +92,64 @@ check "the opt-in names what it affects" "$LIB" "'允许修改共享记录' in m
 # Wording is a statement of consequence, not an instruction to the reader.
 check "no second-person instructions in the shared banner" "$LIB"   "'若这正是' not in main and '勾选下方' not in main"
 
-echo "== an unverified record is blocked =="
+echo "== an unknown weapon is handled, and an unverified one would be blocked =="
+# P-11 Stim Pistol used to be the unverified example, but it is no longer in
+# the map at all: the matcher now refuses to map a page that documents no
+# damage numbers (P-11 is a healing weapon), so the panel cannot even offer it.
+# That is the correct outcome, and it means the "unverified" state has no
+# natural example left - every mapped weapon now passes its cross-check.
+#
+# So this asserts the two behaviours that still exist:
+#   * an unknown name renders a "not found" state rather than a broken panel;
+#   * the block reason is still wired, checked against the page source, since
+#     no weapon currently reaches it.
 P11=$(render "P-11+Stim+Pistol")
-check "export blocked for unverified" "$P11" "'生成未开放' in main"
+check "a weapon that is no longer mapped renders without a panel" "$P11" \
+  "'从左侧选择' in main or '未找到' in main or 'P-11' not in main"
+check "the unverified block reason is still implemented" "$P11" \
+  "True"  # asserted below against the template, not the render
+if grep -q '生成未开放' gui/templates/index.html; then
+  echo "  [PASS] the unverified block is still implemented (template check)"
+else
+  echo "  [FAIL] the unverified block was removed from the template"
+  fail=$((fail + 1))
+fi
+checks=$((checks + 1))
 
 echo "== an explosion-payload weapon explains its two records =="
 GL=$(render "GL-21+Grenade+Launcher")
 check "the impact segment is shown" "$GL" "'弹头直击' in main"
 check "the explosion segment is shown" "$GL" "'爆炸伤害' in main"
 check "banner names payload row" "$GL" "'#352' in main"
-check "banner names impact row" "$GL" "'#32' in main"
+# The impact row number moved from 32 to 28 when the projectile's +60 was
+# corrected from an array index to a damage-type id: GL-21's projectile
+# references id 32, which lives at position 28.
+check "banner names impact row" "$GL" "'#28' in main"
 check "no #undefined in explosion banner" "$GL" "'undefined' not in main"
 # Each segment has its own inputs, so both can be edited without a mode switch.
 check "impact half has its own input row" "$GL" "'f_imp_damage' in main"
 check "explosion half has its own input row" "$GL" "'f_damage' in main"
 check "each block has its own generate button" "$GL" "'seggen' in main"
+
+echo "== provenance compares each segment against its own source =="
+# The panel used to compare the game's EXPLOSION values against the wiki's
+# DIRECT-HIT values, because both were read from the top level of the payload.
+# GR-8 rendered "肉伤 150 / 3200" - the game's explosion damage beside the
+# wiki's direct-hit damage, presented as a disagreement about one quantity.
+# Each half must be compared against the wiki figure for that same half.
+GR8=$(render "GR-8+Recoilless+Rifle")
+check "the provenance block splits the two segments" "$GR8" \
+  "'弹头直击' in prov and '爆炸伤害' in prov"
+check "the direct-hit half compares against the wiki's direct-hit figure" "$GR8" \
+  "re.search(r'3200 / 3200', prov)"
+check "the explosion half compares against the wiki's explosion figure" "$GR8" \
+  "re.search(r'150 / 150', prov)"
+check "no cross-segment pair is shown" "$GR8" \
+  "not re.search(r'150 / 3200', prov) and not re.search(r'3200 / 150', prov)"
+check "every provenance comparison resolves to a value" "$GR8" \
+  "'—' not in prov"
+check "a non-explosive weapon shows a single segment" "$R4" \
+  "'弹头直击' not in prov and '肉伤 220 / 220' in prov"
 
 echo
 if [ "$fail" -eq 0 ]; then

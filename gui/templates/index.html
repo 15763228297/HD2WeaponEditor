@@ -309,11 +309,50 @@ function renderMain() {
     : block(`数值 —— 记录 #${w.damage_position}`, "", damageRows, "", "damage");
 
   const prov = w.wiki || {};
+  const explWiki = prov.explosion || {};
   const ammoCell = w.ammo
     ? `<code>${w.ammo}</code> <span style="color:var(--dim)">(游戏字符串表)</span>`
     : (w.ammo_wiki
         ? `<code>${w.ammo_wiki}</code> <span style="color:var(--dim)">(维基记录，游戏字符串表无此条目)</span>`
         : `<span style="color:var(--dim)">未记录</span>`);
+
+  // Provenance, per segment.
+  //
+  // The wiki keeps a page's direct-hit numbers (`standard` / `durable` /
+  // `ap_direct`) and its explosion numbers (`explosion.explosion_damage` /
+  // `explosion.ap_direct`) in different places, while our record holds the
+  // payload's values at the top level. Comparing top-level to top-level paired
+  // the game's EXPLOSION values against the wiki's DIRECT-HIT values, so GR-8
+  // read "肉伤 150 / 3200" - a comparison of two different things that looked
+  // like a data error.
+  //
+  // For an explosive weapon the two halves are separate records with separate
+  // wiki sources, so each is compared against its own.
+  const row = (label, game, wiki, ok) => {
+    const mark = ok === null ? ""
+      : (ok ? '<span style="color:var(--ok)">✓</span>'
+            : '<span style="color:var(--bad)">✗</span>');
+    return `${label} ${fmt(game)} / ${fmt(wiki)} ${mark}`;
+  };
+  const eq = (a, b) => (a === null || b === null || b === undefined ? null : a === b);
+
+  const provLines = isExpl ? [
+    `<b>弹头直击</b>（记录 #${w.impact_damage_position}）`,
+    row("肉伤", iv.damage, prov.standard, eq(iv.damage, prov.standard)),
+    row("耐伤", iv.durable, prov.durable, eq(iv.durable, prov.durable)),
+    row("穿甲", (iv.ap || [])[0], prov.ap,
+        eq((iv.ap || [])[0], prov.ap)),
+    `<b>爆炸伤害</b>（记录 #${w.damage_position}）`,
+    row("肉伤", w.damage, explWiki.damage, eq(w.damage, explWiki.damage)),
+    row("穿甲", w.ap[0], explWiki.ap, eq(w.ap[0], explWiki.ap)),
+    row("初速", w.speed, prov.velocity, eq(w.speed, prov.velocity)),
+  ] : [
+    row("肉伤", w.damage, prov.standard, eq(w.damage, prov.standard)),
+    row("耐伤", w.durable, prov.durable, eq(w.durable, prov.durable)),
+    row("穿甲", w.ap[0], prov.ap, eq(w.ap[0], prov.ap)),
+    row("初速", w.speed, prov.velocity, eq(w.speed, prov.velocity)),
+  ];
+  const provBody = provLines.join(" ·\n        ");
   main.innerHTML = `
     <h2>${w.page}</h2>
     <div class="meta">
@@ -329,11 +368,9 @@ function renderMain() {
     <div class="card">
       <h3>来源校验</h3>
       <div class="note" style="line-height:1.9">
-        游戏记录 vs Wiki：肉伤 ${fmt(w.damage)} / ${fmt(prov.standard)} ·
-        耐伤 ${fmt(w.durable)} / ${fmt(prov.durable)} ·
-        穿甲 ${w.ap[0]} / ${fmt(prov.ap)} ·
-        初速 ${fmt(w.speed)} / ${fmt(prov.velocity)}
-        ${w.verified ? '<span style="color:var(--ok)">✓ 全部一致</span>' : '<span style="color:var(--bad)">✗ 有不一致</span>'}
+        游戏记录 vs Wiki：<br>
+        ${provBody}
+        ${w.verified ? '<br><span style="color:var(--ok)">✓ 全部一致</span>' : '<br><span style="color:var(--bad)">✗ 有不一致</span>'}
       </div>
     </div>
     <div class="btns">

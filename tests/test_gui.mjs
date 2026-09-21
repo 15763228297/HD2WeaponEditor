@@ -47,8 +47,15 @@ check("shared weapons name their peers",
       JSON.stringify(shared[0]?.shared_with));
 
 // An unverified weapon must not be exportable either.
+//
+// This used to assert that unverified weapons EXIST, so the gate below had
+// something to test. After the matcher fix there are none: every weapon that
+// could not be matched unambiguously is now left out of the map entirely rather
+// than included with verified=false, so the count is legitimately zero.
+//
+// Asserting "> 0" would now be asserting a defect. What still matters is the
+// gate: if any unverified entry ever appears, it must not be exportable.
 const unverified = data.weapons.filter(w => !w.verified);
-check("unverified weapons exist", unverified.length > 0, `got ${unverified.length}`);
 check("no unverified weapon is exportable",
       unverified.every(w => !(w.verified && w.exclusive)),
       unverified.map(w => w.page).join(","));

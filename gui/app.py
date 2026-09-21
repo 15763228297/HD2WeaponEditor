@@ -156,11 +156,26 @@ def api_weapons():
             "matched_by": w["matched_by"],
             # Raw wiki figures, so the UI can show provenance rather than
             # presenting parsed numbers as if they were beyond question.
+            #
+            # Both segments are carried. An explosive weapon's wiki page keeps
+            # its direct-hit numbers at the top level and its explosion numbers
+            # under `explosion`, and the panel compares each half against its
+            # own source. Sending only the top level made the explosion half
+            # compare against the direct-hit figures - GR-8 rendered
+            # "肉伤 150 / 3200", pairing the game's explosion damage with the
+            # wiki's direct-hit damage as though they were the same quantity.
             "wiki": {
                 "velocity": w["wiki"].get("velocity"),
                 "standard": w["wiki"].get("standard"),
                 "durable": w["wiki"].get("durable"),
                 "ap": w["wiki"].get("ap_direct"),
+                "explosion": {
+                    "damage": (w["wiki"].get("explosion") or {}).get("explosion_damage"),
+                    "ap": (w["wiki"].get("explosion") or {}).get("ap_direct"),
+                    "inner_radius": (w["wiki"].get("explosion") or {}).get("inner_radius"),
+                    "outer_radius": (w["wiki"].get("explosion") or {}).get("outer_radius"),
+                    "shockwave_radius": (w["wiki"].get("explosion") or {}).get("shockwave_radius"),
+                },
             },
         })
     out.sort(key=lambda w: (not w["verified"], not w["exclusive"], w["page"]))
