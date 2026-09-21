@@ -81,16 +81,19 @@ echo "== no template leakage in the panel =="
 check "no #undefined in R-4 panel" "$R4" "'undefined' not in main"
 check "no unexpanded template literal" "$R4" "'\$'+'{' not in main"
 
-echo "== a shared record is warned about and export is blocked =="
+echo "== a shared record is warned about, and the change is confirmed =="
 LIB=$(render "AR-23+Liberator")
 check "shared banner names a peer weapon" "$LIB" "'Liberator Carbine' in main or 'Stalwart' in main"
-# Export is no longer blocked outright: shared rows became editable on purpose,
-# behind a checkbox that says which other weapons will change. Assert the
-# control exists rather than that the button is dead.
-check "shared rows are gated behind an explicit opt-in" "$LIB" "'allowshared' in main"
-check "the opt-in names what it affects" "$LIB" "'允许修改共享记录' in main"
+# The row is editable, but not silently: the decision is put to the user in a
+# dialog at generation time, naming every weapon the change will also affect.
+# It used to be a checkbox that had to be ticked first, which made the default
+# answer "no" and hid the choice from anyone who did not scroll.
+check "the confirmation dialog exists in the page" "$LIB" "'id=\"confirm\"' in h and 'confBody' in h"
+check "the dialog is not shown until a shared edit is generated" "$LIB" \
+  "re.search(r'id=\"confirm\"[^>]*hidden', h)"
 # Wording is a statement of consequence, not an instruction to the reader.
 check "no second-person instructions in the shared banner" "$LIB"   "'若这正是' not in main and '勾选下方' not in main"
+check "the checkbox is gone" "$LIB" "'allowshared' not in main and 'allowshared' not in h"
 
 echo "== an unknown weapon is handled, and an unverified one would be blocked =="
 # P-11 Stim Pistol used to be the unverified example, but it is no longer in

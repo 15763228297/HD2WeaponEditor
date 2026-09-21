@@ -84,6 +84,24 @@
   button.primary { background: var(--accent); color: #1a1a1a; border-color: var(--accent); font-weight: 600; }
   button:disabled { opacity: .45; cursor: not-allowed; }
   code { background: var(--panel2); padding: 1px 5px; border-radius: 4px; font-size: 11.5px; }
+
+  /* ---- confirmation dialog ---- */
+  /* Changing a shared damage record changes every weapon that uses it, so the
+     decision is put to the user rather than taken for them. In-page rather than
+     window.confirm(): a native dialog blocks the page, which would make the
+     confirmation impossible to exercise from a headless render. */
+  .backdrop {
+    position: fixed; inset: 0; background: #000a; z-index: 50;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .backdrop[hidden] { display: none; }
+  .dialog {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px 20px; max-width: 580px; box-shadow: 0 14px 44px #0009;
+  }
+  .dialog h3 { margin: 0 0 10px; font-size: 14px; color: var(--warn); }
+  .dialog .body { font-size: 12.5px; line-height: 1.9; margin-bottom: 16px; }
+  .dialog .body code { font-size: 11.5px; }
 </style>
 </head>
 <body>
@@ -105,6 +123,17 @@
   <main id="main">
     <div class="empty">← 从左侧选择一把武器</div>
   </main>
+</div>
+
+<div class="backdrop" id="confirm" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="confTitle">
+    <h3 id="confTitle">确认修改共享记录</h3>
+    <div class="body" id="confBody"></div>
+    <div class="btns">
+      <button class="primary" id="confYes">确定修改</button>
+      <button id="confNo">取消</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -378,11 +407,6 @@ function renderMain() {
       <button id="queue" ${w.verified ? "" : "disabled"}>加入列表</button>
       <button id="reset">重置</button>
     </div>
-    ${w.exclusive ? "" : `
-    <label style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px">
-      <input type="checkbox" id="allowshared">
-      <span>允许修改共享记录 —— 勾选后本条改动会同时作用于上面列出的武器</span>
-    </label>`}
     <div id="queuebox"></div>
     <div id="out" class="note" style="margin-top:10px"></div>
   `;
@@ -463,15 +487,68 @@ function currentEdit(seg, prefix) {
     return el ? parseInt(el.value, 10) : NaN;
   };
   const angles = [num("ap0"), num("ap1"), num("ap2")];
-  const allowBox = document.getElementById("allowshared");
   return { weapon: w.page, damage: num("damage"), durable: num("durable"),
            ap: num("ap0"), angles,
-           // Shared rows are allowed only when the user ticks the box; the box
-           // is only rendered for shared weapons.
-           allow_shared: !!(allowBox && allowBox.checked),
+           // Carried so a queued edit can be checked for shared peers at
+           // generation time, when the user confirms. Nothing is pre-authorised
+           // here - the decision is made in the dialog, not by a checkbox.
            segment: seg || "damage" };
 }
 
+// ---- shared-record confirmation -------------------------------------------
+//
+// A damage row can be used by more than one weapon. Changing it changes all of
+// them, so the decision belongs to the user - but it is a decision to CONFIRM,
+// not a permission to unlock: the warning above the buttons already says what
+// else is affected, and the dialog restates it at the moment of commitment.
+//
+// In-page rather than window.confirm(): a native dialog blocks the JS thread,
+// so the confirmation could not be exercised by a headless render.
+
+// Peers for one weapon+segment, or [] when the record is exclusive.
+function sharedPeers(w, seg) {
+  if (!w) return [];
+  if (seg === "impact") return w.impact_shared_with || [];
+  return w.shared_with || [];
+}
+
+// Peers for a queued edit, which may be either segment.
+function peersOfEdit(e) {
+  const w = DATA.weapons.find(x => x.page === e.weapon);
+  return sharedPeers(w, e.segment === "impact" ? "impact" : "damage");
+}
+
+// Show the dialog and resolve true only if the user confirms.
+//
+// Accepts either one item ({peers, segLabel}) or a list of them, so a single
+// weapon's button and a whole-batch generate share one dialog. A batch lists
+// every affected record rather than asking once per weapon: repeating the same
+// question hides how much is affected in total.
+function askShared(items) {
+  if (!Array.isArray(items)) items = [items];
+  return new Promise(resolve => {
+    const box = document.getElementById("confirm");
+    const body = document.getElementById("confBody");
+    body.innerHTML = items.map(it =>
+      `<div>${it.label ? `<b>${it.label}</b>：` : ""}该${it.segLabel}记录同时被 ` +
+      `${it.peers.map(p => `<code>${p}</code>`).join("、")} 使用，` +
+      `修改会<b>一并改变这些武器</b>的${it.segLabel}数值。</div>`
+    ).join("") + `<div style="margin-top:10px">确定要修改吗？</div>`;
+    box.hidden = false;
+    const done = ok => {
+      box.hidden = true;
+      document.getElementById("confYes").onclick = null;
+      document.getElementById("confNo").onclick = null;
+      resolve(ok);
+    };
+    document.getElementById("confYes").onclick = () => done(true);
+    document.getElementById("confNo").onclick = () => done(false);
+  });
+}
+
+// Queue one edit. The shared-record question is asked at generation time, not
+// here: queueing changes nothing in the game, and the numbers can still change
+// before the user commits.
 function addToQueue(seg, prefix) {
   const out = document.getElementById("out");
   const e = currentEdit(seg, prefix);
@@ -493,16 +570,42 @@ function addToQueue(seg, prefix) {
   renderQueue();
 }
 
+// The shared records among `edits`, described well enough to decide about.
+// Returns [] when nothing in the set touches another weapon, which is the
+// common case and must not interrupt the user with a dialog.
+function sharedItems(edits) {
+  return edits.map(e => {
+    const peers = peersOfEdit(e);
+    if (!peers.length) return null;
+    return {
+      label: e.label || e.weapon,
+      peers,
+      segLabel: e.segment === "impact" ? "弹头直击" : "伤害",
+    };
+  }).filter(Boolean);
+}
+
 async function generateAll() {
   const out = document.getElementById("out");
   if (!QUEUE.length) return;
+  // One dialog for the whole batch: a prompt per weapon would ask the same
+  // question repeatedly and hide how much is affected in total.
+  const items = sharedItems(QUEUE);
+  if (items.length && !(await askShared(items))) {
+    out.innerHTML = '<span style="color:var(--dim)">已取消，未生成。</span>';
+    return;
+  }
+  // Only the records the user just agreed to carry allow_shared; an exclusive
+  // edit in the same batch stays unmarked, so the generator's own guard still
+  // covers it if the map and the data ever disagree.
+  const edits = QUEUE.map(e => ({ ...e, allow_shared: peersOfEdit(e).length > 0 }));
   out.textContent = "生成中…";
   let res, data;
   try {
     res = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ edits: QUEUE }),
+      body: JSON.stringify({ edits }),
     });
     data = await res.json();
   } catch (e) {
@@ -530,14 +633,6 @@ async function generate(seg, prefix) {
     const el = document.getElementById("f_" + (prefix || "") + k);
     return el ? parseInt(el.value, 10) : NaN;
   };
-  const body = {
-    weapon: SEL.page,
-    damage: num("damage"),
-    durable: num("durable"),
-    ap: num("ap0"),
-    allow_shared: e.allow_shared,
-    segment: e.segment,
-  };
   // The panel exposes all four AP angles; the generator takes one tier and
   // applies it to the first three. Refuse rather than silently pick one if the
   // user made them disagree.
@@ -546,10 +641,28 @@ async function generate(seg, prefix) {
     out.innerHTML = '<span style="color:var(--bad)">穿甲前三个角度不一致，生成器只接受一个穿甲等级。</span>';
     return;
   }
-  if ([body.damage, body.durable, body.ap].some(Number.isNaN)) {
+  const damage = num("damage"), durable = num("durable"), ap = num("ap0");
+  if ([damage, durable, ap].some(Number.isNaN)) {
     out.innerHTML = '<span style="color:var(--bad)">数值必须是整数。</span>';
     return;
   }
+  // A shared record changes other weapons too, so ask before building. The
+  // answer is per-generation, not remembered: the next edit asks again, because
+  // by then the numbers - and what they affect - are different.
+  const peers = sharedPeers(SEL, e.segment);
+  if (peers.length) {
+    const segLabel = e.segment === "impact" ? "弹头直击" : "伤害";
+    if (!(await askShared({ label: "", peers, segLabel }))) {
+      out.innerHTML = '<span style="color:var(--dim)">已取消，未生成。</span>';
+      return;
+    }
+  }
+  const body = {
+    weapon: SEL.page,
+    damage, durable, ap,
+    allow_shared: peers.length > 0,
+    segment: e.segment,
+  };
 
   out.textContent = "生成中…";
   let res, data;

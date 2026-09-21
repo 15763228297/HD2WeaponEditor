@@ -17,6 +17,7 @@ Run:  python tests/test_loader_handle_shape.py
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -164,7 +165,17 @@ def main() -> int:
     check = base_mod.check
     meta = json.loads((ROOT / "data" / "sim_memory.json").read_text())
     image = (ROOT / "data" / "sim_memory.bin").read_bytes()
-    generated = (ROOT / "build" / "generated.lua").read_text(encoding="utf-8")
+    # Own the input: several suites write build/generated.lua, so reading it here
+    # made this test depend on which one ran last. Generate a single R-4 edit
+    # under a private name, which is what the assertions below expect.
+    gen_path = ROOT / "build" / "generated_single.lua"
+    subprocess.run(
+        [sys.executable, str(ROOT / "tools" / "gen_mod.py"),
+         "--weapon", "R-4 Hyena", "--damage", "400",
+         "--durable", "200", "--ap", "7",
+         "--out", str(ROOT / "build"), "--emit-lua", str(gen_path)],
+        check=True, capture_output=True, cwd=str(ROOT))
+    generated = gen_path.read_text(encoding="utf-8")
 
     print("== the handle shape the shared loader actually returns (no flush) ==")
     out = probe(generated, image, meta["array_base"], "no_flush")

@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import struct
+import subprocess
 import sys
 from pathlib import Path
 
@@ -169,10 +170,17 @@ def main() -> int:
     image = (ROOT / "data" / "sim_memory.bin").read_bytes()
     array_base = meta["array_base"]
 
-    gen_path = ROOT / "build" / "generated.lua"
-    if not gen_path.exists():
-        print("build/generated.lua missing - run tools/gen_mod.py first")
-        return 2
+    # Generate this test's own mod rather than reading whatever build/generated.lua
+    # happens to hold. Several suites write that one path, so reading it made this
+    # test depend on which suite ran last: test_multi_weapon.py leaves a
+    # three-weapon mod there, and the assertions below expect a single R-4 edit.
+    gen_path = ROOT / "build" / "generated_single.lua"
+    subprocess.run(
+        [sys.executable, str(ROOT / "tools" / "gen_mod.py"),
+         "--weapon", "R-4 Hyena", "--damage", "400",
+         "--durable", "200", "--ap", "7",
+         "--out", str(ROOT / "build"), "--emit-lua", str(gen_path)],
+        check=True, capture_output=True, cwd=str(ROOT))
     generated = gen_path.read_text(encoding="utf-8")
 
     print("== the generated mod loads and runs ==")
