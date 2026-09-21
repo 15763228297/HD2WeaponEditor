@@ -89,8 +89,8 @@ two is stale, the row number may be wrong, and generating is blocked.
 
 **Some weapons share a damage record.** Editing one changes all of them. The
 panel names exactly which weapons are affected and which half of the weapon
-(impact or explosion) they share. You can still proceed — there is a checkbox
-for it — but the change is not limited to one weapon.
+(impact or explosion) they share. Generating asks you to confirm once, and the
+change is not limited to one weapon.
 
 **A weapon can share its impact record and not its explosion record**, or the
 reverse. The list badges (`直击共享` / `爆炸共享`) and the detail panel show
@@ -103,7 +103,7 @@ owners.
 gui/            the interface (Flask + HTML, wrapped in a native window)
 tools/          data parsing, weapon mapping, mod generation
 mod_template/   the Lua that ships inside a generated mod
-tests/          28 offline suites + a headless-browser DOM test
+tests/          31 offline suites + a headless-browser DOM test
 data/           derived tables (see below)
 docs/           status notes and screenshots
 ```
