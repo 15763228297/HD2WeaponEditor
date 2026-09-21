@@ -131,6 +131,7 @@ def main() -> int:
             calibre=9.0,
             speed=950.0,
             mass=20.0,
+            damage_type=ANCHOR_INDEX,
             damage_position=ANCHOR_INDEX,
         )
     ]

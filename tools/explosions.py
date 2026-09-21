@@ -123,7 +123,8 @@ if __name__ == "__main__":
 
     root = Path(__file__).resolve().parent.parent
     sys.path.insert(0, str(root / "tools"))
-    from build_map import parse_projectiles, parse_damages
+    from build_map import (parse_projectiles, parse_damages,
+                           resolve_damage_positions)
     from names import projectile_name
 
     eblob = (root / "data/raw/generated_explosion_settings.dl_bin").read_bytes()
@@ -133,6 +134,8 @@ if __name__ == "__main__":
     explosions = parse_explosions(eblob)
     damages = parse_damages(dblob)
     projectiles = parse_projectiles(pblob)
+    # +60 holds a damage-type id; resolving it to a row needs the damage table.
+    resolve_damage_positions(projectiles, damages)
     strings = json.loads((root / "data/strings.json").read_text(encoding="utf-8"))
     eng = {
         k: (v.get("English (US)") or v.get("English (UK)") or next(iter(v.values())))

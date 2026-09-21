@@ -388,10 +388,21 @@ def _norm_ammo(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip().lower()
 
 
-def build() -> None:
+def match_all(pblob: bytes, damages, projectiles) -> dict:
+    """Match every cached wiki page to a projectile row.
+
+    Split out of `build()` so a test can run the matching logic itself. A test
+    that only reads the produced JSON proves the artifact was regenerated, not
+    that the code producing it is correct - the first version of
+    `test_matcher_uniqueness.py` passed with the velocity check removed from the
+    matcher, because the committed data had been regenerated with the fix.
+
+    Returns a dict keyed by page title. Each value is the row dict that
+    `build()` writes, minus the derived `shared_with` fields, plus a `_hits`
+    entry when the match was rejected as ambiguous.
+    """
     sys.path.insert(0, str(ROOT / "tools"))
-    from build_map import (parse_projectiles, parse_damages, assert_exclusive,
-                           position_of_type_id)
+    from build_map import position_of_type_id
     from names import projectile_name
 
     strings = json.loads((ROOT / "data" / "strings.json").read_text(encoding="utf-8"))
@@ -399,11 +410,6 @@ def build() -> None:
         k: (v.get("English (US)") or v.get("English (UK)") or next(iter(v.values())))
         for k, v in strings.items()
     }
-
-    dblob = (ROOT / "data/raw/generated_damage_settings.dl_bin").read_bytes()
-    pblob = (ROOT / "data/raw/generated_projectile_settings.dl_bin").read_bytes()
-    damages = parse_damages(dblob)
-    projectiles = parse_projectiles(pblob)
 
     # index projectile rows by normalised ammo name + velocity
     by_ammo: dict[str, list] = {}
@@ -414,6 +420,9 @@ def build() -> None:
 
     rows = []
     unmatched = []
+    # Weapons whose fingerprint fitted more than one projectile row. Taking the
+    # first would be a guess, so they are reported instead of mapped.
+    ambiguous: list[tuple[str, str, list]] = []
     for f in sorted(CACHE.glob("*.json")):
         data = json.loads(f.read_text(encoding="utf-8"))
         title = data["title"]
@@ -477,6 +486,22 @@ def build() -> None:
                 return False
             return True
 
+        # A fingerprint with no damage fields is not a fingerprint.
+        #
+        # P-11 Stim Pistol's page documents a velocity and an ammo name and
+        # nothing else - it is a healing weapon and deals no damage, so the wiki
+        # has no damage row to print. That leaves velocity as the only
+        # constraint, and 16 projectile rows share 300 m/s, reaching 8 different
+        # damage rows. Any of them "matches", so the tool would have picked one
+        # arbitrarily and offered to edit a number that has nothing to do with
+        # the weapon.
+        #
+        # Such a page cannot identify a damage row and must not pretend to:
+        # matching it would be a guess dressed up as a result.
+        fingerprint_usable = any(
+            parsed.get(k) is not None for k in ("standard", "durable", "ap_direct")
+        )
+
         match, how = None, None
         # Explosion-only page (no projectile table at all): thrown grenades like
         # G-12 High Explosive and TED-63 Dynamite. There is no projectile to key
@@ -517,6 +542,28 @@ def build() -> None:
                 et = projectile_explosion(pblob, p.row)
                 if et is None or et not in table:
                     continue
+                # VELOCITY IS PART OF THE FINGERPRINT.
+                #
+                # Radii alone are not unique. EAT-17 and GR-8 Recoilless Rifle
+                # have the SAME explosion radii (1.5 / 3.0 / 6.0) and the same
+                # explosion AP, and differ only in muzzle velocity (200 vs
+                # 250 m/s) and in the damage they deal (2000 vs 3200). Matching
+                # on radii took the first row that fitted, so GR-8 was mapped to
+                # EAT-17's projectile row - and because a shared row is exactly
+                # what the GUI warns about, the tool then told the user GR-8's
+                # edits would affect EAT-17, when in truth they were editing the
+                # wrong weapon's data outright.
+                #
+                # LAS-99 Quasar Cannon landed on the same row the same way (it is
+                # a laser, 1300 m/s).
+                #
+                # The wiki documents a velocity for these pages, and the game
+                # stores it per projectile, so requiring agreement costs nothing
+                # and removes the whole class of collision. When the wiki gives
+                # no velocity the constraint is skipped, which keeps pages that
+                # only carry an explosion table matchable.
+                if parsed.get("velocity") is not None and abs(p.speed - parsed["velocity"]) >= 0.5:
+                    continue
                 e = table[et]
                 if exp.get("inner_radius") is not None and abs(e.inner_radius - exp["inner_radius"]) > 0.01:
                     continue
@@ -534,20 +581,47 @@ def build() -> None:
                 match, how = p, "explosion"
                 break
 
-        if match is None:
-            for p in cands:
-                if fingerprint_ok(p):
-                    match, how = p, "name+stats"
-                    break
-        if match is None:
+        # A match is only usable if it is UNIQUE.
+        #
+        # Taking the first candidate that satisfies the fingerprint is how GR-8
+        # ended up on EAT-17's row: two rows fitted and the loop kept the first.
+        # Where several rows fit, the choice is a guess, and a guess here means
+        # editing another weapon's damage - the failure this tool exists to
+        # avoid. Reporting the ambiguity is the honest outcome: the weapon shows
+        # up as unmatched and the GUI never offers it.
+        #
+        # What counts as ambiguous is whether the candidates reach the SAME
+        # DAMAGE ROW, not whether they are the same projectile row. The game
+        # ships duplicate projectile entries that differ only in a field the
+        # tool never touches (AR-23P: rows 198 and 199 are identical, both
+        # pointing at damage row 101). Either one is correct there, so rejecting
+        # them would drop a weapon for no reason. P-113 Verdict is the opposite
+        # case: rows 180 and 187 both read 140/32 AP3 at 285 m/s but reach
+        # damage rows 87 and 92 - different rows, same numbers, and no way to
+        # tell which the weapon uses.
+        def unique_match(pool, how_label):
+            hits = [p for p in pool if fingerprint_ok(p)]
+            if not hits:
+                return None, None, []
+            targets = {p.damage_position for p in hits}
+            if len(targets) > 1:
+                return None, None, hits
+            # Same damage row through several projectile entries: take the first,
+            # they are interchangeable for this tool's purpose.
+            return hits[0], how_label, []
+
+        if match is None and fingerprint_usable:
+            match, how, hits = unique_match(cands, "name+stats")
+            if hits:
+                ambiguous.append((title, "name+stats", [(p.row, p.speed) for p in hits]))
+        if match is None and fingerprint_usable:
             # The game record may carry no ammo name at all (BR-14's row 232),
             # so fall back to the fingerprint over every projectile. This is not
             # a weaker check - it is the same four-field test, just without the
             # name constraint.
-            for p in projectiles:
-                if fingerprint_ok(p):
-                    match, how = p, "stats-only"
-                    break
+            match, how, hits = unique_match(projectiles, "stats-only")
+            if hits:
+                ambiguous.append((title, "stats-only", [(p.row, p.speed) for p in hits]))
         if match is None and parsed.get("arc"):
             # Arc weapons: match the arc table's damage/durable/AP against a
             # damage row directly (there is no projectile to key on).
@@ -710,6 +784,32 @@ def build() -> None:
             "verified": all(checks.values()),
         })
 
+    return {
+        r["page"]: r for r in rows
+    } | {"__unmatched": unmatched, "__ambiguous": ambiguous}
+
+
+def build() -> None:
+    """Match every wiki page, annotate exclusivity, and write the map."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    from build_map import (parse_projectiles, parse_damages, assert_exclusive,
+                           resolve_damage_positions)
+
+    dblob = (ROOT / "data/raw/generated_damage_settings.dl_bin").read_bytes()
+    pblob = (ROOT / "data/raw/generated_projectile_settings.dl_bin").read_bytes()
+    damages = parse_damages(dblob)
+    projectiles = parse_projectiles(pblob)
+    # The projectile's +60 is a damage-type ID; the damage table is indexed by
+    # position. Without this step every weapon whose id differs from its position
+    # (519 of 634 rows) resolves to a different weapon's damage row.
+    for note in resolve_damage_positions(projectiles, damages):
+        print(f"  note: {note}")
+
+    matched = match_all(pblob, damages, projectiles)
+    unmatched = matched.pop("__unmatched", [])
+    ambiguous = matched.pop("__ambiguous", [])
+    rows = list(matched.values())
+
     out = ROOT / "data" / "weapon_names.json"
 
     # Annotate exclusivity. A damage row can serve several weapons (verified: the
@@ -774,6 +874,11 @@ def build() -> None:
         print(f"  MISMATCH {r['page']}: {r['checks']}")
     for t, why in unmatched[:10]:
         print(f"  unmatched {t}: {why}")
+    if ambiguous:
+        print(f"  ambiguous (fingerprint fitted several rows, left unmapped): "
+              f"{len(ambiguous)}")
+        for t, how, hits in ambiguous[:15]:
+            print(f"    {t} [{how}]: rows {hits}")
     print(f"wrote {out}")
 
 

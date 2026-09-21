@@ -83,7 +83,12 @@ def main() -> int:
     row = delta // stride
     check(f"row index is in range (row {row} of {count})", 0 <= row < count, f"row {row}")
 
-    parsed = build_map.parse_projectiles(pblob)[row]
+    # parse_projectiles alone leaves `damage_position` unset: turning the id into
+    # a row needs the damage table, which is parsed further down. The two steps
+    # are separate on purpose, so a caller cannot accidentally use an unresolved
+    # id as if it were a row index.
+    projectiles = build_map.parse_projectiles(pblob)
+    parsed = projectiles[row]
     base = pb["baseline"]
     check("speed matches Codex baseline", parsed.speed == base["speed"],
           f"{parsed.speed} vs {base['speed']}")
@@ -91,9 +96,15 @@ def main() -> int:
           f"{parsed.mass} vs {base['mass']}")
     check("calibre matches Codex baseline", parsed.calibre == base["calibre"],
           f"{parsed.calibre} vs {base['calibre']}")
-    check("damage_info_type matches Codex baseline",
-          parsed.damage_position == base["damage_info_type"],
-          f"{parsed.damage_position} vs {base['damage_info_type']}")
+    # Codex's field is literally `damage_info_type`, and its value is the raw
+    # number stored at +60 - an ID, not an array index. This assertion compares
+    # against that raw value, so it must use `damage_type`. Comparing
+    # `damage_position` here is what would have caught the id/position mix-up
+    # earlier: the two differ on most rows, and this is the one test that has an
+    # outside source (Codex's own baseline) to check against.
+    check("the raw +60 value matches Codex's damage_info_type",
+          parsed.damage_type == base["damage_info_type"],
+          f"{parsed.damage_type} vs {base['damage_info_type']}")
     check("projectile_type matches Codex baseline",
           struct.unpack_from("<i", pblob, arr + row * stride)[0] == base["projectile_type"])
 
@@ -102,6 +113,21 @@ def main() -> int:
     damages = build_map.parse_damages(
         (ROOT / "data" / "raw" / "generated_damage_settings.dl_bin").read_bytes()
     )
+    # Resolve the id to a row now that the table exists. This is the step whose
+    # absence was the bug: `damage_info_type` is an ID, and using it as an index
+    # picks a different weapon's row on every row where id != position.
+    build_map.resolve_damage_positions(projectiles, damages)
+    check("damage_info_type resolves to a real row",
+          parsed.damage_position is not None,
+          f"id {parsed.damage_type} resolves to no row")
+    # Codex's baseline is an outside source: if the id->row conversion were
+    # wrong, the row reached here would not hold the values Codex recorded.
+    check("the resolved row is the one Codex documents",
+          parsed.damage_position is not None
+          and damages[parsed.damage_position].damage == mod["damage_baseline"]["normal"],
+          f"row {parsed.damage_position} holds "
+          f"{damages[parsed.damage_position].damage if parsed.damage_position is not None else '—'}"
+          f" vs Codex {mod['damage_baseline']['normal']}")
     d = damages[parsed.damage_position]
     db = mod["damage_baseline"]
     check("damage normal matches", d.damage == db["normal"], f"{d.damage} vs {db['normal']}")

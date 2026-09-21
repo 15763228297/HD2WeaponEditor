@@ -67,18 +67,34 @@ PROJECTILE_OFF_DAMAGE_INFO_TYPE = 60
 PROJECTILE_ARRAY_OFFSET = 0x1C  # data start of item 0
 PROJECTILE_ARRAY_COUNT = 343
 
+# Values at +60 that cannot be a damage-type id, because no row carries them.
+#
+# The damage table's ids start at 4 (rows 0..3 hold ids 4..19), so 1/2/3 are not
+# ids at all. They appear on six projectile rows, all of them flame weapons
+# (Flamethrower, Torcher, Crisper, Cremator, Stoker, Dog Breath). Flame weapons
+# do not deal their damage through a damage row the way a bullet does - they
+# apply a burning STATUS, and the status carries the damage. So these rows
+# reference a status id in the same slot rather than a damage id.
+#
+# They are recorded as `damage_type = None` rather than guessed at: a wrong
+# damage row is worse than no row, because the editor would offer to change
+# numbers that have nothing to do with the weapon.
+PROJECTILE_STATUS_SENTINELS = {1, 2, 3}
+
 
 @dataclass
 class Projectile:
     """One projectile record.
 
-    `damage_position` is the **position** (array index, 0..633) of the damage
-    row this projectile uses. The field was called `damage_index` for a while,
-    which collided with the identically-named but differently-meaning
-    `damage_index` in `weapon_names.json` (a type_id). Two numbering schemes
-    under one name is how the generator ended up editing the wrong row for 50
-    weapons while every test passed: the test targets happened to be rows where
-    the two numbers coincide.
+    `damage_type` is the **damage-type id** stored at +60 - the same enum value
+    the damage table keeps at each row's +0 - and `damage_position` is that row's
+    array index, or None when the id resolves to no row.
+
+    Both are carried because they mean different things and the distinction has
+    already caused one shipped bug. The field is literally named
+    `damage_info_type`: it is an id, not an index. Reading it as an index picks a
+    row whose id happens to equal the number - which is a different weapon's
+    damage whenever id != position, and 519 of 634 rows are in that state.
     """
 
     row: int
@@ -86,14 +102,19 @@ class Projectile:
     calibre: float
     speed: float
     mass: float
-    damage_position: int
+    damage_type: int
+    damage_position: int | None
 
     def as_dict(self) -> dict:
         return asdict(self)
 
 
 def parse_projectiles(blob: bytes) -> list[Projectile]:
-    """Decode the projectile table."""
+    """Decode the projectile table.
+
+    `damage_position` is resolved by the caller, which is the only place that
+    knows the damage table; this function records the raw id it reads.
+    """
     off, count = struct.unpack_from("<QQ", blob, PROJECTILE_ARRAY_OFFSET)
     arr = PROJECTILE_ARRAY_OFFSET + off
     avail = len(blob) - arr
@@ -105,6 +126,9 @@ def parse_projectiles(blob: bytes) -> list[Projectile]:
     out = []
     for i in range(count):
         base = arr + i * PROJECTILE_RECORD_SIZE
+        raw_type = struct.unpack_from(
+            "<i", blob, base + PROJECTILE_OFF_DAMAGE_INFO_TYPE
+        )[0]
         out.append(
             Projectile(
                 row=i,
@@ -112,12 +136,54 @@ def parse_projectiles(blob: bytes) -> list[Projectile]:
                 calibre=struct.unpack_from("<f", blob, base + PROJECTILE_OFF_CALIBRE)[0],
                 speed=struct.unpack_from("<f", blob, base + PROJECTILE_OFF_SPEED)[0],
                 mass=struct.unpack_from("<f", blob, base + PROJECTILE_OFF_MASS)[0],
-                damage_position=struct.unpack_from(
-                    "<i", blob, base + PROJECTILE_OFF_DAMAGE_INFO_TYPE
-                )[0],
+                damage_type=raw_type,
+                # Filled in by resolve_damage_positions once the damage table is
+                # available. None means "this row does not reference a damage
+                # row" - either a status sentinel (flame weapons) or an id the
+                # table does not contain.
+                damage_position=None,
             )
         )
     return out
+
+
+def resolve_damage_positions(
+    projectiles: list[Projectile], damages: dict[int, "DamageInfo"]
+) -> list[str]:
+    """Turn each projectile's damage-type id into the row it addresses.
+
+    The projectile field is an ID; the damage table is indexed by POSITION. The
+    two are different numbering schemes - ids run 4..639, positions 0..633, and
+    519 of 634 rows have id != position - so a lookup that skips this step picks
+    whichever row happens to sit at that index, i.e. a different weapon's damage.
+
+    Returns a list of human-readable notes for the rows that could not be
+    resolved, so a caller can report them instead of silently dropping them.
+    """
+    by_type: dict[int, int] = {}
+    for position, damage in damages.items():
+        by_type.setdefault(damage.type_id, position)
+
+    notes: list[str] = []
+    for p in projectiles:
+        if p.damage_type in PROJECTILE_STATUS_SENTINELS:
+            # Not an id: flame weapons apply a burning status and the status
+            # carries the damage, so this slot holds a status reference. Left as
+            # None on purpose - pointing it at "the row numbered 2" would be a
+            # fabricated mapping.
+            notes.append(
+                f"projectile {p.row}: +60={p.damage_type} is a status reference "
+                f"(flame weapon), not a damage row"
+            )
+            continue
+        position = by_type.get(p.damage_type)
+        if position is None:
+            notes.append(
+                f"projectile {p.row}: damage type {p.damage_type} has no row"
+            )
+            continue
+        p.damage_position = position
+    return notes
 
 
 def parse_damages(blob: bytes) -> dict[int, DamageInfo]:
@@ -198,9 +264,18 @@ def assert_exclusive(projectiles: list[Projectile], damage_index: int) -> int:
 def build(
     damage_path: str | Path, projectile_path: str | Path
 ) -> tuple[dict[int, DamageInfo], list[Projectile]]:
+    """Parse both tables and resolve each projectile's damage-type id to a row.
+
+    The resolution step belongs here rather than in `parse_projectiles`, because
+    it needs the damage table to exist first - and a projectile parsed on its own
+    can only report the id it read, not the row that id addresses.
+    """
     dblob = Path(damage_path).read_bytes()
     pblob = Path(projectile_path).read_bytes()
-    return parse_damages(dblob), parse_projectiles(pblob)
+    damages = parse_damages(dblob)
+    projectiles = parse_projectiles(pblob)
+    resolve_damage_positions(projectiles, damages)
+    return damages, projectiles
 
 
 if __name__ == "__main__":
