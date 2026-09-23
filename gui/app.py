@@ -183,7 +183,33 @@ def api_weapons():
         "weapons": out,
         "shared_rows": data.get("shared_damage_rows", {}),
         "unmatched": data.get("unmatched", []),
+        # Whether this data still describes the installed game build. A stale
+        # map is not an error the tool can fix, but it is the difference between
+        # "the mod did nothing" and "the mod cannot work on this build" - so the
+        # UI says which one it is before the user spends a game launch on it.
+        "build": _build_status(),
     })
+
+
+def _build_status() -> dict:
+    """Compare the data's recorded game build against the installed one.
+
+    Never raises: a failure to determine the build must not stop the tool from
+    listing weapons. An unknown status is reported as unknown.
+    """
+    try:
+        import build_fingerprint
+
+        result = build_fingerprint.check()
+        return {
+            "status": result.get("status", "unknown"),
+            "message": result.get("message", ""),
+            "data_version": (result.get("recorded") or {}).get("exe_version"),
+            "game_version": (result.get("installed") or {}).get("exe_version"),
+        }
+    except Exception as exc:  # noqa: BLE001 - reported, never fatal
+        return {"status": "unknown", "message": f"无法确认数据对应的游戏版本：{exc}",
+                "data_version": None, "game_version": None}
 
 
 @app.route("/api/generate", methods=["POST"])

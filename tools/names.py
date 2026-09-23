@@ -33,7 +33,9 @@ import json
 import struct
 from pathlib import Path
 
-from build_map import PROJECTILE_ARRAY_OFFSET, PROJECTILE_RECORD_SIZE
+import dlbin_tables
+
+PROJECTILE_RECORD_SIZE = dlbin_tables.PROJECTILE_RECORD_SIZE
 
 # Offset inside a projectile record holding the string-table key for its name.
 PROJECTILE_OFF_NAME = 8
@@ -46,12 +48,11 @@ def load_strings(path: str | Path) -> dict[str, str]:
 
 def projectile_name(blob: bytes, row: int, strings: dict[str, str]) -> str | None:
     """Return the ammo display name for a projectile row, or None."""
-    base = PROJECTILE_ARRAY_OFFSET
-    off, count = struct.unpack_from("<QQ", blob, base)
-    arr = base + off
-    if not 0 <= row < count:
-        raise IndexError(f"projectile row {row} out of range (0..{count - 1})")
-    key = struct.unpack_from("<i", blob, arr + row * PROJECTILE_RECORD_SIZE + PROJECTILE_OFF_NAME)[0]
+    rows = dlbin_tables.parse_projectiles(blob)
+    if not 0 <= row < len(rows):
+        raise IndexError(f"projectile row {row} out of range (0..{len(rows) - 1})")
+    # The string key is the *cased* name hash at +8; +4 holds the upper-case one.
+    key = rows[row]["name_cased"]
     return strings.get(str(key))
 
 

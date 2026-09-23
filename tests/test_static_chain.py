@@ -27,6 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 
+import dlbin_tables  # noqa: E402,F401  (kept for the layout constants it owns)
 from ljcompile import LuaJIT  # noqa: E402
 
 MODULE_BASE = 0x7FF000000000
@@ -34,8 +35,22 @@ MODULE_SIZE = 0x3000000          # 48 MB: must cover the route rva 0x2ac7cb0
 ARRAY_BASE = 0x1A2B0000
 ROUTE_ARRAY_RVA = 0x2AC7CB0      # -> array_start
 ROUTE_TABLE_RVA = 0x2791748      # -> table_base (container)
-ARRAY_START = 0x1E0
-RECORD_SIZE = 76
+# Read from the module under test rather than repeated here: this test builds a
+# synthetic memory image whose addresses must agree with what 16_static_chain.lua
+# computes, so a stale copy of the constant here would make the arithmetic
+# disagree with the shipped code and the test would pass while the mod was wrong.
+# It also fails loudly if the module stops exporting it.
+def _module_constant(name: str, fallback: int) -> int:
+    src = (ROOT / "mod_template" / "src" / "16_static_chain.lua").read_text(
+        encoding="utf-8")
+    for line in src.splitlines():
+        if line.startswith(f"M.{name} ="):
+            return int(line.split("=", 1)[1].strip(), 0)
+    return fallback
+
+
+ARRAY_START = _module_constant("ARRAY_START", 100)
+RECORD_SIZE = _module_constant("RECORD_SIZE", 76)
 POSITION = 137
 
 failures = 0

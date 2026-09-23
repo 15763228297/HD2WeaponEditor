@@ -1,6 +1,176 @@
 [
  {
   "index": 0,
+  "type_id": 1,
+  "damage": 50,
+  "durable_damage": 50,
+  "armor_penetration_per_angle": [
+   5,
+   5,
+   5,
+   0
+  ],
+  "demolition_strength": 0,
+  "force_strength": 20,
+  "force_impulse": 10,
+  "element_type": 3,
+  "status_effects": [
+   [
+    10,
+    50.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 1,
+  "type_id": 579,
+  "damage": 45,
+  "durable_damage": 45,
+  "armor_penetration_per_angle": [
+   4,
+   4,
+   4,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 5,
+  "force_impulse": 5,
+  "element_type": 1,
+  "status_effects": [
+   [
+    5,
+    3.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 2,
+  "type_id": 286,
+  "damage": 0,
+  "durable_damage": 0,
+  "armor_penetration_per_angle": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 0,
+  "force_strength": 40,
+  "force_impulse": 20,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 3,
+  "type_id": 2,
+  "damage": 60,
+  "durable_damage": 60,
+  "armor_penetration_per_angle": [
+   5,
+   5,
+   5,
+   0
+  ],
+  "demolition_strength": 20,
+  "force_strength": 20,
+  "force_impulse": 10,
+  "element_type": 3,
+  "status_effects": [
+   [
+    10,
+    100.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 4,
+  "type_id": 3,
+  "damage": 35,
+  "durable_damage": 35,
+  "armor_penetration_per_angle": [
+   5,
+   5,
+   5,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 20,
+  "force_impulse": 10,
+  "element_type": 3,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 5,
   "type_id": 4,
   "damage": 50,
   "durable_damage": 50,
@@ -34,7 +204,7 @@
   ]
  },
  {
-  "index": 1,
+  "index": 6,
   "type_id": 5,
   "damage": 15,
   "durable_damage": 15,
@@ -68,7 +238,7 @@
   ]
  },
  {
-  "index": 2,
+  "index": 7,
   "type_id": 18,
   "damage": 80,
   "durable_damage": 80,
@@ -102,7 +272,7 @@
   ]
  },
  {
-  "index": 3,
+  "index": 8,
   "type_id": 19,
   "damage": 50,
   "durable_damage": 50,
@@ -136,8 +306,8 @@
   ]
  },
  {
-  "index": 4,
-  "type_id": 337,
+  "index": 9,
+  "type_id": 343,
   "damage": 20,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -170,7 +340,7 @@
   ]
  },
  {
-  "index": 5,
+  "index": 10,
   "type_id": 20,
   "damage": 80,
   "durable_damage": 120,
@@ -204,7 +374,7 @@
   ]
  },
  {
-  "index": 6,
+  "index": 11,
   "type_id": 21,
   "damage": 100,
   "durable_damage": 150,
@@ -238,7 +408,7 @@
   ]
  },
  {
-  "index": 7,
+  "index": 12,
   "type_id": 6,
   "damage": 4,
   "durable_damage": 4,
@@ -272,7 +442,7 @@
   ]
  },
  {
-  "index": 8,
+  "index": 13,
   "type_id": 7,
   "damage": 60,
   "durable_damage": 45,
@@ -306,7 +476,7 @@
   ]
  },
  {
-  "index": 9,
+  "index": 14,
   "type_id": 8,
   "damage": 30,
   "durable_damage": 100,
@@ -340,7 +510,7 @@
   ]
  },
  {
-  "index": 10,
+  "index": 15,
   "type_id": 9,
   "damage": 35,
   "durable_damage": 6,
@@ -374,8 +544,8 @@
   ]
  },
  {
-  "index": 11,
-  "type_id": 215,
+  "index": 16,
+  "type_id": 221,
   "damage": 45,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -408,7 +578,7 @@
   ]
  },
  {
-  "index": 12,
+  "index": 17,
   "type_id": 10,
   "damage": 30,
   "durable_damage": 6,
@@ -442,7 +612,7 @@
   ]
  },
  {
-  "index": 13,
+  "index": 18,
   "type_id": 11,
   "damage": 40,
   "durable_damage": 40,
@@ -476,7 +646,7 @@
   ]
  },
  {
-  "index": 14,
+  "index": 19,
   "type_id": 12,
   "damage": 12,
   "durable_damage": 3,
@@ -510,7 +680,7 @@
   ]
  },
  {
-  "index": 15,
+  "index": 20,
   "type_id": 14,
   "damage": 2,
   "durable_damage": 2,
@@ -544,7 +714,7 @@
   ]
  },
  {
-  "index": 16,
+  "index": 21,
   "type_id": 13,
   "damage": 20,
   "durable_damage": 6,
@@ -578,7 +748,7 @@
   ]
  },
  {
-  "index": 17,
+  "index": 22,
   "type_id": 17,
   "damage": 3,
   "durable_damage": 3,
@@ -612,7 +782,7 @@
   ]
  },
  {
-  "index": 18,
+  "index": 23,
   "type_id": 15,
   "damage": 2,
   "durable_damage": 2,
@@ -646,7 +816,7 @@
   ]
  },
  {
-  "index": 19,
+  "index": 24,
   "type_id": 16,
   "damage": 2,
   "durable_damage": 2,
@@ -680,7 +850,7 @@
   ]
  },
  {
-  "index": 20,
+  "index": 25,
   "type_id": 24,
   "damage": 20,
   "durable_damage": 20,
@@ -714,7 +884,7 @@
   ]
  },
  {
-  "index": 21,
+  "index": 26,
   "type_id": 25,
   "damage": 0,
   "durable_damage": 0,
@@ -748,7 +918,7 @@
   ]
  },
  {
-  "index": 22,
+  "index": 27,
   "type_id": 26,
   "damage": 50,
   "durable_damage": 50,
@@ -782,7 +952,7 @@
   ]
  },
  {
-  "index": 23,
+  "index": 28,
   "type_id": 27,
   "damage": 1000,
   "durable_damage": 1000,
@@ -816,7 +986,7 @@
   ]
  },
  {
-  "index": 24,
+  "index": 29,
   "type_id": 28,
   "damage": 1,
   "durable_damage": 1,
@@ -850,7 +1020,7 @@
   ]
  },
  {
-  "index": 25,
+  "index": 30,
   "type_id": 29,
   "damage": 1,
   "durable_damage": 1,
@@ -884,7 +1054,7 @@
   ]
  },
  {
-  "index": 26,
+  "index": 31,
   "type_id": 30,
   "damage": 0,
   "durable_damage": 0,
@@ -918,7 +1088,7 @@
   ]
  },
  {
-  "index": 27,
+  "index": 32,
   "type_id": 31,
   "damage": 150,
   "durable_damage": 150,
@@ -952,7 +1122,7 @@
   ]
  },
  {
-  "index": 28,
+  "index": 33,
   "type_id": 32,
   "damage": 20,
   "durable_damage": 2,
@@ -986,8 +1156,42 @@
   ]
  },
  {
-  "index": 29,
+  "index": 34,
   "type_id": 33,
+  "damage": 50,
+  "durable_damage": 2,
+  "armor_penetration_per_angle": [
+   3,
+   3,
+   3,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 30,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 35,
+  "type_id": 34,
   "damage": 5,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -1020,8 +1224,8 @@
   ]
  },
  {
-  "index": 30,
-  "type_id": 266,
+  "index": 36,
+  "type_id": 272,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -1054,8 +1258,8 @@
   ]
  },
  {
-  "index": 31,
-  "type_id": 34,
+  "index": 37,
+  "type_id": 35,
   "damage": 10,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -1088,8 +1292,8 @@
   ]
  },
  {
-  "index": 32,
-  "type_id": 35,
+  "index": 38,
+  "type_id": 36,
   "damage": 40,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -1122,8 +1326,8 @@
   ]
  },
  {
-  "index": 33,
-  "type_id": 36,
+  "index": 39,
+  "type_id": 37,
   "damage": 40,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -1156,8 +1360,8 @@
   ]
  },
  {
-  "index": 34,
-  "type_id": 37,
+  "index": 40,
+  "type_id": 38,
   "damage": 30,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -1190,8 +1394,8 @@
   ]
  },
  {
-  "index": 35,
-  "type_id": 38,
+  "index": 41,
+  "type_id": 39,
   "damage": 110,
   "durable_damage": 140,
   "armor_penetration_per_angle": [
@@ -1224,8 +1428,8 @@
   ]
  },
  {
-  "index": 36,
-  "type_id": 216,
+  "index": 42,
+  "type_id": 222,
   "damage": 65,
   "durable_damage": 65,
   "armor_penetration_per_angle": [
@@ -1258,8 +1462,8 @@
   ]
  },
  {
-  "index": 37,
-  "type_id": 217,
+  "index": 43,
+  "type_id": 223,
   "damage": 10,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -1292,8 +1496,8 @@
   ]
  },
  {
-  "index": 38,
-  "type_id": 395,
+  "index": 44,
+  "type_id": 404,
   "damage": 30,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -1326,8 +1530,8 @@
   ]
  },
  {
-  "index": 39,
-  "type_id": 39,
+  "index": 45,
+  "type_id": 40,
   "damage": 35,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -1360,8 +1564,8 @@
   ]
  },
  {
-  "index": 40,
-  "type_id": 40,
+  "index": 46,
+  "type_id": 41,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -1394,8 +1598,8 @@
   ]
  },
  {
-  "index": 41,
-  "type_id": 41,
+  "index": 47,
+  "type_id": 42,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -1428,8 +1632,8 @@
   ]
  },
  {
-  "index": 42,
-  "type_id": 42,
+  "index": 48,
+  "type_id": 43,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -1462,8 +1666,8 @@
   ]
  },
  {
-  "index": 43,
-  "type_id": 43,
+  "index": 49,
+  "type_id": 44,
   "damage": 30,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -1496,8 +1700,8 @@
   ]
  },
  {
-  "index": 44,
-  "type_id": 44,
+  "index": 50,
+  "type_id": 45,
   "damage": 10,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -1530,8 +1734,8 @@
   ]
  },
  {
-  "index": 45,
-  "type_id": 45,
+  "index": 51,
+  "type_id": 46,
   "damage": 10,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -1564,8 +1768,8 @@
   ]
  },
  {
-  "index": 46,
-  "type_id": 46,
+  "index": 52,
+  "type_id": 47,
   "damage": 60,
   "durable_damage": 60,
   "armor_penetration_per_angle": [
@@ -1598,8 +1802,8 @@
   ]
  },
  {
-  "index": 47,
-  "type_id": 47,
+  "index": 53,
+  "type_id": 48,
   "damage": 60,
   "durable_damage": 6,
   "armor_penetration_per_angle": [
@@ -1632,8 +1836,42 @@
   ]
  },
  {
-  "index": 48,
-  "type_id": 48,
+  "index": 54,
+  "type_id": 49,
+  "damage": 80,
+  "durable_damage": 4,
+  "armor_penetration_per_angle": [
+   3,
+   3,
+   3,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 10,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 55,
+  "type_id": 50,
   "damage": 55,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -1666,76 +1904,76 @@
   ]
  },
  {
-  "index": 49,
-  "type_id": 49,
-  "damage": 70,
-  "durable_damage": 7,
-  "armor_penetration_per_angle": [
-   3,
-   3,
-   3,
-   0
-  ],
-  "demolition_strength": 10,
-  "force_strength": 10,
-  "force_impulse": 10,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 50,
-  "type_id": 50,
-  "damage": 70,
-  "durable_damage": 7,
-  "armor_penetration_per_angle": [
-   4,
-   4,
-   4,
-   0
-  ],
-  "demolition_strength": 10,
-  "force_strength": 10,
-  "force_impulse": 10,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 51,
+  "index": 56,
   "type_id": 51,
+  "damage": 70,
+  "durable_damage": 7,
+  "armor_penetration_per_angle": [
+   3,
+   3,
+   3,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 10,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 57,
+  "type_id": 52,
+  "damage": 70,
+  "durable_damage": 7,
+  "armor_penetration_per_angle": [
+   4,
+   4,
+   4,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 10,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 58,
+  "type_id": 53,
   "damage": 50,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -1768,8 +2006,8 @@
   ]
  },
  {
-  "index": 52,
-  "type_id": 52,
+  "index": 59,
+  "type_id": 54,
   "damage": 200,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -1802,76 +2040,76 @@
   ]
  },
  {
-  "index": 53,
-  "type_id": 53,
-  "damage": 100,
-  "durable_damage": 50,
-  "armor_penetration_per_angle": [
-   2,
-   2,
-   2,
-   0
-  ],
-  "demolition_strength": 10,
-  "force_strength": 20,
-  "force_impulse": 10,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 54,
-  "type_id": 54,
-  "damage": 100,
-  "durable_damage": 50,
-  "armor_penetration_per_angle": [
-   2,
-   2,
-   2,
-   0
-  ],
-  "demolition_strength": 10,
-  "force_strength": 20,
-  "force_impulse": 10,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 55,
+  "index": 60,
   "type_id": 55,
+  "damage": 100,
+  "durable_damage": 50,
+  "armor_penetration_per_angle": [
+   2,
+   2,
+   2,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 20,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 61,
+  "type_id": 56,
+  "damage": 100,
+  "durable_damage": 50,
+  "armor_penetration_per_angle": [
+   2,
+   2,
+   2,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 20,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 62,
+  "type_id": 57,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -1904,8 +2142,8 @@
   ]
  },
  {
-  "index": 56,
-  "type_id": 56,
+  "index": 63,
+  "type_id": 58,
   "damage": 400,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -1938,8 +2176,8 @@
   ]
  },
  {
-  "index": 57,
-  "type_id": 57,
+  "index": 64,
+  "type_id": 59,
   "damage": 400,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -1972,8 +2210,8 @@
   ]
  },
  {
-  "index": 58,
-  "type_id": 58,
+  "index": 65,
+  "type_id": 60,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -2006,8 +2244,8 @@
   ]
  },
  {
-  "index": 59,
-  "type_id": 59,
+  "index": 66,
+  "type_id": 61,
   "damage": 800,
   "durable_damage": 800,
   "armor_penetration_per_angle": [
@@ -2040,8 +2278,8 @@
   ]
  },
  {
-  "index": 60,
-  "type_id": 60,
+  "index": 67,
+  "type_id": 62,
   "damage": 150,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -2074,8 +2312,8 @@
   ]
  },
  {
-  "index": 61,
-  "type_id": 61,
+  "index": 68,
+  "type_id": 63,
   "damage": 200,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -2108,8 +2346,8 @@
   ]
  },
  {
-  "index": 62,
-  "type_id": 62,
+  "index": 69,
+  "type_id": 64,
   "damage": 600,
   "durable_damage": 225,
   "armor_penetration_per_angle": [
@@ -2142,8 +2380,8 @@
   ]
  },
  {
-  "index": 63,
-  "type_id": 63,
+  "index": 70,
+  "type_id": 65,
   "damage": 650,
   "durable_damage": 275,
   "armor_penetration_per_angle": [
@@ -2176,8 +2414,8 @@
   ]
  },
  {
-  "index": 64,
-  "type_id": 64,
+  "index": 71,
+  "type_id": 66,
   "damage": 3,
   "durable_damage": 3,
   "armor_penetration_per_angle": [
@@ -2210,8 +2448,8 @@
   ]
  },
  {
-  "index": 65,
-  "type_id": 65,
+  "index": 72,
+  "type_id": 67,
   "damage": 60,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -2244,8 +2482,76 @@
   ]
  },
  {
-  "index": 66,
-  "type_id": 66,
+  "index": 73,
+  "type_id": 68,
+  "damage": 60,
+  "durable_damage": 0,
+  "armor_penetration_per_angle": [
+   4,
+   4,
+   3,
+   0
+  ],
+  "demolition_strength": 15,
+  "force_strength": 10,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 74,
+  "type_id": 69,
+  "damage": 1940,
+  "durable_damage": 0,
+  "armor_penetration_per_angle": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 0,
+  "force_strength": 0,
+  "force_impulse": 0,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 75,
+  "type_id": 70,
   "damage": 600,
   "durable_damage": 120,
   "armor_penetration_per_angle": [
@@ -2278,8 +2584,8 @@
   ]
  },
  {
-  "index": 67,
-  "type_id": 67,
+  "index": 76,
+  "type_id": 71,
   "damage": 90,
   "durable_damage": 18,
   "armor_penetration_per_angle": [
@@ -2312,8 +2618,8 @@
   ]
  },
  {
-  "index": 68,
-  "type_id": 68,
+  "index": 77,
+  "type_id": 72,
   "damage": 60,
   "durable_damage": 18,
   "armor_penetration_per_angle": [
@@ -2346,8 +2652,8 @@
   ]
  },
  {
-  "index": 69,
-  "type_id": 69,
+  "index": 78,
+  "type_id": 73,
   "damage": 70,
   "durable_damage": 12,
   "armor_penetration_per_angle": [
@@ -2380,8 +2686,8 @@
   ]
  },
  {
-  "index": 70,
-  "type_id": 70,
+  "index": 79,
+  "type_id": 74,
   "damage": 90,
   "durable_damage": 18,
   "armor_penetration_per_angle": [
@@ -2414,8 +2720,8 @@
   ]
  },
  {
-  "index": 71,
-  "type_id": 71,
+  "index": 80,
+  "type_id": 75,
   "damage": 100,
   "durable_damage": 32,
   "armor_penetration_per_angle": [
@@ -2448,8 +2754,8 @@
   ]
  },
  {
-  "index": 72,
-  "type_id": 72,
+  "index": 81,
+  "type_id": 76,
   "damage": 85,
   "durable_damage": 23,
   "armor_penetration_per_angle": [
@@ -2482,8 +2788,8 @@
   ]
  },
  {
-  "index": 73,
-  "type_id": 73,
+  "index": 82,
+  "type_id": 77,
   "damage": 65,
   "durable_damage": 13,
   "armor_penetration_per_angle": [
@@ -2516,8 +2822,8 @@
   ]
  },
  {
-  "index": 74,
-  "type_id": 74,
+  "index": 83,
+  "type_id": 78,
   "damage": 38,
   "durable_damage": 11,
   "armor_penetration_per_angle": [
@@ -2550,8 +2856,8 @@
   ]
  },
  {
-  "index": 75,
-  "type_id": 75,
+  "index": 84,
+  "type_id": 79,
   "damage": 83,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -2584,8 +2890,8 @@
   ]
  },
  {
-  "index": 76,
-  "type_id": 76,
+  "index": 85,
+  "type_id": 80,
   "damage": 38,
   "durable_damage": 3,
   "armor_penetration_per_angle": [
@@ -2618,8 +2924,8 @@
   ]
  },
  {
-  "index": 77,
-  "type_id": 77,
+  "index": 86,
+  "type_id": 81,
   "damage": 48,
   "durable_damage": 4,
   "armor_penetration_per_angle": [
@@ -2652,8 +2958,8 @@
   ]
  },
  {
-  "index": 78,
-  "type_id": 78,
+  "index": 87,
+  "type_id": 82,
   "damage": 70,
   "durable_damage": 21,
   "armor_penetration_per_angle": [
@@ -2686,8 +2992,8 @@
   ]
  },
  {
-  "index": 79,
-  "type_id": 79,
+  "index": 88,
+  "type_id": 83,
   "damage": 110,
   "durable_damage": 22,
   "armor_penetration_per_angle": [
@@ -2720,8 +3026,8 @@
   ]
  },
  {
-  "index": 80,
-  "type_id": 80,
+  "index": 89,
+  "type_id": 84,
   "damage": 80,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -2754,8 +3060,8 @@
   ]
  },
  {
-  "index": 81,
-  "type_id": 81,
+  "index": 90,
+  "type_id": 85,
   "damage": 73,
   "durable_damage": 7,
   "armor_penetration_per_angle": [
@@ -2788,8 +3094,8 @@
   ]
  },
  {
-  "index": 82,
-  "type_id": 82,
+  "index": 91,
+  "type_id": 86,
   "damage": 40,
   "durable_damage": 12,
   "armor_penetration_per_angle": [
@@ -2822,8 +3128,8 @@
   ]
  },
  {
-  "index": 83,
-  "type_id": 83,
+  "index": 92,
+  "type_id": 87,
   "damage": 99,
   "durable_damage": 9,
   "armor_penetration_per_angle": [
@@ -2856,8 +3162,8 @@
   ]
  },
  {
-  "index": 84,
-  "type_id": 84,
+  "index": 93,
+  "type_id": 88,
   "damage": 50,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -2890,8 +3196,8 @@
   ]
  },
  {
-  "index": 85,
-  "type_id": 85,
+  "index": 94,
+  "type_id": 89,
   "damage": 70,
   "durable_damage": 7,
   "armor_penetration_per_angle": [
@@ -2924,8 +3230,8 @@
   ]
  },
  {
-  "index": 86,
-  "type_id": 86,
+  "index": 95,
+  "type_id": 90,
   "damage": 85,
   "durable_damage": 17,
   "armor_penetration_per_angle": [
@@ -2958,8 +3264,8 @@
   ]
  },
  {
-  "index": 87,
-  "type_id": 87,
+  "index": 96,
+  "type_id": 91,
   "damage": 140,
   "durable_damage": 32,
   "armor_penetration_per_angle": [
@@ -2992,8 +3298,8 @@
   ]
  },
  {
-  "index": 88,
-  "type_id": 88,
+  "index": 97,
+  "type_id": 92,
   "damage": 105,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -3026,8 +3332,8 @@
   ]
  },
  {
-  "index": 89,
-  "type_id": 89,
+  "index": 98,
+  "type_id": 93,
   "damage": 125,
   "durable_damage": 28,
   "armor_penetration_per_angle": [
@@ -3060,8 +3366,8 @@
   ]
  },
  {
-  "index": 90,
-  "type_id": 90,
+  "index": 99,
+  "type_id": 94,
   "damage": 80,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -3094,8 +3400,8 @@
   ]
  },
  {
-  "index": 91,
-  "type_id": 91,
+  "index": 100,
+  "type_id": 95,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -3128,8 +3434,8 @@
   ]
  },
  {
-  "index": 92,
-  "type_id": 92,
+  "index": 101,
+  "type_id": 96,
   "damage": 140,
   "durable_damage": 32,
   "armor_penetration_per_angle": [
@@ -3162,8 +3468,8 @@
   ]
  },
  {
-  "index": 93,
-  "type_id": 93,
+  "index": 102,
+  "type_id": 97,
   "damage": 130,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -3196,8 +3502,8 @@
   ]
  },
  {
-  "index": 94,
-  "type_id": 94,
+  "index": 103,
+  "type_id": 98,
   "damage": 100,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -3230,8 +3536,8 @@
   ]
  },
  {
-  "index": 95,
-  "type_id": 95,
+  "index": 104,
+  "type_id": 99,
   "damage": 225,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -3264,8 +3570,8 @@
   ]
  },
  {
-  "index": 96,
-  "type_id": 96,
+  "index": 105,
+  "type_id": 100,
   "damage": 150,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -3298,8 +3604,8 @@
   ]
  },
  {
-  "index": 97,
-  "type_id": 97,
+  "index": 106,
+  "type_id": 101,
   "damage": 180,
   "durable_damage": 18,
   "armor_penetration_per_angle": [
@@ -3332,8 +3638,8 @@
   ]
  },
  {
-  "index": 98,
-  "type_id": 98,
+  "index": 107,
+  "type_id": 102,
   "damage": 200,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -3366,8 +3672,8 @@
   ]
  },
  {
-  "index": 99,
-  "type_id": 99,
+  "index": 108,
+  "type_id": 103,
   "damage": 340,
   "durable_damage": 110,
   "armor_penetration_per_angle": [
@@ -3400,8 +3706,8 @@
   ]
  },
  {
-  "index": 100,
-  "type_id": 100,
+  "index": 109,
+  "type_id": 104,
   "damage": 85,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -3434,8 +3740,8 @@
   ]
  },
  {
-  "index": 101,
-  "type_id": 101,
+  "index": 110,
+  "type_id": 105,
   "damage": 65,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -3468,8 +3774,8 @@
   ]
  },
  {
-  "index": 102,
-  "type_id": 102,
+  "index": 111,
+  "type_id": 106,
   "damage": 60,
   "durable_damage": 6,
   "armor_penetration_per_angle": [
@@ -3502,8 +3808,8 @@
   ]
  },
  {
-  "index": 103,
-  "type_id": 103,
+  "index": 112,
+  "type_id": 107,
   "damage": 75,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -3536,8 +3842,8 @@
   ]
  },
  {
-  "index": 104,
-  "type_id": 104,
+  "index": 113,
+  "type_id": 108,
   "damage": 90,
   "durable_damage": 22,
   "armor_penetration_per_angle": [
@@ -3570,8 +3876,8 @@
   ]
  },
  {
-  "index": 105,
-  "type_id": 105,
+  "index": 114,
+  "type_id": 109,
   "damage": 85,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -3604,8 +3910,8 @@
   ]
  },
  {
-  "index": 106,
-  "type_id": 106,
+  "index": 115,
+  "type_id": 110,
   "damage": 65,
   "durable_damage": 6,
   "armor_penetration_per_angle": [
@@ -3638,8 +3944,8 @@
   ]
  },
  {
-  "index": 107,
-  "type_id": 107,
+  "index": 116,
+  "type_id": 111,
   "damage": 99,
   "durable_damage": 9,
   "armor_penetration_per_angle": [
@@ -3672,8 +3978,8 @@
   ]
  },
  {
-  "index": 108,
-  "type_id": 108,
+  "index": 117,
+  "type_id": 112,
   "damage": 105,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -3706,8 +4012,8 @@
   ]
  },
  {
-  "index": 109,
-  "type_id": 109,
+  "index": 118,
+  "type_id": 113,
   "damage": 55,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -3740,8 +4046,8 @@
   ]
  },
  {
-  "index": 110,
-  "type_id": 110,
+  "index": 119,
+  "type_id": 114,
   "damage": 80,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -3774,8 +4080,8 @@
   ]
  },
  {
-  "index": 111,
-  "type_id": 111,
+  "index": 120,
+  "type_id": 115,
   "damage": 35,
   "durable_damage": 4,
   "armor_penetration_per_angle": [
@@ -3808,8 +4114,8 @@
   ]
  },
  {
-  "index": 112,
-  "type_id": 112,
+  "index": 121,
+  "type_id": 116,
   "damage": 55,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -3842,8 +4148,8 @@
   ]
  },
  {
-  "index": 113,
-  "type_id": 113,
+  "index": 122,
+  "type_id": 117,
   "damage": 100,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -3876,8 +4182,8 @@
   ]
  },
  {
-  "index": 114,
-  "type_id": 114,
+  "index": 123,
+  "type_id": 118,
   "damage": 75,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -3910,8 +4216,8 @@
   ]
  },
  {
-  "index": 115,
-  "type_id": 115,
+  "index": 124,
+  "type_id": 119,
   "damage": 80,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -3944,8 +4250,8 @@
   ]
  },
  {
-  "index": 116,
-  "type_id": 116,
+  "index": 125,
+  "type_id": 120,
   "damage": 70,
   "durable_damage": 7,
   "armor_penetration_per_angle": [
@@ -3978,8 +4284,8 @@
   ]
  },
  {
-  "index": 117,
-  "type_id": 117,
+  "index": 126,
+  "type_id": 121,
   "damage": 80,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -4012,8 +4318,8 @@
   ]
  },
  {
-  "index": 118,
-  "type_id": 118,
+  "index": 127,
+  "type_id": 122,
   "damage": 96,
   "durable_damage": 9,
   "armor_penetration_per_angle": [
@@ -4046,8 +4352,8 @@
   ]
  },
  {
-  "index": 119,
-  "type_id": 119,
+  "index": 128,
+  "type_id": 123,
   "damage": 110,
   "durable_damage": 33,
   "armor_penetration_per_angle": [
@@ -4080,8 +4386,8 @@
   ]
  },
  {
-  "index": 120,
-  "type_id": 120,
+  "index": 129,
+  "type_id": 124,
   "damage": 80,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -4114,8 +4420,8 @@
   ]
  },
  {
-  "index": 121,
-  "type_id": 121,
+  "index": 130,
+  "type_id": 125,
   "damage": 90,
   "durable_damage": 23,
   "armor_penetration_per_angle": [
@@ -4148,8 +4454,8 @@
   ]
  },
  {
-  "index": 122,
-  "type_id": 122,
+  "index": 131,
+  "type_id": 126,
   "damage": 90,
   "durable_damage": 9,
   "armor_penetration_per_angle": [
@@ -4182,8 +4488,8 @@
   ]
  },
  {
-  "index": 123,
-  "type_id": 123,
+  "index": 132,
+  "type_id": 127,
   "damage": 80,
   "durable_damage": 18,
   "armor_penetration_per_angle": [
@@ -4216,8 +4522,8 @@
   ]
  },
  {
-  "index": 124,
-  "type_id": 124,
+  "index": 133,
+  "type_id": 128,
   "damage": 150,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -4250,8 +4556,8 @@
   ]
  },
  {
-  "index": 125,
-  "type_id": 125,
+  "index": 134,
+  "type_id": 129,
   "damage": 160,
   "durable_damage": 16,
   "armor_penetration_per_angle": [
@@ -4284,8 +4590,8 @@
   ]
  },
  {
-  "index": 126,
-  "type_id": 126,
+  "index": 135,
+  "type_id": 130,
   "damage": 165,
   "durable_damage": 45,
   "armor_penetration_per_angle": [
@@ -4318,8 +4624,8 @@
   ]
  },
  {
-  "index": 127,
-  "type_id": 127,
+  "index": 136,
+  "type_id": 131,
   "damage": 80,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -4352,8 +4658,8 @@
   ]
  },
  {
-  "index": 128,
-  "type_id": 128,
+  "index": 137,
+  "type_id": 132,
   "damage": 95,
   "durable_damage": 24,
   "armor_penetration_per_angle": [
@@ -4386,8 +4692,42 @@
   ]
  },
  {
-  "index": 129,
-  "type_id": 129,
+  "index": 138,
+  "type_id": 133,
+  "damage": 70,
+  "durable_damage": 20,
+  "armor_penetration_per_angle": [
+   2,
+   2,
+   2,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 15,
+  "force_impulse": 12,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 139,
+  "type_id": 134,
   "damage": 95,
   "durable_damage": 23,
   "armor_penetration_per_angle": [
@@ -4420,8 +4760,8 @@
   ]
  },
  {
-  "index": 130,
-  "type_id": 130,
+  "index": 140,
+  "type_id": 135,
   "damage": 105,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -4454,8 +4794,8 @@
   ]
  },
  {
-  "index": 131,
-  "type_id": 131,
+  "index": 141,
+  "type_id": 136,
   "damage": 90,
   "durable_damage": 16,
   "armor_penetration_per_angle": [
@@ -4488,8 +4828,8 @@
   ]
  },
  {
-  "index": 132,
-  "type_id": 132,
+  "index": 142,
+  "type_id": 137,
   "damage": 180,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -4522,8 +4862,8 @@
   ]
  },
  {
-  "index": 133,
-  "type_id": 133,
+  "index": 143,
+  "type_id": 138,
   "damage": 200,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -4556,8 +4896,8 @@
   ]
  },
  {
-  "index": 134,
-  "type_id": 134,
+  "index": 144,
+  "type_id": 139,
   "damage": 300,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -4590,8 +4930,8 @@
   ]
  },
  {
-  "index": 135,
-  "type_id": 135,
+  "index": 145,
+  "type_id": 140,
   "damage": 100,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -4624,8 +4964,8 @@
   ]
  },
  {
-  "index": 136,
-  "type_id": 136,
+  "index": 146,
+  "type_id": 141,
   "damage": 165,
   "durable_damage": 45,
   "armor_penetration_per_angle": [
@@ -4658,8 +4998,8 @@
   ]
  },
  {
-  "index": 137,
-  "type_id": 137,
+  "index": 147,
+  "type_id": 142,
   "damage": 220,
   "durable_damage": 45,
   "armor_penetration_per_angle": [
@@ -4692,8 +5032,8 @@
   ]
  },
  {
-  "index": 138,
-  "type_id": 138,
+  "index": 148,
+  "type_id": 143,
   "damage": 200,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -4726,8 +5066,8 @@
   ]
  },
  {
-  "index": 139,
-  "type_id": 139,
+  "index": 149,
+  "type_id": 144,
   "damage": 170,
   "durable_damage": 17,
   "armor_penetration_per_angle": [
@@ -4760,8 +5100,8 @@
   ]
  },
  {
-  "index": 140,
-  "type_id": 140,
+  "index": 150,
+  "type_id": 145,
   "damage": 222,
   "durable_damage": 22,
   "armor_penetration_per_angle": [
@@ -4794,8 +5134,8 @@
   ]
  },
  {
-  "index": 141,
-  "type_id": 141,
+  "index": 151,
+  "type_id": 146,
   "damage": 112,
   "durable_damage": 11,
   "armor_penetration_per_angle": [
@@ -4828,8 +5168,8 @@
   ]
  },
  {
-  "index": 142,
-  "type_id": 142,
+  "index": 152,
+  "type_id": 147,
   "damage": 112,
   "durable_damage": 11,
   "armor_penetration_per_angle": [
@@ -4862,8 +5202,8 @@
   ]
  },
  {
-  "index": 143,
-  "type_id": 143,
+  "index": 153,
+  "type_id": 148,
   "damage": 120,
   "durable_damage": 12,
   "armor_penetration_per_angle": [
@@ -4896,8 +5236,8 @@
   ]
  },
  {
-  "index": 144,
-  "type_id": 144,
+  "index": 154,
+  "type_id": 149,
   "damage": 230,
   "durable_damage": 115,
   "armor_penetration_per_angle": [
@@ -4930,8 +5270,8 @@
   ]
  },
  {
-  "index": 145,
-  "type_id": 145,
+  "index": 155,
+  "type_id": 150,
   "damage": 160,
   "durable_damage": 48,
   "armor_penetration_per_angle": [
@@ -4964,8 +5304,8 @@
   ]
  },
  {
-  "index": 146,
-  "type_id": 146,
+  "index": 156,
+  "type_id": 151,
   "damage": 160,
   "durable_damage": 48,
   "armor_penetration_per_angle": [
@@ -4998,8 +5338,8 @@
   ]
  },
  {
-  "index": 147,
-  "type_id": 147,
+  "index": 157,
+  "type_id": 152,
   "damage": 180,
   "durable_damage": 54,
   "armor_penetration_per_angle": [
@@ -5032,8 +5372,8 @@
   ]
  },
  {
-  "index": 148,
-  "type_id": 148,
+  "index": 158,
+  "type_id": 153,
   "damage": 275,
   "durable_damage": 90,
   "armor_penetration_per_angle": [
@@ -5066,8 +5406,8 @@
   ]
  },
  {
-  "index": 149,
-  "type_id": 149,
+  "index": 159,
+  "type_id": 154,
   "damage": 70,
   "durable_damage": 14,
   "armor_penetration_per_angle": [
@@ -5100,8 +5440,8 @@
   ]
  },
  {
-  "index": 150,
-  "type_id": 150,
+  "index": 160,
+  "type_id": 155,
   "damage": 160,
   "durable_damage": 32,
   "armor_penetration_per_angle": [
@@ -5134,8 +5474,8 @@
   ]
  },
  {
-  "index": 151,
-  "type_id": 151,
+  "index": 161,
+  "type_id": 156,
   "damage": 325,
   "durable_damage": 115,
   "armor_penetration_per_angle": [
@@ -5168,8 +5508,8 @@
   ]
  },
  {
-  "index": 152,
-  "type_id": 152,
+  "index": 162,
+  "type_id": 157,
   "damage": 55,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -5202,8 +5542,8 @@
   ]
  },
  {
-  "index": 153,
-  "type_id": 154,
+  "index": 163,
+  "type_id": 159,
   "damage": 70,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -5236,8 +5576,8 @@
   ]
  },
  {
-  "index": 154,
-  "type_id": 155,
+  "index": 164,
+  "type_id": 160,
   "damage": 50,
   "durable_damage": 12,
   "armor_penetration_per_angle": [
@@ -5270,8 +5610,42 @@
   ]
  },
  {
-  "index": 155,
-  "type_id": 156,
+  "index": 165,
+  "type_id": 161,
+  "damage": 50,
+  "durable_damage": 12,
+  "armor_penetration_per_angle": [
+   3,
+   3,
+   3,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 20,
+  "force_impulse": 20,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 166,
+  "type_id": 162,
   "damage": 40,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -5304,8 +5678,8 @@
   ]
  },
  {
-  "index": 156,
-  "type_id": 157,
+  "index": 167,
+  "type_id": 163,
   "damage": 45,
   "durable_damage": 12,
   "armor_penetration_per_angle": [
@@ -5338,8 +5712,8 @@
   ]
  },
  {
-  "index": 157,
-  "type_id": 158,
+  "index": 168,
+  "type_id": 164,
   "damage": 16,
   "durable_damage": 3,
   "armor_penetration_per_angle": [
@@ -5372,8 +5746,8 @@
   ]
  },
  {
-  "index": 158,
-  "type_id": 159,
+  "index": 169,
+  "type_id": 165,
   "damage": 70,
   "durable_damage": 14,
   "armor_penetration_per_angle": [
@@ -5406,8 +5780,8 @@
   ]
  },
  {
-  "index": 159,
-  "type_id": 160,
+  "index": 170,
+  "type_id": 166,
   "damage": 35,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -5440,8 +5814,8 @@
   ]
  },
  {
-  "index": 160,
-  "type_id": 161,
+  "index": 171,
+  "type_id": 167,
   "damage": 30,
   "durable_damage": 6,
   "armor_penetration_per_angle": [
@@ -5474,8 +5848,8 @@
   ]
  },
  {
-  "index": 161,
-  "type_id": 162,
+  "index": 172,
+  "type_id": 168,
   "damage": 320,
   "durable_damage": 160,
   "armor_penetration_per_angle": [
@@ -5508,8 +5882,8 @@
   ]
  },
  {
-  "index": 162,
-  "type_id": 163,
+  "index": 173,
+  "type_id": 169,
   "damage": 65,
   "durable_damage": 13,
   "armor_penetration_per_angle": [
@@ -5542,8 +5916,8 @@
   ]
  },
  {
-  "index": 163,
-  "type_id": 164,
+  "index": 174,
+  "type_id": 170,
   "damage": 230,
   "durable_damage": 46,
   "armor_penetration_per_angle": [
@@ -5576,8 +5950,8 @@
   ]
  },
  {
-  "index": 164,
-  "type_id": 165,
+  "index": 175,
+  "type_id": 171,
   "damage": 180,
   "durable_damage": 36,
   "armor_penetration_per_angle": [
@@ -5610,8 +5984,8 @@
   ]
  },
  {
-  "index": 165,
-  "type_id": 166,
+  "index": 176,
+  "type_id": 172,
   "damage": 180,
   "durable_damage": 36,
   "armor_penetration_per_angle": [
@@ -5644,8 +6018,8 @@
   ]
  },
  {
-  "index": 166,
-  "type_id": 167,
+  "index": 177,
+  "type_id": 173,
   "damage": 180,
   "durable_damage": 36,
   "armor_penetration_per_angle": [
@@ -5678,8 +6052,8 @@
   ]
  },
  {
-  "index": 167,
-  "type_id": 168,
+  "index": 178,
+  "type_id": 174,
   "damage": 200,
   "durable_damage": 40,
   "armor_penetration_per_angle": [
@@ -5712,8 +6086,8 @@
   ]
  },
  {
-  "index": 168,
-  "type_id": 169,
+  "index": 179,
+  "type_id": 175,
   "damage": 6,
   "durable_damage": 2,
   "armor_penetration_per_angle": [
@@ -5746,8 +6120,8 @@
   ]
  },
  {
-  "index": 169,
-  "type_id": 170,
+  "index": 180,
+  "type_id": 176,
   "damage": 330,
   "durable_damage": 90,
   "armor_penetration_per_angle": [
@@ -5780,8 +6154,8 @@
   ]
  },
  {
-  "index": 170,
-  "type_id": 171,
+  "index": 181,
+  "type_id": 177,
   "damage": 90,
   "durable_damage": 18,
   "armor_penetration_per_angle": [
@@ -5814,8 +6188,8 @@
   ]
  },
  {
-  "index": 171,
-  "type_id": 172,
+  "index": 182,
+  "type_id": 178,
   "damage": 15,
   "durable_damage": 4,
   "armor_penetration_per_angle": [
@@ -5848,8 +6222,8 @@
   ]
  },
  {
-  "index": 172,
-  "type_id": 173,
+  "index": 183,
+  "type_id": 179,
   "damage": 30,
   "durable_damage": 6,
   "armor_penetration_per_angle": [
@@ -5882,8 +6256,8 @@
   ]
  },
  {
-  "index": 173,
-  "type_id": 174,
+  "index": 184,
+  "type_id": 180,
   "damage": 45,
   "durable_damage": 9,
   "armor_penetration_per_angle": [
@@ -5916,8 +6290,8 @@
   ]
  },
  {
-  "index": 174,
-  "type_id": 175,
+  "index": 185,
+  "type_id": 181,
   "damage": 35,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -5950,8 +6324,8 @@
   ]
  },
  {
-  "index": 175,
-  "type_id": 176,
+  "index": 186,
+  "type_id": 182,
   "damage": 20,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -5984,8 +6358,8 @@
   ]
  },
  {
-  "index": 176,
-  "type_id": 177,
+  "index": 187,
+  "type_id": 183,
   "damage": 38,
   "durable_damage": 7,
   "armor_penetration_per_angle": [
@@ -6018,8 +6392,8 @@
   ]
  },
  {
-  "index": 177,
-  "type_id": 178,
+  "index": 188,
+  "type_id": 184,
   "damage": 90,
   "durable_damage": 18,
   "armor_penetration_per_angle": [
@@ -6052,8 +6426,8 @@
   ]
  },
  {
-  "index": 178,
-  "type_id": 179,
+  "index": 189,
+  "type_id": 185,
   "damage": 200,
   "durable_damage": 40,
   "armor_penetration_per_angle": [
@@ -6086,8 +6460,8 @@
   ]
  },
  {
-  "index": 179,
-  "type_id": 180,
+  "index": 190,
+  "type_id": 186,
   "damage": 30,
   "durable_damage": 6,
   "armor_penetration_per_angle": [
@@ -6120,8 +6494,8 @@
   ]
  },
  {
-  "index": 180,
-  "type_id": 181,
+  "index": 191,
+  "type_id": 187,
   "damage": 190,
   "durable_damage": 38,
   "armor_penetration_per_angle": [
@@ -6154,8 +6528,8 @@
   ]
  },
  {
-  "index": 181,
-  "type_id": 182,
+  "index": 192,
+  "type_id": 188,
   "damage": 90,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -6188,8 +6562,8 @@
   ]
  },
  {
-  "index": 182,
-  "type_id": 183,
+  "index": 193,
+  "type_id": 189,
   "damage": 110,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -6222,8 +6596,8 @@
   ]
  },
  {
-  "index": 183,
-  "type_id": 184,
+  "index": 194,
+  "type_id": 190,
   "damage": 300,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -6256,8 +6630,8 @@
   ]
  },
  {
-  "index": 184,
-  "type_id": 185,
+  "index": 195,
+  "type_id": 191,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -6290,8 +6664,8 @@
   ]
  },
  {
-  "index": 185,
-  "type_id": 186,
+  "index": 196,
+  "type_id": 192,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -6324,8 +6698,8 @@
   ]
  },
  {
-  "index": 186,
-  "type_id": 191,
+  "index": 197,
+  "type_id": 197,
   "damage": 250,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -6358,8 +6732,8 @@
   ]
  },
  {
-  "index": 187,
-  "type_id": 192,
+  "index": 198,
+  "type_id": 198,
   "damage": 350,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -6392,8 +6766,8 @@
   ]
  },
  {
-  "index": 188,
-  "type_id": 193,
+  "index": 199,
+  "type_id": 199,
   "damage": 50,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -6426,8 +6800,8 @@
   ]
  },
  {
-  "index": 189,
-  "type_id": 194,
+  "index": 200,
+  "type_id": 200,
   "damage": 250,
   "durable_damage": 45,
   "armor_penetration_per_angle": [
@@ -6460,8 +6834,8 @@
   ]
  },
  {
-  "index": 190,
-  "type_id": 196,
+  "index": 201,
+  "type_id": 202,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -6494,8 +6868,8 @@
   ]
  },
  {
-  "index": 191,
-  "type_id": 197,
+  "index": 202,
+  "type_id": 203,
   "damage": 60,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -6528,8 +6902,8 @@
   ]
  },
  {
-  "index": 192,
-  "type_id": 198,
+  "index": 203,
+  "type_id": 204,
   "damage": 200,
   "durable_damage": 40,
   "armor_penetration_per_angle": [
@@ -6562,8 +6936,8 @@
   ]
  },
  {
-  "index": 193,
-  "type_id": 199,
+  "index": 204,
+  "type_id": 205,
   "damage": 150,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -6596,8 +6970,8 @@
   ]
  },
  {
-  "index": 194,
-  "type_id": 200,
+  "index": 205,
+  "type_id": 206,
   "damage": 450,
   "durable_damage": 225,
   "armor_penetration_per_angle": [
@@ -6630,8 +7004,8 @@
   ]
  },
  {
-  "index": 195,
-  "type_id": 201,
+  "index": 206,
+  "type_id": 207,
   "damage": 450,
   "durable_damage": 135,
   "armor_penetration_per_angle": [
@@ -6664,8 +7038,8 @@
   ]
  },
  {
-  "index": 196,
-  "type_id": 202,
+  "index": 207,
+  "type_id": 208,
   "damage": 270,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -6698,8 +7072,8 @@
   ]
  },
  {
-  "index": 197,
-  "type_id": 203,
+  "index": 208,
+  "type_id": 209,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -6732,8 +7106,8 @@
   ]
  },
  {
-  "index": 198,
-  "type_id": 204,
+  "index": 209,
+  "type_id": 210,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -6766,8 +7140,8 @@
   ]
  },
  {
-  "index": 199,
-  "type_id": 205,
+  "index": 210,
+  "type_id": 211,
   "damage": 600,
   "durable_damage": 600,
   "armor_penetration_per_angle": [
@@ -6800,8 +7174,8 @@
   ]
  },
  {
-  "index": 200,
-  "type_id": 206,
+  "index": 211,
+  "type_id": 212,
   "damage": 100,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -6834,8 +7208,8 @@
   ]
  },
  {
-  "index": 201,
-  "type_id": 207,
+  "index": 212,
+  "type_id": 213,
   "damage": 325,
   "durable_damage": 260,
   "armor_penetration_per_angle": [
@@ -6868,8 +7242,8 @@
   ]
  },
  {
-  "index": 202,
-  "type_id": 208,
+  "index": 213,
+  "type_id": 214,
   "damage": 250,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -6902,8 +7276,8 @@
   ]
  },
  {
-  "index": 203,
-  "type_id": 209,
+  "index": 214,
+  "type_id": 215,
   "damage": 300,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -6936,8 +7310,8 @@
   ]
  },
  {
-  "index": 204,
-  "type_id": 210,
+  "index": 215,
+  "type_id": 216,
   "damage": 450,
   "durable_damage": 450,
   "armor_penetration_per_angle": [
@@ -6970,8 +7344,8 @@
   ]
  },
  {
-  "index": 205,
-  "type_id": 211,
+  "index": 216,
+  "type_id": 217,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -7004,8 +7378,8 @@
   ]
  },
  {
-  "index": 206,
-  "type_id": 212,
+  "index": 217,
+  "type_id": 218,
   "damage": 350,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -7038,8 +7412,8 @@
   ]
  },
  {
-  "index": 207,
-  "type_id": 213,
+  "index": 218,
+  "type_id": 219,
   "damage": 350,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -7072,8 +7446,8 @@
   ]
  },
  {
-  "index": 208,
-  "type_id": 214,
+  "index": 219,
+  "type_id": 220,
   "damage": 80,
   "durable_damage": 80,
   "armor_penetration_per_angle": [
@@ -7106,8 +7480,8 @@
   ]
  },
  {
-  "index": 209,
-  "type_id": 218,
+  "index": 220,
+  "type_id": 224,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -7140,8 +7514,8 @@
   ]
  },
  {
-  "index": 210,
-  "type_id": 219,
+  "index": 221,
+  "type_id": 225,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -7174,8 +7548,8 @@
   ]
  },
  {
-  "index": 211,
-  "type_id": 220,
+  "index": 222,
+  "type_id": 226,
   "damage": 1300,
   "durable_damage": 1300,
   "armor_penetration_per_angle": [
@@ -7208,8 +7582,8 @@
   ]
  },
  {
-  "index": 212,
-  "type_id": 221,
+  "index": 223,
+  "type_id": 227,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -7242,8 +7616,8 @@
   ]
  },
  {
-  "index": 213,
-  "type_id": 268,
+  "index": 224,
+  "type_id": 274,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -7276,8 +7650,8 @@
   ]
  },
  {
-  "index": 214,
-  "type_id": 310,
+  "index": 225,
+  "type_id": 316,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -7310,8 +7684,8 @@
   ]
  },
  {
-  "index": 215,
-  "type_id": 269,
+  "index": 226,
+  "type_id": 275,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -7344,8 +7718,8 @@
   ]
  },
  {
-  "index": 216,
-  "type_id": 270,
+  "index": 227,
+  "type_id": 276,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -7378,8 +7752,8 @@
   ]
  },
  {
-  "index": 217,
-  "type_id": 222,
+  "index": 228,
+  "type_id": 228,
   "damage": 3200,
   "durable_damage": 3200,
   "armor_penetration_per_angle": [
@@ -7412,8 +7786,8 @@
   ]
  },
  {
-  "index": 218,
-  "type_id": 223,
+  "index": 229,
+  "type_id": 229,
   "damage": 900,
   "durable_damage": 900,
   "armor_penetration_per_angle": [
@@ -7446,8 +7820,8 @@
   ]
  },
  {
-  "index": 219,
-  "type_id": 224,
+  "index": 230,
+  "type_id": 230,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -7480,8 +7854,8 @@
   ]
  },
  {
-  "index": 220,
-  "type_id": 225,
+  "index": 231,
+  "type_id": 231,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -7514,8 +7888,8 @@
   ]
  },
  {
-  "index": 221,
-  "type_id": 226,
+  "index": 232,
+  "type_id": 232,
   "damage": 525,
   "durable_damage": 525,
   "armor_penetration_per_angle": [
@@ -7548,8 +7922,8 @@
   ]
  },
  {
-  "index": 222,
-  "type_id": 227,
+  "index": 233,
+  "type_id": 233,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -7582,8 +7956,8 @@
   ]
  },
  {
-  "index": 223,
-  "type_id": 228,
+  "index": 234,
+  "type_id": 234,
   "damage": 1500,
   "durable_damage": 1500,
   "armor_penetration_per_angle": [
@@ -7616,8 +7990,8 @@
   ]
  },
  {
-  "index": 224,
-  "type_id": 229,
+  "index": 235,
+  "type_id": 235,
   "damage": 750,
   "durable_damage": 750,
   "armor_penetration_per_angle": [
@@ -7650,8 +8024,8 @@
   ]
  },
  {
-  "index": 225,
-  "type_id": 230,
+  "index": 236,
+  "type_id": 236,
   "damage": 60,
   "durable_damage": 60,
   "armor_penetration_per_angle": [
@@ -7684,8 +8058,8 @@
   ]
  },
  {
-  "index": 226,
-  "type_id": 231,
+  "index": 237,
+  "type_id": 237,
   "damage": 1100,
   "durable_damage": 1100,
   "armor_penetration_per_angle": [
@@ -7718,8 +8092,8 @@
   ]
  },
  {
-  "index": 227,
-  "type_id": 232,
+  "index": 238,
+  "type_id": 238,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -7752,8 +8126,8 @@
   ]
  },
  {
-  "index": 228,
-  "type_id": 233,
+  "index": 239,
+  "type_id": 239,
   "damage": 1250,
   "durable_damage": 1250,
   "armor_penetration_per_angle": [
@@ -7786,8 +8160,8 @@
   ]
  },
  {
-  "index": 229,
-  "type_id": 234,
+  "index": 240,
+  "type_id": 240,
   "damage": 600,
   "durable_damage": 600,
   "armor_penetration_per_angle": [
@@ -7820,8 +8194,8 @@
   ]
  },
  {
-  "index": 230,
-  "type_id": 235,
+  "index": 241,
+  "type_id": 241,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -7854,8 +8228,8 @@
   ]
  },
  {
-  "index": 231,
-  "type_id": 236,
+  "index": 242,
+  "type_id": 242,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -7888,8 +8262,8 @@
   ]
  },
  {
-  "index": 232,
-  "type_id": 237,
+  "index": 243,
+  "type_id": 243,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -7922,8 +8296,8 @@
   ]
  },
  {
-  "index": 233,
-  "type_id": 238,
+  "index": 244,
+  "type_id": 244,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -7956,8 +8330,8 @@
   ]
  },
  {
-  "index": 234,
-  "type_id": 239,
+  "index": 245,
+  "type_id": 245,
   "damage": 4000,
   "durable_damage": 4000,
   "armor_penetration_per_angle": [
@@ -7990,8 +8364,8 @@
   ]
  },
  {
-  "index": 235,
-  "type_id": 240,
+  "index": 246,
+  "type_id": 246,
   "damage": 1500,
   "durable_damage": 1500,
   "armor_penetration_per_angle": [
@@ -8024,8 +8398,8 @@
   ]
  },
  {
-  "index": 236,
-  "type_id": 241,
+  "index": 247,
+  "type_id": 247,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -8058,8 +8432,8 @@
   ]
  },
  {
-  "index": 237,
-  "type_id": 242,
+  "index": 248,
+  "type_id": 248,
   "damage": 600,
   "durable_damage": 600,
   "armor_penetration_per_angle": [
@@ -8092,8 +8466,8 @@
   ]
  },
  {
-  "index": 238,
-  "type_id": 243,
+  "index": 249,
+  "type_id": 249,
   "damage": 4000,
   "durable_damage": 4000,
   "armor_penetration_per_angle": [
@@ -8126,8 +8500,8 @@
   ]
  },
  {
-  "index": 239,
-  "type_id": 244,
+  "index": 250,
+  "type_id": 250,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -8160,8 +8534,8 @@
   ]
  },
  {
-  "index": 240,
-  "type_id": 245,
+  "index": 251,
+  "type_id": 251,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -8194,8 +8568,8 @@
   ]
  },
  {
-  "index": 241,
-  "type_id": 246,
+  "index": 252,
+  "type_id": 252,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -8228,8 +8602,8 @@
   ]
  },
  {
-  "index": 242,
-  "type_id": 247,
+  "index": 253,
+  "type_id": 253,
   "damage": 800,
   "durable_damage": 800,
   "armor_penetration_per_angle": [
@@ -8262,8 +8636,8 @@
   ]
  },
  {
-  "index": 243,
-  "type_id": 248,
+  "index": 254,
+  "type_id": 254,
   "damage": 1500,
   "durable_damage": 1500,
   "armor_penetration_per_angle": [
@@ -8296,8 +8670,8 @@
   ]
  },
  {
-  "index": 244,
-  "type_id": 249,
+  "index": 255,
+  "type_id": 255,
   "damage": 80,
   "durable_damage": 80,
   "armor_penetration_per_angle": [
@@ -8330,8 +8704,8 @@
   ]
  },
  {
-  "index": 245,
-  "type_id": 250,
+  "index": 256,
+  "type_id": 256,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -8364,8 +8738,8 @@
   ]
  },
  {
-  "index": 246,
-  "type_id": 255,
+  "index": 257,
+  "type_id": 261,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -8398,8 +8772,8 @@
   ]
  },
  {
-  "index": 247,
-  "type_id": 256,
+  "index": 258,
+  "type_id": 262,
   "damage": 3500,
   "durable_damage": 3500,
   "armor_penetration_per_angle": [
@@ -8432,8 +8806,8 @@
   ]
  },
  {
-  "index": 248,
-  "type_id": 257,
+  "index": 259,
+  "type_id": 263,
   "damage": 4000,
   "durable_damage": 4000,
   "armor_penetration_per_angle": [
@@ -8466,8 +8840,8 @@
   ]
  },
  {
-  "index": 249,
-  "type_id": 258,
+  "index": 260,
+  "type_id": 264,
   "damage": 4000,
   "durable_damage": 4000,
   "armor_penetration_per_angle": [
@@ -8500,8 +8874,8 @@
   ]
  },
  {
-  "index": 250,
-  "type_id": 259,
+  "index": 261,
+  "type_id": 265,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -8534,8 +8908,8 @@
   ]
  },
  {
-  "index": 251,
-  "type_id": 260,
+  "index": 262,
+  "type_id": 266,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -8568,8 +8942,8 @@
   ]
  },
  {
-  "index": 252,
-  "type_id": 261,
+  "index": 263,
+  "type_id": 267,
   "damage": 10000,
   "durable_damage": 10000,
   "armor_penetration_per_angle": [
@@ -8602,8 +8976,8 @@
   ]
  },
  {
-  "index": 253,
-  "type_id": 262,
+  "index": 264,
+  "type_id": 268,
   "damage": 800,
   "durable_damage": 800,
   "armor_penetration_per_angle": [
@@ -8636,8 +9010,8 @@
   ]
  },
  {
-  "index": 254,
-  "type_id": 263,
+  "index": 265,
+  "type_id": 269,
   "damage": -1,
   "durable_damage": -1,
   "armor_penetration_per_angle": [
@@ -8670,8 +9044,8 @@
   ]
  },
  {
-  "index": 255,
-  "type_id": 264,
+  "index": 266,
+  "type_id": 270,
   "damage": 8400,
   "durable_damage": 8400,
   "armor_penetration_per_angle": [
@@ -8704,8 +9078,8 @@
   ]
  },
  {
-  "index": 256,
-  "type_id": 265,
+  "index": 267,
+  "type_id": 271,
   "damage": -1,
   "durable_damage": -1,
   "armor_penetration_per_angle": [
@@ -8738,8 +9112,8 @@
   ]
  },
  {
-  "index": 257,
-  "type_id": 267,
+  "index": 268,
+  "type_id": 273,
   "damage": 65,
   "durable_damage": 14,
   "armor_penetration_per_angle": [
@@ -8772,8 +9146,8 @@
   ]
  },
  {
-  "index": 258,
-  "type_id": 272,
+  "index": 269,
+  "type_id": 278,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -8806,8 +9180,8 @@
   ]
  },
  {
-  "index": 259,
-  "type_id": 273,
+  "index": 270,
+  "type_id": 279,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -8840,8 +9214,8 @@
   ]
  },
  {
-  "index": 260,
-  "type_id": 274,
+  "index": 271,
+  "type_id": 280,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -8874,8 +9248,8 @@
   ]
  },
  {
-  "index": 261,
-  "type_id": 275,
+  "index": 272,
+  "type_id": 281,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -8908,8 +9282,8 @@
   ]
  },
  {
-  "index": 262,
-  "type_id": 276,
+  "index": 273,
+  "type_id": 282,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -8942,8 +9316,8 @@
   ]
  },
  {
-  "index": 263,
-  "type_id": 277,
+  "index": 274,
+  "type_id": 283,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -8976,8 +9350,8 @@
   ]
  },
  {
-  "index": 264,
-  "type_id": 278,
+  "index": 275,
+  "type_id": 284,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -9010,8 +9384,8 @@
   ]
  },
  {
-  "index": 265,
-  "type_id": 279,
+  "index": 276,
+  "type_id": 285,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -9044,8 +9418,8 @@
   ]
  },
  {
-  "index": 266,
-  "type_id": 281,
+  "index": 277,
+  "type_id": 287,
   "damage": 70,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -9078,8 +9452,8 @@
   ]
  },
  {
-  "index": 267,
-  "type_id": 282,
+  "index": 278,
+  "type_id": 288,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -9112,8 +9486,8 @@
   ]
  },
  {
-  "index": 268,
-  "type_id": 283,
+  "index": 279,
+  "type_id": 289,
   "damage": 35,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -9146,8 +9520,8 @@
   ]
  },
  {
-  "index": 269,
-  "type_id": 284,
+  "index": 280,
+  "type_id": 290,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -9180,8 +9554,8 @@
   ]
  },
  {
-  "index": 270,
-  "type_id": 285,
+  "index": 281,
+  "type_id": 291,
   "damage": 85,
   "durable_damage": 85,
   "armor_penetration_per_angle": [
@@ -9214,8 +9588,8 @@
   ]
  },
  {
-  "index": 271,
-  "type_id": 287,
+  "index": 282,
+  "type_id": 293,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -9248,8 +9622,8 @@
   ]
  },
  {
-  "index": 272,
-  "type_id": 288,
+  "index": 283,
+  "type_id": 294,
   "damage": 35,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -9282,8 +9656,8 @@
   ]
  },
  {
-  "index": 273,
-  "type_id": 289,
+  "index": 284,
+  "type_id": 295,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -9316,8 +9690,8 @@
   ]
  },
  {
-  "index": 274,
-  "type_id": 290,
+  "index": 285,
+  "type_id": 296,
   "damage": 70,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -9350,8 +9724,8 @@
   ]
  },
  {
-  "index": 275,
-  "type_id": 291,
+  "index": 286,
+  "type_id": 297,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -9384,8 +9758,8 @@
   ]
  },
  {
-  "index": 276,
-  "type_id": 292,
+  "index": 287,
+  "type_id": 298,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -9418,8 +9792,8 @@
   ]
  },
  {
-  "index": 277,
-  "type_id": 293,
+  "index": 288,
+  "type_id": 299,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -9452,8 +9826,8 @@
   ]
  },
  {
-  "index": 278,
-  "type_id": 294,
+  "index": 289,
+  "type_id": 300,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -9486,7 +9860,7 @@
   ]
  },
  {
-  "index": 279,
+  "index": 290,
   "type_id": 22,
   "damage": 0,
   "durable_damage": 0,
@@ -9520,7 +9894,7 @@
   ]
  },
  {
-  "index": 280,
+  "index": 291,
   "type_id": 23,
   "damage": 25,
   "durable_damage": 20,
@@ -9554,8 +9928,8 @@
   ]
  },
  {
-  "index": 281,
-  "type_id": 295,
+  "index": 292,
+  "type_id": 301,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -9588,8 +9962,8 @@
   ]
  },
  {
-  "index": 282,
-  "type_id": 296,
+  "index": 293,
+  "type_id": 302,
   "damage": 125,
   "durable_damage": 125,
   "armor_penetration_per_angle": [
@@ -9622,8 +9996,8 @@
   ]
  },
  {
-  "index": 283,
-  "type_id": 297,
+  "index": 294,
+  "type_id": 303,
   "damage": 175,
   "durable_damage": 175,
   "armor_penetration_per_angle": [
@@ -9656,8 +10030,8 @@
   ]
  },
  {
-  "index": 284,
-  "type_id": 298,
+  "index": 295,
+  "type_id": 304,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -9690,8 +10064,8 @@
   ]
  },
  {
-  "index": 285,
-  "type_id": 299,
+  "index": 296,
+  "type_id": 305,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -9724,8 +10098,8 @@
   ]
  },
  {
-  "index": 286,
-  "type_id": 300,
+  "index": 297,
+  "type_id": 306,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -9758,8 +10132,8 @@
   ]
  },
  {
-  "index": 287,
-  "type_id": 301,
+  "index": 298,
+  "type_id": 307,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -9792,8 +10166,8 @@
   ]
  },
  {
-  "index": 288,
-  "type_id": 302,
+  "index": 299,
+  "type_id": 308,
   "damage": 250,
   "durable_damage": 125,
   "armor_penetration_per_angle": [
@@ -9826,8 +10200,8 @@
   ]
  },
  {
-  "index": 289,
-  "type_id": 303,
+  "index": 300,
+  "type_id": 309,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -9860,8 +10234,8 @@
   ]
  },
  {
-  "index": 290,
-  "type_id": 304,
+  "index": 301,
+  "type_id": 310,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -9894,8 +10268,8 @@
   ]
  },
  {
-  "index": 291,
-  "type_id": 305,
+  "index": 302,
+  "type_id": 311,
   "damage": 225,
   "durable_damage": 225,
   "armor_penetration_per_angle": [
@@ -9928,8 +10302,8 @@
   ]
  },
  {
-  "index": 292,
-  "type_id": 308,
+  "index": 303,
+  "type_id": 314,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -9962,8 +10336,8 @@
   ]
  },
  {
-  "index": 293,
-  "type_id": 309,
+  "index": 304,
+  "type_id": 315,
   "damage": 225,
   "durable_damage": 225,
   "armor_penetration_per_angle": [
@@ -9996,8 +10370,8 @@
   ]
  },
  {
-  "index": 294,
-  "type_id": 306,
+  "index": 305,
+  "type_id": 312,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -10030,8 +10404,8 @@
   ]
  },
  {
-  "index": 295,
-  "type_id": 307,
+  "index": 306,
+  "type_id": 313,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -10064,8 +10438,8 @@
   ]
  },
  {
-  "index": 296,
-  "type_id": 311,
+  "index": 307,
+  "type_id": 317,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -10098,8 +10472,8 @@
   ]
  },
  {
-  "index": 297,
-  "type_id": 312,
+  "index": 308,
+  "type_id": 318,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -10132,8 +10506,8 @@
   ]
  },
  {
-  "index": 298,
-  "type_id": 313,
+  "index": 309,
+  "type_id": 319,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -10166,8 +10540,8 @@
   ]
  },
  {
-  "index": 299,
-  "type_id": 314,
+  "index": 310,
+  "type_id": 320,
   "damage": 20,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -10200,8 +10574,8 @@
   ]
  },
  {
-  "index": 300,
-  "type_id": 315,
+  "index": 311,
+  "type_id": 321,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -10234,8 +10608,8 @@
   ]
  },
  {
-  "index": 301,
-  "type_id": 316,
+  "index": 312,
+  "type_id": 322,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -10268,8 +10642,8 @@
   ]
  },
  {
-  "index": 302,
-  "type_id": 317,
+  "index": 313,
+  "type_id": 323,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -10302,8 +10676,8 @@
   ]
  },
  {
-  "index": 303,
-  "type_id": 318,
+  "index": 314,
+  "type_id": 324,
   "damage": 60,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -10336,8 +10710,8 @@
   ]
  },
  {
-  "index": 304,
-  "type_id": 319,
+  "index": 315,
+  "type_id": 325,
   "damage": 20,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -10370,8 +10744,8 @@
   ]
  },
  {
-  "index": 305,
-  "type_id": 320,
+  "index": 316,
+  "type_id": 326,
   "damage": 70,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -10404,8 +10778,8 @@
   ]
  },
  {
-  "index": 306,
-  "type_id": 321,
+  "index": 317,
+  "type_id": 327,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -10438,8 +10812,8 @@
   ]
  },
  {
-  "index": 307,
-  "type_id": 489,
+  "index": 318,
+  "type_id": 498,
   "damage": 1,
   "durable_damage": 1,
   "armor_penetration_per_angle": [
@@ -10472,8 +10846,8 @@
   ]
  },
  {
-  "index": 308,
-  "type_id": 322,
+  "index": 319,
+  "type_id": 328,
   "damage": 130,
   "durable_damage": 130,
   "armor_penetration_per_angle": [
@@ -10506,8 +10880,8 @@
   ]
  },
  {
-  "index": 309,
-  "type_id": 323,
+  "index": 320,
+  "type_id": 329,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -10540,8 +10914,8 @@
   ]
  },
  {
-  "index": 310,
-  "type_id": 324,
+  "index": 321,
+  "type_id": 330,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -10574,8 +10948,8 @@
   ]
  },
  {
-  "index": 311,
-  "type_id": 325,
+  "index": 322,
+  "type_id": 331,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -10608,8 +10982,8 @@
   ]
  },
  {
-  "index": 312,
-  "type_id": 326,
+  "index": 323,
+  "type_id": 332,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -10642,8 +11016,8 @@
   ]
  },
  {
-  "index": 313,
-  "type_id": 327,
+  "index": 324,
+  "type_id": 333,
   "damage": 600,
   "durable_damage": 600,
   "armor_penetration_per_angle": [
@@ -10676,8 +11050,8 @@
   ]
  },
  {
-  "index": 314,
-  "type_id": 328,
+  "index": 325,
+  "type_id": 334,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -10710,8 +11084,8 @@
   ]
  },
  {
-  "index": 315,
-  "type_id": 329,
+  "index": 326,
+  "type_id": 335,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -10744,8 +11118,8 @@
   ]
  },
  {
-  "index": 316,
-  "type_id": 330,
+  "index": 327,
+  "type_id": 336,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -10778,8 +11152,8 @@
   ]
  },
  {
-  "index": 317,
-  "type_id": 331,
+  "index": 328,
+  "type_id": 337,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -10812,8 +11186,8 @@
   ]
  },
  {
-  "index": 318,
-  "type_id": 271,
+  "index": 329,
+  "type_id": 277,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -10846,8 +11220,8 @@
   ]
  },
  {
-  "index": 319,
-  "type_id": 332,
+  "index": 330,
+  "type_id": 338,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -10880,8 +11254,8 @@
   ]
  },
  {
-  "index": 320,
-  "type_id": 333,
+  "index": 331,
+  "type_id": 339,
   "damage": 20,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -10914,8 +11288,8 @@
   ]
  },
  {
-  "index": 321,
-  "type_id": 334,
+  "index": 332,
+  "type_id": 340,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -10948,8 +11322,8 @@
   ]
  },
  {
-  "index": 322,
-  "type_id": 336,
+  "index": 333,
+  "type_id": 342,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -10982,8 +11356,8 @@
   ]
  },
  {
-  "index": 323,
-  "type_id": 338,
+  "index": 334,
+  "type_id": 344,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -11016,8 +11390,42 @@
   ]
  },
  {
-  "index": 324,
-  "type_id": 339,
+  "index": 335,
+  "type_id": 345,
+  "damage": 1800,
+  "durable_damage": 1800,
+  "armor_penetration_per_angle": [
+   5,
+   5,
+   5,
+   4
+  ],
+  "demolition_strength": 40,
+  "force_strength": 40,
+  "force_impulse": 45,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 336,
+  "type_id": 346,
   "damage": 190,
   "durable_damage": 190,
   "armor_penetration_per_angle": [
@@ -11050,8 +11458,8 @@
   ]
  },
  {
-  "index": 325,
-  "type_id": 340,
+  "index": 337,
+  "type_id": 347,
   "damage": 225,
   "durable_damage": 225,
   "armor_penetration_per_angle": [
@@ -11084,8 +11492,8 @@
   ]
  },
  {
-  "index": 326,
-  "type_id": 341,
+  "index": 338,
+  "type_id": 348,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -11118,8 +11526,8 @@
   ]
  },
  {
-  "index": 327,
-  "type_id": 342,
+  "index": 339,
+  "type_id": 349,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -11152,8 +11560,8 @@
   ]
  },
  {
-  "index": 328,
-  "type_id": 343,
+  "index": 340,
+  "type_id": 350,
   "damage": 3000,
   "durable_damage": 3000,
   "armor_penetration_per_angle": [
@@ -11186,8 +11594,8 @@
   ]
  },
  {
-  "index": 329,
-  "type_id": 344,
+  "index": 341,
+  "type_id": 351,
   "damage": 1,
   "durable_damage": 1,
   "armor_penetration_per_angle": [
@@ -11220,8 +11628,8 @@
   ]
  },
  {
-  "index": 330,
-  "type_id": 345,
+  "index": 342,
+  "type_id": 352,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -11254,8 +11662,8 @@
   ]
  },
  {
-  "index": 331,
-  "type_id": 346,
+  "index": 343,
+  "type_id": 353,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -11288,8 +11696,8 @@
   ]
  },
  {
-  "index": 332,
-  "type_id": 347,
+  "index": 344,
+  "type_id": 354,
   "damage": 10,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -11322,8 +11730,8 @@
   ]
  },
  {
-  "index": 333,
-  "type_id": 482,
+  "index": 345,
+  "type_id": 491,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -11356,8 +11764,8 @@
   ]
  },
  {
-  "index": 334,
-  "type_id": 483,
+  "index": 346,
+  "type_id": 492,
   "damage": 1,
   "durable_damage": 1,
   "armor_penetration_per_angle": [
@@ -11390,8 +11798,8 @@
   ]
  },
  {
-  "index": 335,
-  "type_id": 348,
+  "index": 347,
+  "type_id": 355,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -11424,8 +11832,8 @@
   ]
  },
  {
-  "index": 336,
-  "type_id": 349,
+  "index": 348,
+  "type_id": 356,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -11458,8 +11866,8 @@
   ]
  },
  {
-  "index": 337,
-  "type_id": 350,
+  "index": 349,
+  "type_id": 357,
   "damage": 800,
   "durable_damage": 800,
   "armor_penetration_per_angle": [
@@ -11492,8 +11900,8 @@
   ]
  },
  {
-  "index": 338,
-  "type_id": 286,
+  "index": 350,
+  "type_id": 292,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -11526,8 +11934,8 @@
   ]
  },
  {
-  "index": 339,
-  "type_id": 351,
+  "index": 351,
+  "type_id": 358,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -11560,8 +11968,8 @@
   ]
  },
  {
-  "index": 340,
-  "type_id": 353,
+  "index": 352,
+  "type_id": 360,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -11594,8 +12002,8 @@
   ]
  },
  {
-  "index": 341,
-  "type_id": 354,
+  "index": 353,
+  "type_id": 361,
   "damage": 600,
   "durable_damage": 600,
   "armor_penetration_per_angle": [
@@ -11628,8 +12036,8 @@
   ]
  },
  {
-  "index": 342,
-  "type_id": 355,
+  "index": 354,
+  "type_id": 362,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -11662,8 +12070,8 @@
   ]
  },
  {
-  "index": 343,
-  "type_id": 356,
+  "index": 355,
+  "type_id": 363,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -11696,8 +12104,8 @@
   ]
  },
  {
-  "index": 344,
-  "type_id": 360,
+  "index": 356,
+  "type_id": 367,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -11730,8 +12138,8 @@
   ]
  },
  {
-  "index": 345,
-  "type_id": 361,
+  "index": 357,
+  "type_id": 368,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -11764,8 +12172,8 @@
   ]
  },
  {
-  "index": 346,
-  "type_id": 362,
+  "index": 358,
+  "type_id": 369,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -11798,8 +12206,8 @@
   ]
  },
  {
-  "index": 347,
-  "type_id": 363,
+  "index": 359,
+  "type_id": 370,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -11832,8 +12240,8 @@
   ]
  },
  {
-  "index": 348,
-  "type_id": 364,
+  "index": 360,
+  "type_id": 371,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -11866,8 +12274,8 @@
   ]
  },
  {
-  "index": 349,
-  "type_id": 365,
+  "index": 361,
+  "type_id": 372,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -11900,8 +12308,8 @@
   ]
  },
  {
-  "index": 350,
-  "type_id": 366,
+  "index": 362,
+  "type_id": 373,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -11934,8 +12342,8 @@
   ]
  },
  {
-  "index": 351,
-  "type_id": 367,
+  "index": 363,
+  "type_id": 374,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -11968,8 +12376,8 @@
   ]
  },
  {
-  "index": 352,
-  "type_id": 368,
+  "index": 364,
+  "type_id": 375,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -12002,8 +12410,42 @@
   ]
  },
  {
-  "index": 353,
-  "type_id": 369,
+  "index": 365,
+  "type_id": 376,
+  "damage": 440,
+  "durable_damage": 440,
+  "armor_penetration_per_angle": [
+   3,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 30,
+  "force_strength": 25,
+  "force_impulse": 30,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 366,
+  "type_id": 377,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -12036,8 +12478,8 @@
   ]
  },
  {
-  "index": 354,
-  "type_id": 370,
+  "index": 367,
+  "type_id": 378,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -12070,8 +12512,8 @@
   ]
  },
  {
-  "index": 355,
-  "type_id": 371,
+  "index": 368,
+  "type_id": 379,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -12104,8 +12546,8 @@
   ]
  },
  {
-  "index": 356,
-  "type_id": 372,
+  "index": 369,
+  "type_id": 380,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -12138,8 +12580,8 @@
   ]
  },
  {
-  "index": 357,
-  "type_id": 373,
+  "index": 370,
+  "type_id": 381,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -12172,8 +12614,8 @@
   ]
  },
  {
-  "index": 358,
-  "type_id": 374,
+  "index": 371,
+  "type_id": 382,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -12206,8 +12648,8 @@
   ]
  },
  {
-  "index": 359,
-  "type_id": 375,
+  "index": 372,
+  "type_id": 383,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -12240,8 +12682,8 @@
   ]
  },
  {
-  "index": 360,
-  "type_id": 376,
+  "index": 373,
+  "type_id": 384,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -12274,8 +12716,8 @@
   ]
  },
  {
-  "index": 361,
-  "type_id": 377,
+  "index": 374,
+  "type_id": 385,
   "damage": 700,
   "durable_damage": 700,
   "armor_penetration_per_angle": [
@@ -12308,8 +12750,8 @@
   ]
  },
  {
-  "index": 362,
-  "type_id": 378,
+  "index": 375,
+  "type_id": 386,
   "damage": 1200,
   "durable_damage": 1200,
   "armor_penetration_per_angle": [
@@ -12342,8 +12784,8 @@
   ]
  },
  {
-  "index": 363,
-  "type_id": 379,
+  "index": 376,
+  "type_id": 387,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -12376,8 +12818,8 @@
   ]
  },
  {
-  "index": 364,
-  "type_id": 380,
+  "index": 377,
+  "type_id": 388,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -12410,8 +12852,8 @@
   ]
  },
  {
-  "index": 365,
-  "type_id": 381,
+  "index": 378,
+  "type_id": 389,
   "damage": 450,
   "durable_damage": 450,
   "armor_penetration_per_angle": [
@@ -12444,8 +12886,8 @@
   ]
  },
  {
-  "index": 366,
-  "type_id": 382,
+  "index": 379,
+  "type_id": 390,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -12478,8 +12920,8 @@
   ]
  },
  {
-  "index": 367,
-  "type_id": 383,
+  "index": 380,
+  "type_id": 391,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -12512,8 +12954,8 @@
   ]
  },
  {
-  "index": 368,
-  "type_id": 384,
+  "index": 381,
+  "type_id": 392,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -12546,8 +12988,8 @@
   ]
  },
  {
-  "index": 369,
-  "type_id": 385,
+  "index": 382,
+  "type_id": 393,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -12580,8 +13022,42 @@
   ]
  },
  {
-  "index": 370,
-  "type_id": 386,
+  "index": 383,
+  "type_id": 394,
+  "damage": 2000,
+  "durable_damage": 2000,
+  "armor_penetration_per_angle": [
+   5,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 40,
+  "force_strength": 50,
+  "force_impulse": 70,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 384,
+  "type_id": 395,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -12614,8 +13090,8 @@
   ]
  },
  {
-  "index": 371,
-  "type_id": 387,
+  "index": 385,
+  "type_id": 396,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -12648,8 +13124,8 @@
   ]
  },
  {
-  "index": 372,
-  "type_id": 388,
+  "index": 386,
+  "type_id": 397,
   "damage": 600,
   "durable_damage": 600,
   "armor_penetration_per_angle": [
@@ -12682,8 +13158,8 @@
   ]
  },
  {
-  "index": 373,
-  "type_id": 389,
+  "index": 387,
+  "type_id": 398,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -12716,8 +13192,8 @@
   ]
  },
  {
-  "index": 374,
-  "type_id": 390,
+  "index": 388,
+  "type_id": 399,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -12750,8 +13226,8 @@
   ]
  },
  {
-  "index": 375,
-  "type_id": 553,
+  "index": 389,
+  "type_id": 563,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -12784,8 +13260,8 @@
   ]
  },
  {
-  "index": 376,
-  "type_id": 391,
+  "index": 390,
+  "type_id": 400,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -12818,8 +13294,8 @@
   ]
  },
  {
-  "index": 377,
-  "type_id": 392,
+  "index": 391,
+  "type_id": 401,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -12852,8 +13328,8 @@
   ]
  },
  {
-  "index": 378,
-  "type_id": 393,
+  "index": 392,
+  "type_id": 402,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -12886,8 +13362,8 @@
   ]
  },
  {
-  "index": 379,
-  "type_id": 394,
+  "index": 393,
+  "type_id": 403,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -12920,8 +13396,8 @@
   ]
  },
  {
-  "index": 380,
-  "type_id": 396,
+  "index": 394,
+  "type_id": 405,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -12954,8 +13430,8 @@
   ]
  },
  {
-  "index": 381,
-  "type_id": 397,
+  "index": 395,
+  "type_id": 406,
   "damage": 700,
   "durable_damage": 700,
   "armor_penetration_per_angle": [
@@ -12988,8 +13464,8 @@
   ]
  },
  {
-  "index": 382,
-  "type_id": 399,
+  "index": 396,
+  "type_id": 408,
   "damage": 50,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -13022,8 +13498,8 @@
   ]
  },
  {
-  "index": 383,
-  "type_id": 398,
+  "index": 397,
+  "type_id": 407,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -13056,8 +13532,8 @@
   ]
  },
  {
-  "index": 384,
-  "type_id": 400,
+  "index": 398,
+  "type_id": 409,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -13090,8 +13566,8 @@
   ]
  },
  {
-  "index": 385,
-  "type_id": 401,
+  "index": 399,
+  "type_id": 410,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -13124,8 +13600,8 @@
   ]
  },
  {
-  "index": 386,
-  "type_id": 402,
+  "index": 400,
+  "type_id": 411,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -13158,8 +13634,8 @@
   ]
  },
  {
-  "index": 387,
-  "type_id": 403,
+  "index": 401,
+  "type_id": 412,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -13192,8 +13668,8 @@
   ]
  },
  {
-  "index": 388,
-  "type_id": 404,
+  "index": 402,
+  "type_id": 413,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -13226,8 +13702,8 @@
   ]
  },
  {
-  "index": 389,
-  "type_id": 405,
+  "index": 403,
+  "type_id": 414,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -13260,8 +13736,8 @@
   ]
  },
  {
-  "index": 390,
-  "type_id": 431,
+  "index": 404,
+  "type_id": 440,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -13294,8 +13770,8 @@
   ]
  },
  {
-  "index": 391,
-  "type_id": 406,
+  "index": 405,
+  "type_id": 415,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -13328,8 +13804,8 @@
   ]
  },
  {
-  "index": 392,
-  "type_id": 407,
+  "index": 406,
+  "type_id": 416,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -13362,8 +13838,8 @@
   ]
  },
  {
-  "index": 393,
-  "type_id": 408,
+  "index": 407,
+  "type_id": 417,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -13396,8 +13872,8 @@
   ]
  },
  {
-  "index": 394,
-  "type_id": 409,
+  "index": 408,
+  "type_id": 418,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -13430,8 +13906,8 @@
   ]
  },
  {
-  "index": 395,
-  "type_id": 410,
+  "index": 409,
+  "type_id": 419,
   "damage": 800,
   "durable_damage": 800,
   "armor_penetration_per_angle": [
@@ -13464,8 +13940,8 @@
   ]
  },
  {
-  "index": 396,
-  "type_id": 411,
+  "index": 410,
+  "type_id": 420,
   "damage": 660,
   "durable_damage": 660,
   "armor_penetration_per_angle": [
@@ -13498,8 +13974,8 @@
   ]
  },
  {
-  "index": 397,
-  "type_id": 412,
+  "index": 411,
+  "type_id": 421,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -13532,8 +14008,8 @@
   ]
  },
  {
-  "index": 398,
-  "type_id": 413,
+  "index": 412,
+  "type_id": 422,
   "damage": 800,
   "durable_damage": 800,
   "armor_penetration_per_angle": [
@@ -13566,8 +14042,8 @@
   ]
  },
  {
-  "index": 399,
-  "type_id": 414,
+  "index": 413,
+  "type_id": 423,
   "damage": 800,
   "durable_damage": 800,
   "armor_penetration_per_angle": [
@@ -13600,8 +14076,8 @@
   ]
  },
  {
-  "index": 400,
-  "type_id": 415,
+  "index": 414,
+  "type_id": 424,
   "damage": 1750,
   "durable_damage": 1750,
   "armor_penetration_per_angle": [
@@ -13634,8 +14110,8 @@
   ]
  },
  {
-  "index": 401,
-  "type_id": 416,
+  "index": 415,
+  "type_id": 425,
   "damage": 70,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -13668,8 +14144,8 @@
   ]
  },
  {
-  "index": 402,
-  "type_id": 417,
+  "index": 416,
+  "type_id": 426,
   "damage": 2500,
   "durable_damage": 2500,
   "armor_penetration_per_angle": [
@@ -13702,8 +14178,8 @@
   ]
  },
  {
-  "index": 403,
-  "type_id": 418,
+  "index": 417,
+  "type_id": 427,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -13736,8 +14212,8 @@
   ]
  },
  {
-  "index": 404,
-  "type_id": 419,
+  "index": 418,
+  "type_id": 428,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -13770,8 +14246,8 @@
   ]
  },
  {
-  "index": 405,
-  "type_id": 420,
+  "index": 419,
+  "type_id": 429,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -13804,8 +14280,8 @@
   ]
  },
  {
-  "index": 406,
-  "type_id": 421,
+  "index": 420,
+  "type_id": 430,
   "damage": 1250,
   "durable_damage": 1250,
   "armor_penetration_per_angle": [
@@ -13838,8 +14314,8 @@
   ]
  },
  {
-  "index": 407,
-  "type_id": 422,
+  "index": 421,
+  "type_id": 431,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -13872,8 +14348,8 @@
   ]
  },
  {
-  "index": 408,
-  "type_id": 423,
+  "index": 422,
+  "type_id": 432,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -13906,8 +14382,8 @@
   ]
  },
  {
-  "index": 409,
-  "type_id": 424,
+  "index": 423,
+  "type_id": 433,
   "damage": 80,
   "durable_damage": 80,
   "armor_penetration_per_angle": [
@@ -13940,8 +14416,8 @@
   ]
  },
  {
-  "index": 410,
-  "type_id": 425,
+  "index": 424,
+  "type_id": 434,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -13974,8 +14450,8 @@
   ]
  },
  {
-  "index": 411,
-  "type_id": 426,
+  "index": 425,
+  "type_id": 435,
   "damage": 30,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -14008,8 +14484,8 @@
   ]
  },
  {
-  "index": 412,
-  "type_id": 427,
+  "index": 426,
+  "type_id": 436,
   "damage": 20,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -14042,8 +14518,8 @@
   ]
  },
  {
-  "index": 413,
-  "type_id": 428,
+  "index": 427,
+  "type_id": 437,
   "damage": 60,
   "durable_damage": 80,
   "armor_penetration_per_angle": [
@@ -14076,8 +14552,8 @@
   ]
  },
  {
-  "index": 414,
-  "type_id": 429,
+  "index": 428,
+  "type_id": 438,
   "damage": 80,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -14110,8 +14586,8 @@
   ]
  },
  {
-  "index": 415,
-  "type_id": 430,
+  "index": 429,
+  "type_id": 439,
   "damage": 125,
   "durable_damage": 125,
   "armor_penetration_per_angle": [
@@ -14144,8 +14620,8 @@
   ]
  },
  {
-  "index": 416,
-  "type_id": 432,
+  "index": 430,
+  "type_id": 441,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -14178,8 +14654,8 @@
   ]
  },
  {
-  "index": 417,
-  "type_id": 433,
+  "index": 431,
+  "type_id": 442,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -14212,8 +14688,8 @@
   ]
  },
  {
-  "index": 418,
-  "type_id": 352,
+  "index": 432,
+  "type_id": 359,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -14246,8 +14722,8 @@
   ]
  },
  {
-  "index": 419,
-  "type_id": 335,
+  "index": 433,
+  "type_id": 341,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -14280,8 +14756,8 @@
   ]
  },
  {
-  "index": 420,
-  "type_id": 434,
+  "index": 434,
+  "type_id": 443,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -14314,8 +14790,8 @@
   ]
  },
  {
-  "index": 421,
-  "type_id": 435,
+  "index": 435,
+  "type_id": 444,
   "damage": 1500,
   "durable_damage": 1500,
   "armor_penetration_per_angle": [
@@ -14348,8 +14824,8 @@
   ]
  },
  {
-  "index": 422,
-  "type_id": 436,
+  "index": 436,
+  "type_id": 445,
   "damage": 1200,
   "durable_damage": 1200,
   "armor_penetration_per_angle": [
@@ -14382,8 +14858,8 @@
   ]
  },
  {
-  "index": 423,
-  "type_id": 437,
+  "index": 437,
+  "type_id": 446,
   "damage": 1500,
   "durable_damage": 1500,
   "armor_penetration_per_angle": [
@@ -14416,8 +14892,8 @@
   ]
  },
  {
-  "index": 424,
-  "type_id": 635,
+  "index": 438,
+  "type_id": 645,
   "damage": 750,
   "durable_damage": 750,
   "armor_penetration_per_angle": [
@@ -14450,8 +14926,8 @@
   ]
  },
  {
-  "index": 425,
-  "type_id": 438,
+  "index": 439,
+  "type_id": 447,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -14484,8 +14960,8 @@
   ]
  },
  {
-  "index": 426,
-  "type_id": 439,
+  "index": 440,
+  "type_id": 448,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -14518,8 +14994,8 @@
   ]
  },
  {
-  "index": 427,
-  "type_id": 440,
+  "index": 441,
+  "type_id": 449,
   "damage": 3,
   "durable_damage": 3,
   "armor_penetration_per_angle": [
@@ -14552,8 +15028,8 @@
   ]
  },
  {
-  "index": 428,
-  "type_id": 441,
+  "index": 442,
+  "type_id": 450,
   "damage": 600,
   "durable_damage": 600,
   "armor_penetration_per_angle": [
@@ -14586,8 +15062,8 @@
   ]
  },
  {
-  "index": 429,
-  "type_id": 442,
+  "index": 443,
+  "type_id": 451,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -14620,8 +15096,8 @@
   ]
  },
  {
-  "index": 430,
-  "type_id": 443,
+  "index": 444,
+  "type_id": 452,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -14654,8 +15130,8 @@
   ]
  },
  {
-  "index": 431,
-  "type_id": 444,
+  "index": 445,
+  "type_id": 453,
   "damage": 1500,
   "durable_damage": 1500,
   "armor_penetration_per_angle": [
@@ -14688,8 +15164,8 @@
   ]
  },
  {
-  "index": 432,
-  "type_id": 445,
+  "index": 446,
+  "type_id": 454,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -14722,8 +15198,8 @@
   ]
  },
  {
-  "index": 433,
-  "type_id": 446,
+  "index": 447,
+  "type_id": 455,
   "damage": 2500,
   "durable_damage": 2500,
   "armor_penetration_per_angle": [
@@ -14756,8 +15232,8 @@
   ]
  },
  {
-  "index": 434,
-  "type_id": 447,
+  "index": 448,
+  "type_id": 456,
   "damage": 2500,
   "durable_damage": 2500,
   "armor_penetration_per_angle": [
@@ -14790,8 +15266,8 @@
   ]
  },
  {
-  "index": 435,
-  "type_id": 448,
+  "index": 449,
+  "type_id": 457,
   "damage": 1500,
   "durable_damage": 1500,
   "armor_penetration_per_angle": [
@@ -14824,8 +15300,8 @@
   ]
  },
  {
-  "index": 436,
-  "type_id": 449,
+  "index": 450,
+  "type_id": 458,
   "damage": 100,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -14858,8 +15334,8 @@
   ]
  },
  {
-  "index": 437,
-  "type_id": 450,
+  "index": 451,
+  "type_id": 459,
   "damage": 65,
   "durable_damage": 65,
   "armor_penetration_per_angle": [
@@ -14892,8 +15368,8 @@
   ]
  },
  {
-  "index": 438,
-  "type_id": 251,
+  "index": 452,
+  "type_id": 257,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -14926,8 +15402,8 @@
   ]
  },
  {
-  "index": 439,
-  "type_id": 252,
+  "index": 453,
+  "type_id": 258,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -14960,8 +15436,8 @@
   ]
  },
  {
-  "index": 440,
-  "type_id": 253,
+  "index": 454,
+  "type_id": 259,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -14994,8 +15470,8 @@
   ]
  },
  {
-  "index": 441,
-  "type_id": 254,
+  "index": 455,
+  "type_id": 260,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -15028,8 +15504,8 @@
   ]
  },
  {
-  "index": 442,
-  "type_id": 452,
+  "index": 456,
+  "type_id": 461,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -15062,8 +15538,8 @@
   ]
  },
  {
-  "index": 443,
-  "type_id": 453,
+  "index": 457,
+  "type_id": 462,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -15096,8 +15572,8 @@
   ]
  },
  {
-  "index": 444,
-  "type_id": 451,
+  "index": 458,
+  "type_id": 460,
   "damage": 400,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -15130,8 +15606,8 @@
   ]
  },
  {
-  "index": 445,
-  "type_id": 455,
+  "index": 459,
+  "type_id": 464,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -15164,8 +15640,8 @@
   ]
  },
  {
-  "index": 446,
-  "type_id": 454,
+  "index": 460,
+  "type_id": 463,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -15198,8 +15674,8 @@
   ]
  },
  {
-  "index": 447,
-  "type_id": 456,
+  "index": 461,
+  "type_id": 465,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -15232,8 +15708,8 @@
   ]
  },
  {
-  "index": 448,
-  "type_id": 457,
+  "index": 462,
+  "type_id": 466,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -15266,8 +15742,8 @@
   ]
  },
  {
-  "index": 449,
-  "type_id": 458,
+  "index": 463,
+  "type_id": 467,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -15300,8 +15776,8 @@
   ]
  },
  {
-  "index": 450,
-  "type_id": 459,
+  "index": 464,
+  "type_id": 468,
   "damage": 5000,
   "durable_damage": 5000,
   "armor_penetration_per_angle": [
@@ -15334,8 +15810,8 @@
   ]
  },
  {
-  "index": 451,
-  "type_id": 460,
+  "index": 465,
+  "type_id": 469,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -15368,8 +15844,8 @@
   ]
  },
  {
-  "index": 452,
-  "type_id": 461,
+  "index": 466,
+  "type_id": 470,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -15402,8 +15878,8 @@
   ]
  },
  {
-  "index": 453,
-  "type_id": 462,
+  "index": 467,
+  "type_id": 471,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -15436,8 +15912,8 @@
   ]
  },
  {
-  "index": 454,
-  "type_id": 464,
+  "index": 468,
+  "type_id": 473,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -15470,8 +15946,8 @@
   ]
  },
  {
-  "index": 455,
-  "type_id": 463,
+  "index": 469,
+  "type_id": 472,
   "damage": 35,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -15504,8 +15980,8 @@
   ]
  },
  {
-  "index": 456,
-  "type_id": 465,
+  "index": 470,
+  "type_id": 474,
   "damage": 700,
   "durable_damage": 700,
   "armor_penetration_per_angle": [
@@ -15538,8 +16014,8 @@
   ]
  },
  {
-  "index": 457,
-  "type_id": 466,
+  "index": 471,
+  "type_id": 475,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -15572,8 +16048,8 @@
   ]
  },
  {
-  "index": 458,
-  "type_id": 467,
+  "index": 472,
+  "type_id": 476,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -15606,8 +16082,8 @@
   ]
  },
  {
-  "index": 459,
-  "type_id": 468,
+  "index": 473,
+  "type_id": 477,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -15640,8 +16116,8 @@
   ]
  },
  {
-  "index": 460,
-  "type_id": 187,
+  "index": 474,
+  "type_id": 193,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -15674,8 +16150,8 @@
   ]
  },
  {
-  "index": 461,
-  "type_id": 188,
+  "index": 475,
+  "type_id": 194,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -15708,8 +16184,8 @@
   ]
  },
  {
-  "index": 462,
-  "type_id": 189,
+  "index": 476,
+  "type_id": 195,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -15742,8 +16218,8 @@
   ]
  },
  {
-  "index": 463,
-  "type_id": 190,
+  "index": 477,
+  "type_id": 196,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -15776,8 +16252,8 @@
   ]
  },
  {
-  "index": 464,
-  "type_id": 469,
+  "index": 478,
+  "type_id": 478,
   "damage": -1,
   "durable_damage": -1,
   "armor_penetration_per_angle": [
@@ -15810,8 +16286,8 @@
   ]
  },
  {
-  "index": 465,
-  "type_id": 470,
+  "index": 479,
+  "type_id": 479,
   "damage": 10000,
   "durable_damage": 10000,
   "armor_penetration_per_angle": [
@@ -15844,8 +16320,8 @@
   ]
  },
  {
-  "index": 466,
-  "type_id": 471,
+  "index": 480,
+  "type_id": 480,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -15878,8 +16354,8 @@
   ]
  },
  {
-  "index": 467,
-  "type_id": 472,
+  "index": 481,
+  "type_id": 481,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -15912,8 +16388,8 @@
   ]
  },
  {
-  "index": 468,
-  "type_id": 473,
+  "index": 482,
+  "type_id": 482,
   "damage": 1500,
   "durable_damage": 1500,
   "armor_penetration_per_angle": [
@@ -15946,8 +16422,8 @@
   ]
  },
  {
-  "index": 469,
-  "type_id": 488,
+  "index": 483,
+  "type_id": 497,
   "damage": 10000,
   "durable_damage": 10000,
   "armor_penetration_per_angle": [
@@ -15980,8 +16456,8 @@
   ]
  },
  {
-  "index": 470,
-  "type_id": 474,
+  "index": 484,
+  "type_id": 483,
   "damage": 2000,
   "durable_damage": 2000,
   "armor_penetration_per_angle": [
@@ -16014,8 +16490,8 @@
   ]
  },
  {
-  "index": 471,
-  "type_id": 475,
+  "index": 485,
+  "type_id": 484,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -16048,8 +16524,8 @@
   ]
  },
  {
-  "index": 472,
-  "type_id": 476,
+  "index": 486,
+  "type_id": 485,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -16082,8 +16558,8 @@
   ]
  },
  {
-  "index": 473,
-  "type_id": 477,
+  "index": 487,
+  "type_id": 486,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -16116,8 +16592,8 @@
   ]
  },
  {
-  "index": 474,
-  "type_id": 480,
+  "index": 488,
+  "type_id": 489,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -16150,8 +16626,8 @@
   ]
  },
  {
-  "index": 475,
-  "type_id": 478,
+  "index": 489,
+  "type_id": 487,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -16184,8 +16660,8 @@
   ]
  },
  {
-  "index": 476,
-  "type_id": 479,
+  "index": 490,
+  "type_id": 488,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -16195,7 +16671,7 @@
    0
   ],
   "demolition_strength": 0,
-  "force_strength": 25,
+  "force_strength": 15,
   "force_impulse": 15,
   "element_type": 0,
   "status_effects": [
@@ -16218,8 +16694,8 @@
   ]
  },
  {
-  "index": 477,
-  "type_id": 484,
+  "index": 491,
+  "type_id": 493,
   "damage": 70,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -16252,8 +16728,8 @@
   ]
  },
  {
-  "index": 478,
-  "type_id": 485,
+  "index": 492,
+  "type_id": 494,
   "damage": 250,
   "durable_damage": 250,
   "armor_penetration_per_angle": [
@@ -16286,8 +16762,8 @@
   ]
  },
  {
-  "index": 479,
-  "type_id": 486,
+  "index": 493,
+  "type_id": 495,
   "damage": 70,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -16320,8 +16796,8 @@
   ]
  },
  {
-  "index": 480,
-  "type_id": 491,
+  "index": 494,
+  "type_id": 500,
   "damage": 250,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -16354,8 +16830,8 @@
   ]
  },
  {
-  "index": 481,
-  "type_id": 492,
+  "index": 495,
+  "type_id": 501,
   "damage": 350,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -16388,8 +16864,8 @@
   ]
  },
  {
-  "index": 482,
-  "type_id": 493,
+  "index": 496,
+  "type_id": 502,
   "damage": 350,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -16422,8 +16898,8 @@
   ]
  },
  {
-  "index": 483,
-  "type_id": 494,
+  "index": 497,
+  "type_id": 503,
   "damage": 200,
   "durable_damage": 40,
   "armor_penetration_per_angle": [
@@ -16456,8 +16932,8 @@
   ]
  },
  {
-  "index": 484,
-  "type_id": 495,
+  "index": 498,
+  "type_id": 504,
   "damage": 300,
   "durable_damage": 90,
   "armor_penetration_per_angle": [
@@ -16490,8 +16966,8 @@
   ]
  },
  {
-  "index": 485,
-  "type_id": 496,
+  "index": 499,
+  "type_id": 505,
   "damage": 360,
   "durable_damage": 108,
   "armor_penetration_per_angle": [
@@ -16524,8 +17000,8 @@
   ]
  },
  {
-  "index": 486,
-  "type_id": 497,
+  "index": 500,
+  "type_id": 506,
   "damage": 175,
   "durable_damage": 17,
   "armor_penetration_per_angle": [
@@ -16558,8 +17034,8 @@
   ]
  },
  {
-  "index": 487,
-  "type_id": 498,
+  "index": 501,
+  "type_id": 507,
   "damage": 350,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -16592,8 +17068,8 @@
   ]
  },
  {
-  "index": 488,
-  "type_id": 502,
+  "index": 502,
+  "type_id": 511,
   "damage": 550,
   "durable_damage": 165,
   "armor_penetration_per_angle": [
@@ -16626,8 +17102,8 @@
   ]
  },
  {
-  "index": 489,
-  "type_id": 503,
+  "index": 503,
+  "type_id": 512,
   "damage": 300,
   "durable_damage": 60,
   "armor_penetration_per_angle": [
@@ -16660,8 +17136,8 @@
   ]
  },
  {
-  "index": 490,
-  "type_id": 504,
+  "index": 504,
+  "type_id": 513,
   "damage": 60,
   "durable_damage": 60,
   "armor_penetration_per_angle": [
@@ -16694,8 +17170,8 @@
   ]
  },
  {
-  "index": 491,
-  "type_id": 505,
+  "index": 505,
+  "type_id": 514,
   "damage": 100,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -16728,8 +17204,8 @@
   ]
  },
  {
-  "index": 492,
-  "type_id": 506,
+  "index": 506,
+  "type_id": 515,
   "damage": 200,
   "durable_damage": 60,
   "armor_penetration_per_angle": [
@@ -16762,8 +17238,8 @@
   ]
  },
  {
-  "index": 493,
-  "type_id": 507,
+  "index": 507,
+  "type_id": 516,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -16796,8 +17272,8 @@
   ]
  },
  {
-  "index": 494,
-  "type_id": 508,
+  "index": 508,
+  "type_id": 517,
   "damage": 600,
   "durable_damage": 600,
   "armor_penetration_per_angle": [
@@ -16830,8 +17306,8 @@
   ]
  },
  {
-  "index": 495,
-  "type_id": 499,
+  "index": 509,
+  "type_id": 508,
   "damage": 60,
   "durable_damage": 6,
   "armor_penetration_per_angle": [
@@ -16864,8 +17340,8 @@
   ]
  },
  {
-  "index": 496,
-  "type_id": 500,
+  "index": 510,
+  "type_id": 509,
   "damage": 2600,
   "durable_damage": 2600,
   "armor_penetration_per_angle": [
@@ -16898,8 +17374,8 @@
   ]
  },
  {
-  "index": 497,
-  "type_id": 501,
+  "index": 511,
+  "type_id": 510,
   "damage": 275,
   "durable_damage": 40,
   "armor_penetration_per_angle": [
@@ -16932,8 +17408,8 @@
   ]
  },
  {
-  "index": 498,
-  "type_id": 509,
+  "index": 512,
+  "type_id": 518,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -16966,8 +17442,8 @@
   ]
  },
  {
-  "index": 499,
-  "type_id": 510,
+  "index": 513,
+  "type_id": 519,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -17000,8 +17476,8 @@
   ]
  },
  {
-  "index": 500,
-  "type_id": 511,
+  "index": 514,
+  "type_id": 520,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -17034,8 +17510,8 @@
   ]
  },
  {
-  "index": 501,
-  "type_id": 512,
+  "index": 515,
+  "type_id": 521,
   "damage": 150,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -17068,8 +17544,8 @@
   ]
  },
  {
-  "index": 502,
-  "type_id": 513,
+  "index": 516,
+  "type_id": 522,
   "damage": 3,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -17102,8 +17578,42 @@
   ]
  },
  {
-  "index": 503,
-  "type_id": 514,
+  "index": 517,
+  "type_id": 546,
+  "damage": 2,
+  "durable_damage": 5,
+  "armor_penetration_per_angle": [
+   1,
+   1,
+   1,
+   0
+  ],
+  "demolition_strength": 0,
+  "force_strength": 0,
+  "force_impulse": 0,
+  "element_type": 3,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 518,
+  "type_id": 523,
   "damage": 100,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -17136,8 +17646,8 @@
   ]
  },
  {
-  "index": 504,
-  "type_id": 515,
+  "index": 519,
+  "type_id": 524,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -17170,8 +17680,8 @@
   ]
  },
  {
-  "index": 505,
-  "type_id": 516,
+  "index": 520,
+  "type_id": 525,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -17204,8 +17714,8 @@
   ]
  },
  {
-  "index": 506,
-  "type_id": 517,
+  "index": 521,
+  "type_id": 526,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -17238,8 +17748,8 @@
   ]
  },
  {
-  "index": 507,
-  "type_id": 518,
+  "index": 522,
+  "type_id": 527,
   "damage": 10,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -17272,8 +17782,8 @@
   ]
  },
  {
-  "index": 508,
-  "type_id": 519,
+  "index": 523,
+  "type_id": 528,
   "damage": 10,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -17306,8 +17816,8 @@
   ]
  },
  {
-  "index": 509,
-  "type_id": 520,
+  "index": 524,
+  "type_id": 529,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -17340,8 +17850,8 @@
   ]
  },
  {
-  "index": 510,
-  "type_id": 521,
+  "index": 525,
+  "type_id": 530,
   "damage": 3,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -17374,8 +17884,8 @@
   ]
  },
  {
-  "index": 511,
-  "type_id": 522,
+  "index": 526,
+  "type_id": 531,
   "damage": 2,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -17408,8 +17918,8 @@
   ]
  },
  {
-  "index": 512,
-  "type_id": 523,
+  "index": 527,
+  "type_id": 532,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -17442,8 +17952,8 @@
   ]
  },
  {
-  "index": 513,
-  "type_id": 524,
+  "index": 528,
+  "type_id": 533,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -17476,8 +17986,8 @@
   ]
  },
  {
-  "index": 514,
-  "type_id": 525,
+  "index": 529,
+  "type_id": 534,
   "damage": 1400,
   "durable_damage": 700,
   "armor_penetration_per_angle": [
@@ -17510,8 +18020,8 @@
   ]
  },
  {
-  "index": 515,
-  "type_id": 526,
+  "index": 530,
+  "type_id": 535,
   "damage": 400,
   "durable_damage": 90,
   "armor_penetration_per_angle": [
@@ -17544,8 +18054,8 @@
   ]
  },
  {
-  "index": 516,
-  "type_id": 527,
+  "index": 531,
+  "type_id": 536,
   "damage": 50,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -17578,8 +18088,8 @@
   ]
  },
  {
-  "index": 517,
-  "type_id": 528,
+  "index": 532,
+  "type_id": 537,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -17612,8 +18122,8 @@
   ]
  },
  {
-  "index": 518,
-  "type_id": 530,
+  "index": 533,
+  "type_id": 539,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -17646,8 +18156,8 @@
   ]
  },
  {
-  "index": 519,
-  "type_id": 529,
+  "index": 534,
+  "type_id": 538,
   "damage": 1800,
   "durable_damage": 900,
   "armor_penetration_per_angle": [
@@ -17680,8 +18190,8 @@
   ]
  },
  {
-  "index": 520,
-  "type_id": 531,
+  "index": 535,
+  "type_id": 540,
   "damage": 10,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -17714,8 +18224,8 @@
   ]
  },
  {
-  "index": 521,
-  "type_id": 532,
+  "index": 536,
+  "type_id": 541,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -17748,8 +18258,8 @@
   ]
  },
  {
-  "index": 522,
-  "type_id": 533,
+  "index": 537,
+  "type_id": 542,
   "damage": 20,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -17782,8 +18292,8 @@
   ]
  },
  {
-  "index": 523,
-  "type_id": 534,
+  "index": 538,
+  "type_id": 543,
   "damage": 40,
   "durable_damage": 40,
   "armor_penetration_per_angle": [
@@ -17816,8 +18326,8 @@
   ]
  },
  {
-  "index": 524,
-  "type_id": 535,
+  "index": 539,
+  "type_id": 544,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -17850,8 +18360,8 @@
   ]
  },
  {
-  "index": 525,
-  "type_id": 536,
+  "index": 540,
+  "type_id": 545,
   "damage": 22,
   "durable_damage": 22,
   "armor_penetration_per_angle": [
@@ -17884,8 +18394,8 @@
   ]
  },
  {
-  "index": 526,
-  "type_id": 537,
+  "index": 541,
+  "type_id": 547,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -17918,8 +18428,8 @@
   ]
  },
  {
-  "index": 527,
-  "type_id": 538,
+  "index": 542,
+  "type_id": 548,
   "damage": 75,
   "durable_damage": 8,
   "armor_penetration_per_angle": [
@@ -17952,8 +18462,8 @@
   ]
  },
  {
-  "index": 528,
-  "type_id": 539,
+  "index": 543,
+  "type_id": 549,
   "damage": 200,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -17986,8 +18496,8 @@
   ]
  },
  {
-  "index": 529,
-  "type_id": 540,
+  "index": 544,
+  "type_id": 550,
   "damage": 450,
   "durable_damage": 225,
   "armor_penetration_per_angle": [
@@ -18020,8 +18530,8 @@
   ]
  },
  {
-  "index": 530,
-  "type_id": 541,
+  "index": 545,
+  "type_id": 551,
   "damage": 240,
   "durable_damage": 120,
   "armor_penetration_per_angle": [
@@ -18054,8 +18564,8 @@
   ]
  },
  {
-  "index": 531,
-  "type_id": 542,
+  "index": 546,
+  "type_id": 552,
   "damage": 188,
   "durable_damage": 98,
   "armor_penetration_per_angle": [
@@ -18088,8 +18598,8 @@
   ]
  },
  {
-  "index": 532,
-  "type_id": 543,
+  "index": 547,
+  "type_id": 553,
   "damage": 300,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -18122,8 +18632,8 @@
   ]
  },
  {
-  "index": 533,
-  "type_id": 544,
+  "index": 548,
+  "type_id": 554,
   "damage": 165,
   "durable_damage": 83,
   "armor_penetration_per_angle": [
@@ -18156,8 +18666,8 @@
   ]
  },
  {
-  "index": 534,
-  "type_id": 545,
+  "index": 549,
+  "type_id": 555,
   "damage": 70,
   "durable_damage": 7,
   "armor_penetration_per_angle": [
@@ -18190,8 +18700,8 @@
   ]
  },
  {
-  "index": 535,
-  "type_id": 546,
+  "index": 550,
+  "type_id": 556,
   "damage": 165,
   "durable_damage": 83,
   "armor_penetration_per_angle": [
@@ -18224,8 +18734,8 @@
   ]
  },
  {
-  "index": 536,
-  "type_id": 547,
+  "index": 551,
+  "type_id": 557,
   "damage": 200,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -18258,8 +18768,8 @@
   ]
  },
  {
-  "index": 537,
-  "type_id": 548,
+  "index": 552,
+  "type_id": 558,
   "damage": 165,
   "durable_damage": 83,
   "armor_penetration_per_angle": [
@@ -18292,8 +18802,8 @@
   ]
  },
  {
-  "index": 538,
-  "type_id": 549,
+  "index": 553,
+  "type_id": 559,
   "damage": 120,
   "durable_damage": 60,
   "armor_penetration_per_angle": [
@@ -18326,8 +18836,8 @@
   ]
  },
  {
-  "index": 539,
-  "type_id": 550,
+  "index": 554,
+  "type_id": 560,
   "damage": 300,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -18360,8 +18870,8 @@
   ]
  },
  {
-  "index": 540,
-  "type_id": 551,
+  "index": 555,
+  "type_id": 561,
   "damage": 2000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -18394,8 +18904,8 @@
   ]
  },
  {
-  "index": 541,
-  "type_id": 552,
+  "index": 556,
+  "type_id": 562,
   "damage": 2200,
   "durable_damage": 2200,
   "armor_penetration_per_angle": [
@@ -18428,8 +18938,8 @@
   ]
  },
  {
-  "index": 542,
-  "type_id": 554,
+  "index": 557,
+  "type_id": 564,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -18462,8 +18972,8 @@
   ]
  },
  {
-  "index": 543,
-  "type_id": 555,
+  "index": 558,
+  "type_id": 565,
   "damage": 70,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -18496,8 +19006,8 @@
   ]
  },
  {
-  "index": 544,
-  "type_id": 556,
+  "index": 559,
+  "type_id": 566,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -18530,8 +19040,8 @@
   ]
  },
  {
-  "index": 545,
-  "type_id": 557,
+  "index": 560,
+  "type_id": 567,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -18564,8 +19074,8 @@
   ]
  },
  {
-  "index": 546,
-  "type_id": 558,
+  "index": 561,
+  "type_id": 568,
   "damage": 90,
   "durable_damage": 135,
   "armor_penetration_per_angle": [
@@ -18598,8 +19108,8 @@
   ]
  },
  {
-  "index": 547,
-  "type_id": 559,
+  "index": 562,
+  "type_id": 569,
   "damage": 500,
   "durable_damage": 500,
   "armor_penetration_per_angle": [
@@ -18632,8 +19142,8 @@
   ]
  },
  {
-  "index": 548,
-  "type_id": 560,
+  "index": 563,
+  "type_id": 570,
   "damage": 350,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -18666,8 +19176,8 @@
   ]
  },
  {
-  "index": 549,
-  "type_id": 562,
+  "index": 564,
+  "type_id": 572,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -18700,8 +19210,8 @@
   ]
  },
  {
-  "index": 550,
-  "type_id": 561,
+  "index": 565,
+  "type_id": 571,
   "damage": 30,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -18734,8 +19244,8 @@
   ]
  },
  {
-  "index": 551,
-  "type_id": 568,
+  "index": 566,
+  "type_id": 578,
   "damage": 350,
   "durable_damage": 400,
   "armor_penetration_per_angle": [
@@ -18768,8 +19278,8 @@
   ]
  },
  {
-  "index": 552,
-  "type_id": 570,
+  "index": 567,
+  "type_id": 580,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -18802,8 +19312,8 @@
   ]
  },
  {
-  "index": 553,
-  "type_id": 571,
+  "index": 568,
+  "type_id": 581,
   "damage": 350,
   "durable_damage": 350,
   "armor_penetration_per_angle": [
@@ -18836,8 +19346,8 @@
   ]
  },
  {
-  "index": 554,
-  "type_id": 563,
+  "index": 569,
+  "type_id": 573,
   "damage": 1,
   "durable_damage": 1,
   "armor_penetration_per_angle": [
@@ -18870,8 +19380,8 @@
   ]
  },
  {
-  "index": 555,
-  "type_id": 564,
+  "index": 570,
+  "type_id": 574,
   "damage": 35,
   "durable_damage": 40,
   "armor_penetration_per_angle": [
@@ -18904,8 +19414,8 @@
   ]
  },
  {
-  "index": 556,
-  "type_id": 565,
+  "index": 571,
+  "type_id": 575,
   "damage": 30,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -18938,8 +19448,8 @@
   ]
  },
  {
-  "index": 557,
-  "type_id": 566,
+  "index": 572,
+  "type_id": 576,
   "damage": 35,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -18972,8 +19482,8 @@
   ]
  },
  {
-  "index": 558,
-  "type_id": 567,
+  "index": 573,
+  "type_id": 577,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -19006,8 +19516,8 @@
   ]
  },
  {
-  "index": 559,
-  "type_id": 572,
+  "index": 574,
+  "type_id": 582,
   "damage": 55,
   "durable_damage": 65,
   "armor_penetration_per_angle": [
@@ -19040,8 +19550,8 @@
   ]
  },
  {
-  "index": 560,
-  "type_id": 573,
+  "index": 575,
+  "type_id": 583,
   "damage": 30,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -19074,8 +19584,8 @@
   ]
  },
  {
-  "index": 561,
-  "type_id": 574,
+  "index": 576,
+  "type_id": 584,
   "damage": 75,
   "durable_damage": 75,
   "armor_penetration_per_angle": [
@@ -19108,8 +19618,8 @@
   ]
  },
  {
-  "index": 562,
-  "type_id": 575,
+  "index": 577,
+  "type_id": 585,
   "damage": 40,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -19142,8 +19652,8 @@
   ]
  },
  {
-  "index": 563,
-  "type_id": 576,
+  "index": 578,
+  "type_id": 586,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -19176,8 +19686,8 @@
   ]
  },
  {
-  "index": 564,
-  "type_id": 577,
+  "index": 579,
+  "type_id": 587,
   "damage": 20,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -19210,8 +19720,8 @@
   ]
  },
  {
-  "index": 565,
-  "type_id": 578,
+  "index": 580,
+  "type_id": 588,
   "damage": 50,
   "durable_damage": 60,
   "armor_penetration_per_angle": [
@@ -19244,8 +19754,8 @@
   ]
  },
  {
-  "index": 566,
-  "type_id": 579,
+  "index": 581,
+  "type_id": 589,
   "damage": 35,
   "durable_damage": 35,
   "armor_penetration_per_angle": [
@@ -19278,8 +19788,8 @@
   ]
  },
  {
-  "index": 567,
-  "type_id": 580,
+  "index": 582,
+  "type_id": 590,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -19312,8 +19822,8 @@
   ]
  },
  {
-  "index": 568,
-  "type_id": 581,
+  "index": 583,
+  "type_id": 591,
   "damage": 1000,
   "durable_damage": 1000,
   "armor_penetration_per_angle": [
@@ -19346,8 +19856,8 @@
   ]
  },
  {
-  "index": 569,
-  "type_id": 582,
+  "index": 584,
+  "type_id": 592,
   "damage": 10,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -19380,8 +19890,8 @@
   ]
  },
  {
-  "index": 570,
-  "type_id": 583,
+  "index": 585,
+  "type_id": 593,
   "damage": 35,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -19414,8 +19924,8 @@
   ]
  },
  {
-  "index": 571,
-  "type_id": 584,
+  "index": 586,
+  "type_id": 594,
   "damage": 60,
   "durable_damage": 45,
   "armor_penetration_per_angle": [
@@ -19448,8 +19958,8 @@
   ]
  },
  {
-  "index": 572,
-  "type_id": 585,
+  "index": 587,
+  "type_id": 595,
   "damage": 80,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -19482,8 +19992,8 @@
   ]
  },
  {
-  "index": 573,
-  "type_id": 586,
+  "index": 588,
+  "type_id": 596,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -19516,8 +20026,8 @@
   ]
  },
  {
-  "index": 574,
-  "type_id": 587,
+  "index": 589,
+  "type_id": 597,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -19550,8 +20060,8 @@
   ]
  },
  {
-  "index": 575,
-  "type_id": 588,
+  "index": 590,
+  "type_id": 598,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -19584,8 +20094,8 @@
   ]
  },
  {
-  "index": 576,
-  "type_id": 589,
+  "index": 591,
+  "type_id": 599,
   "damage": 60,
   "durable_damage": 45,
   "armor_penetration_per_angle": [
@@ -19618,8 +20128,8 @@
   ]
  },
  {
-  "index": 577,
-  "type_id": 590,
+  "index": 592,
+  "type_id": 600,
   "damage": 50,
   "durable_damage": 30,
   "armor_penetration_per_angle": [
@@ -19652,8 +20162,8 @@
   ]
  },
  {
-  "index": 578,
-  "type_id": 591,
+  "index": 593,
+  "type_id": 601,
   "damage": 80,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -19686,8 +20196,8 @@
   ]
  },
  {
-  "index": 579,
-  "type_id": 592,
+  "index": 594,
+  "type_id": 602,
   "damage": 100,
   "durable_damage": 100,
   "armor_penetration_per_angle": [
@@ -19720,8 +20230,8 @@
   ]
  },
  {
-  "index": 580,
-  "type_id": 593,
+  "index": 595,
+  "type_id": 603,
   "damage": 20,
   "durable_damage": 2,
   "armor_penetration_per_angle": [
@@ -19754,8 +20264,8 @@
   ]
  },
  {
-  "index": 581,
-  "type_id": 594,
+  "index": 596,
+  "type_id": 604,
   "damage": 80,
   "durable_damage": 80,
   "armor_penetration_per_angle": [
@@ -19788,8 +20298,8 @@
   ]
  },
  {
-  "index": 582,
-  "type_id": 595,
+  "index": 597,
+  "type_id": 605,
   "damage": 10,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -19822,8 +20332,8 @@
   ]
  },
  {
-  "index": 583,
-  "type_id": 596,
+  "index": 598,
+  "type_id": 606,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -19856,8 +20366,8 @@
   ]
  },
  {
-  "index": 584,
-  "type_id": 597,
+  "index": 599,
+  "type_id": 607,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -19890,8 +20400,8 @@
   ]
  },
  {
-  "index": 585,
-  "type_id": 598,
+  "index": 600,
+  "type_id": 608,
   "damage": 20,
   "durable_damage": 2,
   "armor_penetration_per_angle": [
@@ -19924,8 +20434,8 @@
   ]
  },
  {
-  "index": 586,
-  "type_id": 599,
+  "index": 601,
+  "type_id": 609,
   "damage": 25,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -19958,8 +20468,8 @@
   ]
  },
  {
-  "index": 587,
-  "type_id": 600,
+  "index": 602,
+  "type_id": 610,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -19992,518 +20502,8 @@
   ]
  },
  {
-  "index": 588,
-  "type_id": 601,
-  "damage": 35,
-  "durable_damage": 20,
-  "armor_penetration_per_angle": [
-   4,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 20,
-  "force_strength": 15,
-  "force_impulse": 10,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 589,
-  "type_id": 602,
-  "damage": 75,
-  "durable_damage": 60,
-  "armor_penetration_per_angle": [
-   4,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 30,
-  "force_strength": 25,
-  "force_impulse": 20,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 590,
-  "type_id": 603,
-  "damage": 160,
-  "durable_damage": 80,
-  "armor_penetration_per_angle": [
-   5,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 30,
-  "force_strength": 25,
-  "force_impulse": 10,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 591,
-  "type_id": 604,
-  "damage": 50,
-  "durable_damage": 50,
-  "armor_penetration_per_angle": [
-   10,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 20,
-  "force_strength": 30,
-  "force_impulse": 50,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 592,
-  "type_id": 605,
-  "damage": 30,
-  "durable_damage": 90,
-  "armor_penetration_per_angle": [
-   4,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 30,
-  "force_strength": 60,
-  "force_impulse": 35,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 593,
-  "type_id": 606,
-  "damage": 200,
-  "durable_damage": 150,
-  "armor_penetration_per_angle": [
-   5,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 40,
-  "force_strength": 40,
-  "force_impulse": 20,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 594,
-  "type_id": 607,
-  "damage": 50,
-  "durable_damage": 60,
-  "armor_penetration_per_angle": [
-   4,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 20,
-  "force_strength": 20,
-  "force_impulse": 15,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 595,
-  "type_id": 608,
-  "damage": 200,
-  "durable_damage": 200,
-  "armor_penetration_per_angle": [
-   5,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 30,
-  "force_strength": 30,
-  "force_impulse": 30,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 596,
-  "type_id": 609,
-  "damage": 5,
-  "durable_damage": 5,
-  "armor_penetration_per_angle": [
-   5,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 40,
-  "force_strength": 0,
-  "force_impulse": 0,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 597,
-  "type_id": 610,
-  "damage": 30,
-  "durable_damage": 45,
-  "armor_penetration_per_angle": [
-   7,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 39,
-  "force_strength": 40,
-  "force_impulse": 35,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 598,
-  "type_id": 611,
-  "damage": 50,
-  "durable_damage": 65,
-  "armor_penetration_per_angle": [
-   4,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 30,
-  "force_strength": 20,
-  "force_impulse": 30,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 599,
-  "type_id": 612,
-  "damage": 5,
-  "durable_damage": 85,
-  "armor_penetration_per_angle": [
-   4,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 10,
-  "force_strength": 1,
-  "force_impulse": 30,
-  "element_type": 0,
-  "status_effects": [
-   [
-    39,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 600,
-  "type_id": 613,
-  "damage": 120,
-  "durable_damage": 120,
-  "armor_penetration_per_angle": [
-   4,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 30,
-  "force_strength": 30,
-  "force_impulse": 50,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 601,
-  "type_id": 614,
-  "damage": 25,
-  "durable_damage": 25,
-  "armor_penetration_per_angle": [
-   3,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 20,
-  "force_strength": 35,
-  "force_impulse": 45,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
-  "index": 602,
-  "type_id": 615,
-  "damage": 60,
-  "durable_damage": 60,
-  "armor_penetration_per_angle": [
-   5,
-   0,
-   0,
-   0
-  ],
-  "demolition_strength": 30,
-  "force_strength": 10,
-  "force_impulse": 10,
-  "element_type": 0,
-  "status_effects": [
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ],
-   [
-    0,
-    0.0
-   ]
-  ]
- },
- {
   "index": 603,
-  "type_id": 616,
+  "type_id": 611,
   "damage": 35,
   "durable_damage": 20,
   "armor_penetration_per_angle": [
@@ -20537,7 +20537,517 @@
  },
  {
   "index": 604,
+  "type_id": 612,
+  "damage": 75,
+  "durable_damage": 60,
+  "armor_penetration_per_angle": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 30,
+  "force_strength": 25,
+  "force_impulse": 20,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 605,
+  "type_id": 613,
+  "damage": 160,
+  "durable_damage": 80,
+  "armor_penetration_per_angle": [
+   5,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 30,
+  "force_strength": 25,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 606,
+  "type_id": 614,
+  "damage": 50,
+  "durable_damage": 50,
+  "armor_penetration_per_angle": [
+   10,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 20,
+  "force_strength": 30,
+  "force_impulse": 50,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 607,
+  "type_id": 615,
+  "damage": 30,
+  "durable_damage": 90,
+  "armor_penetration_per_angle": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 30,
+  "force_strength": 60,
+  "force_impulse": 35,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 608,
+  "type_id": 616,
+  "damage": 200,
+  "durable_damage": 150,
+  "armor_penetration_per_angle": [
+   5,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 40,
+  "force_strength": 40,
+  "force_impulse": 20,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 609,
   "type_id": 617,
+  "damage": 50,
+  "durable_damage": 60,
+  "armor_penetration_per_angle": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 20,
+  "force_strength": 20,
+  "force_impulse": 15,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 610,
+  "type_id": 618,
+  "damage": 200,
+  "durable_damage": 200,
+  "armor_penetration_per_angle": [
+   5,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 30,
+  "force_strength": 30,
+  "force_impulse": 30,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 611,
+  "type_id": 619,
+  "damage": 5,
+  "durable_damage": 5,
+  "armor_penetration_per_angle": [
+   5,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 40,
+  "force_strength": 0,
+  "force_impulse": 0,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 612,
+  "type_id": 620,
+  "damage": 30,
+  "durable_damage": 45,
+  "armor_penetration_per_angle": [
+   7,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 39,
+  "force_strength": 40,
+  "force_impulse": 35,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 613,
+  "type_id": 621,
+  "damage": 50,
+  "durable_damage": 65,
+  "armor_penetration_per_angle": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 30,
+  "force_strength": 20,
+  "force_impulse": 30,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 614,
+  "type_id": 622,
+  "damage": 5,
+  "durable_damage": 85,
+  "armor_penetration_per_angle": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 10,
+  "force_strength": 1,
+  "force_impulse": 30,
+  "element_type": 0,
+  "status_effects": [
+   [
+    39,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 615,
+  "type_id": 623,
+  "damage": 120,
+  "durable_damage": 120,
+  "armor_penetration_per_angle": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 30,
+  "force_strength": 30,
+  "force_impulse": 50,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 616,
+  "type_id": 624,
+  "damage": 25,
+  "durable_damage": 25,
+  "armor_penetration_per_angle": [
+   3,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 20,
+  "force_strength": 35,
+  "force_impulse": 45,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 617,
+  "type_id": 625,
+  "damage": 60,
+  "durable_damage": 60,
+  "armor_penetration_per_angle": [
+   5,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 30,
+  "force_strength": 10,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 618,
+  "type_id": 626,
+  "damage": 35,
+  "durable_damage": 20,
+  "armor_penetration_per_angle": [
+   4,
+   0,
+   0,
+   0
+  ],
+  "demolition_strength": 20,
+  "force_strength": 15,
+  "force_impulse": 10,
+  "element_type": 0,
+  "status_effects": [
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ],
+   [
+    0,
+    0.0
+   ]
+  ]
+ },
+ {
+  "index": 619,
+  "type_id": 627,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -20570,8 +21080,8 @@
   ]
  },
  {
-  "index": 605,
-  "type_id": 618,
+  "index": 620,
+  "type_id": 628,
   "damage": 75,
   "durable_damage": 60,
   "armor_penetration_per_angle": [
@@ -20604,8 +21114,8 @@
   ]
  },
  {
-  "index": 606,
-  "type_id": 619,
+  "index": 621,
+  "type_id": 629,
   "damage": 300,
   "durable_damage": 300,
   "armor_penetration_per_angle": [
@@ -20638,8 +21148,8 @@
   ]
  },
  {
-  "index": 607,
-  "type_id": 620,
+  "index": 622,
+  "type_id": 630,
   "damage": 20,
   "durable_damage": 10,
   "armor_penetration_per_angle": [
@@ -20672,8 +21182,8 @@
   ]
  },
  {
-  "index": 608,
-  "type_id": 621,
+  "index": 623,
+  "type_id": 631,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -20706,8 +21216,8 @@
   ]
  },
  {
-  "index": 609,
-  "type_id": 622,
+  "index": 624,
+  "type_id": 632,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -20740,8 +21250,8 @@
   ]
  },
  {
-  "index": 610,
-  "type_id": 623,
+  "index": 625,
+  "type_id": 633,
   "damage": 200,
   "durable_damage": 200,
   "armor_penetration_per_angle": [
@@ -20774,8 +21284,8 @@
   ]
  },
  {
-  "index": 611,
-  "type_id": 624,
+  "index": 626,
+  "type_id": 634,
   "damage": 500,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -20808,8 +21318,8 @@
   ]
  },
  {
-  "index": 612,
-  "type_id": 625,
+  "index": 627,
+  "type_id": 635,
   "damage": 500,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -20842,8 +21352,8 @@
   ]
  },
  {
-  "index": 613,
-  "type_id": 626,
+  "index": 628,
+  "type_id": 636,
   "damage": 300,
   "durable_damage": 150,
   "armor_penetration_per_angle": [
@@ -20876,8 +21386,8 @@
   ]
  },
  {
-  "index": 614,
-  "type_id": 627,
+  "index": 629,
+  "type_id": 637,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -20910,8 +21420,8 @@
   ]
  },
  {
-  "index": 615,
-  "type_id": 481,
+  "index": 630,
+  "type_id": 490,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -20944,8 +21454,8 @@
   ]
  },
  {
-  "index": 616,
-  "type_id": 487,
+  "index": 631,
+  "type_id": 496,
   "damage": 4000,
   "durable_damage": 4000,
   "armor_penetration_per_angle": [
@@ -20978,8 +21488,8 @@
   ]
  },
  {
-  "index": 617,
-  "type_id": 357,
+  "index": 632,
+  "type_id": 364,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -21012,8 +21522,8 @@
   ]
  },
  {
-  "index": 618,
-  "type_id": 358,
+  "index": 633,
+  "type_id": 365,
   "damage": 160,
   "durable_damage": 80,
   "armor_penetration_per_angle": [
@@ -21046,8 +21556,8 @@
   ]
  },
  {
-  "index": 619,
-  "type_id": 628,
+  "index": 634,
+  "type_id": 638,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -21080,8 +21590,8 @@
   ]
  },
  {
-  "index": 620,
-  "type_id": 359,
+  "index": 635,
+  "type_id": 366,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -21114,8 +21624,8 @@
   ]
  },
  {
-  "index": 621,
-  "type_id": 195,
+  "index": 636,
+  "type_id": 201,
   "damage": 100,
   "durable_damage": 70,
   "armor_penetration_per_angle": [
@@ -21148,8 +21658,8 @@
   ]
  },
  {
-  "index": 622,
-  "type_id": 629,
+  "index": 637,
+  "type_id": 639,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -21182,8 +21692,8 @@
   ]
  },
  {
-  "index": 623,
-  "type_id": 630,
+  "index": 638,
+  "type_id": 640,
   "damage": 15,
   "durable_damage": 15,
   "armor_penetration_per_angle": [
@@ -21216,8 +21726,8 @@
   ]
  },
  {
-  "index": 624,
-  "type_id": 631,
+  "index": 639,
+  "type_id": 641,
   "damage": 0,
   "durable_damage": 0,
   "armor_penetration_per_angle": [
@@ -21250,8 +21760,8 @@
   ]
  },
  {
-  "index": 625,
-  "type_id": 153,
+  "index": 640,
+  "type_id": 158,
   "damage": 42,
   "durable_damage": 11,
   "armor_penetration_per_angle": [
@@ -21284,8 +21794,8 @@
   ]
  },
  {
-  "index": 626,
-  "type_id": 632,
+  "index": 641,
+  "type_id": 642,
   "damage": 150,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -21318,8 +21828,8 @@
   ]
  },
  {
-  "index": 627,
-  "type_id": 633,
+  "index": 642,
+  "type_id": 643,
   "damage": 3500,
   "durable_damage": 3500,
   "armor_penetration_per_angle": [
@@ -21352,8 +21862,8 @@
   ]
  },
  {
-  "index": 628,
-  "type_id": 634,
+  "index": 643,
+  "type_id": 644,
   "damage": 7,
   "durable_damage": 7,
   "armor_penetration_per_angle": [
@@ -21386,8 +21896,8 @@
   ]
  },
  {
-  "index": 629,
-  "type_id": 636,
+  "index": 644,
+  "type_id": 646,
   "damage": 700,
   "durable_damage": 700,
   "armor_penetration_per_angle": [
@@ -21420,8 +21930,8 @@
   ]
  },
  {
-  "index": 630,
-  "type_id": 637,
+  "index": 645,
+  "type_id": 647,
   "damage": 50,
   "durable_damage": 50,
   "armor_penetration_per_angle": [
@@ -21454,8 +21964,8 @@
   ]
  },
  {
-  "index": 631,
-  "type_id": 638,
+  "index": 646,
+  "type_id": 648,
   "damage": 25,
   "durable_damage": 25,
   "armor_penetration_per_angle": [
@@ -21488,8 +21998,8 @@
   ]
  },
  {
-  "index": 632,
-  "type_id": 490,
+  "index": 647,
+  "type_id": 499,
   "damage": 5,
   "durable_damage": 5,
   "armor_penetration_per_angle": [
@@ -21522,8 +22032,8 @@
   ]
  },
  {
-  "index": 633,
-  "type_id": 639,
+  "index": 648,
+  "type_id": 649,
   "damage": 10000,
   "durable_damage": 10000,
   "armor_penetration_per_angle": [

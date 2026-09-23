@@ -34,6 +34,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 from ljcompile import LuaJIT  # noqa: E402
 
 import parse_dlbin as pd  # noqa: E402
+import r4_fixture  # noqa: E402
 
 IMAGE_BASE = 0x10000000
 
@@ -170,12 +171,12 @@ return table.concat(parts, ";")
 
 
 EXTRACT = r"""
--- type_id is the raw +0 value (an id), position is the array index. For R-4
--- they are both 137, which is why the distinction was missed at first.
-local record = { type_id = 137, position = 137,
-                 damage = 220, durable = 45, ap = {3,3,3,0} }
-local expect = { before_id = 136, after_id = 138,
-                 next = { damage = 200, durable = 50 } }
+-- R-4's row, taken from the shipped data rather than written out here. Its
+-- position and id move with every balance patch (137/137 in 1.8.45317,
+-- 147/142 in 1.8.45850), and a stale copy makes this test look for a row the
+-- mod never writes. See tests/r4_fixture.py.
+local record = RECORD_PLACEHOLDER
+local expect = EXPECT_PLACEHOLDER
 local ok, address, near = R.find_record(api, IMAGE_BASE, record, expect)
 out.found = ok and true or false
 if ok then
@@ -187,13 +188,13 @@ else
   out.reason = tostring(address)
 end
 local ok2 = R.find_record(api, IMAGE_BASE, record,
-  { before_id = 999, after_id = 999, next = { damage = 200, durable = 50 } })
+  { before_id = 999, after_id = 999, next = { damage = NEXT_DAMAGE_PLACEHOLDER, durable = NEXT_DURABLE_PLACEHOLDER } })
 out.wrong_neighbours_found = ok2 and true or false
 local ok3 = R.find_record(api, IMAGE_BASE,
-  { type_id = 137, position = 137, damage = 99999, durable = 1, ap = {9,9,9,9} }, expect)
+  { type_id = RECORD_ID_PLACEHOLDER, position = RECORD_POS_PLACEHOLDER, damage = 99999, durable = 1, ap = {9,9,9,9} }, expect)
 out.absent_found = ok3 and true or false
 local ok4 = R.find_record(api, IMAGE_BASE, record,
-  { before_id = 136, after_id = 138, next = { damage = 11111, durable = 22222 } })
+  { before_id = BEFORE_ID_PLACEHOLDER, after_id = AFTER_ID_PLACEHOLDER, next = { damage = 11111, durable = 22222 } })
 out.wrong_next_found = ok4 and true or false
 """
 
@@ -209,32 +210,47 @@ def main() -> int:
     image = sim_path.read_bytes()
     base = meta["array_base"]
 
+    # R-4's row as the shipped data describes it, so this test and the mod agree
+    # on which row is under test even after a rebalance.
+    row = r4_fixture.r4_row()
+    pos, tid = row["position"], row["type_id"]
+
     resolver_src = (ROOT / "mod_template" / "src" / "10_resolver.lua").read_text(
         encoding="utf-8"
     )
 
     print("== the simulated image holds the real table ==")
-    rec = image[base + 137 * 76 : base + 138 * 76]
+    rec = image[base + pos * 76 : base + (pos + 1) * 76]
     idx, dmg, dur = struct.unpack_from("<iii", rec, 0)
     ap = list(struct.unpack_from("<4I", rec, 12))
-    check("record 137 is 220/45 AP[3,3,3,0]",
-          (idx, dmg, dur) == (137, 220, 45) and ap == [3, 3, 3, 0],
+    check(f"record {pos} is {row['damage']}/{row['durable']} AP{row['ap']}",
+          (idx, dmg, dur) == (tid, row["damage"], row["durable"]) and ap == row["ap"],
           f"idx={idx} {dmg}/{dur} ap={ap}")
 
     print()
     print("== driving the shipped resolver against the simulated process ==")
-    out = probe(resolver_src, image, EXTRACT)
+    extract = (EXTRACT
+               .replace("RECORD_PLACEHOLDER", r4_fixture.lua_record(row))
+               .replace("EXPECT_PLACEHOLDER", r4_fixture.lua_expect(row))
+               .replace("RECORD_ID_PLACEHOLDER", str(tid))
+               .replace("RECORD_POS_PLACEHOLDER", str(pos))
+               .replace("NEXT_DAMAGE_PLACEHOLDER", str(row["next_damage"]))
+               .replace("NEXT_DURABLE_PLACEHOLDER", str(row["next_durable"]))
+               .replace("BEFORE_ID_PLACEHOLDER", str(row["before_id"]))
+               .replace("AFTER_ID_PLACEHOLDER", str(row["after_id"])))
+    out = probe(resolver_src, image, extract)
 
     check("resolver found the record", out.get("found") is True,
           f"reason={out.get('reason')}")
-    expected = base + 137 * 76
+    expected = base + pos * 76
     check(f"at the correct offset (0x{expected:x})",
           out.get("offset") == expected, f"got {out.get('offset')}")
-    check("neighbour before has id 136", out.get("before_id") == 136,
-          f"got {out.get('before_id')}")
-    check("neighbour after has id 138", out.get("after_id") == 138,
-          f"got {out.get('after_id')}")
-    check("neighbour after reads 200", out.get("after_damage") == 200,
+    check(f"neighbour before has id {row['before_id']}",
+          out.get("before_id") == row["before_id"], f"got {out.get('before_id')}")
+    check(f"neighbour after has id {row['after_id']}",
+          out.get("after_id") == row["after_id"], f"got {out.get('after_id')}")
+    check(f"neighbour after reads {row['next_damage']}",
+          out.get("after_damage") == row["next_damage"],
           f"got {out.get('after_damage')}")
 
     print()

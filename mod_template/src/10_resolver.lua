@@ -54,7 +54,16 @@ M.OFF = {
 -- Layout constants, so a located record can be turned into the base of its
 -- array and back. Without these each additional record would need its own
 -- address-space walk.
-M.ARRAY_START = 0x1e0
+--
+-- ARRAY_START is the DLArray descriptor's own `offset` field, not a tunable:
+-- in the decrypted table the descriptor sits at the payload start and its first
+-- u64 is the distance to the record array (16 in every settings table), so the
+-- array begins 100 bytes into the blob. It was 0x1e0 (480) while the old parser
+-- read from the wrong file offset and labelled every row five positions early -
+-- the overshoot cancelled that undershoot. The parser now reads the descriptor
+-- directly, so the compensation had to go: with true positions, 480 addresses
+-- five rows past the target. See tools/gen_mod.py for the full derivation.
+M.ARRAY_START = 100
 M.RECORD_SIZE = 76
 
 -- Base address of the damage array, once any record has been located.

@@ -24,8 +24,27 @@ from __future__ import annotations
 import argparse
 import hashlib
 
-# Offsets the parsed .dl_bin layout says the damage array uses.
-ARRAY_START = 0x1e0
+# Where the damage array sits inside the table, as an offset from whatever a
+# static route points at.
+#
+# This is NOT a tunable. It is the DLArray descriptor's own `offset` field: in
+# the decrypted .dl_bin the descriptor sits at the payload start and its first
+# u64 is the distance to the record array, which is 16 in every settings table
+# here. The array therefore begins 16 bytes into the payload, i.e. 100 bytes
+# into the blob (24-byte LDLD header + 60 bytes of container preamble).
+#
+# It used to be 0x1e0 (480), which was 380 bytes too far. That value was not a
+# mistake at the time: the old parser began reading at file offset 480 instead
+# of 100 and so labelled every row five positions early. The overshoot in this
+# constant cancelled the undershoot in the parser, and a mod built from those
+# two errors addressed the right byte - which is why it worked in game.
+#
+# The parser now reads the descriptor directly (tools/dlbin_tables.py), so the
+# compensation must go: with true positions, 480 would address five rows past
+# the target. Both derivations agree on 100 - the descriptor says so, and
+# `480 + 137*76 == 100 + 142*76` holds for R-4, whose position moved from the
+# old parser's 137 to the true 142.
+ARRAY_START = 100
 RECORD_SIZE = 76
 import json
 import subprocess

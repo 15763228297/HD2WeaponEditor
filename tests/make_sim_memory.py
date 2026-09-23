@@ -1,9 +1,14 @@
 """Build a simulated process image containing the real damage table.
 
-The image is: random noise, then the genuine 634-record array copied out of the
+The image is: random noise, then the genuine record array copied out of the
 parsed `.dl_bin`, then more noise. Bytes are real, so the resolver's pattern
 search and neighbour checks run against the same data the game holds; only the
 address space is simulated.
+
+The row count is read from the table rather than hardcoded: it changes with the
+game's balance patches (639 in 1.8.45317, 649 in 1.8.45850), and a stale count
+would make the fixture disagree with the data the rest of the suite parses - the
+kind of mismatch that makes a test pass while the mod is wrong.
 
 Run:  python tests/make_sim_memory.py
 """
@@ -21,7 +26,6 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 import parse_dlbin as pd  # noqa: E402
 
-COUNT = 634
 HEAD = 0x1000
 
 
@@ -40,7 +44,17 @@ def main() -> int:
     if src.exists():
         blob = src.read_bytes()
         start = pd.anchor_start(blob)
-        array = blob[start : start + COUNT * pd.RECORD_SIZE]
+        # Read the count from the table itself. `array_start` points at the
+        # records, so everything from there to the end of the array is rows.
+        rows_json = ROOT / "data" / "damage_records.json"
+        if rows_json.exists():
+            count = len(json.loads(rows_json.read_text(encoding="utf-8")))
+        else:
+            raise SystemExit(
+                "data/damage_records.json is required to size the fixture; "
+                "run tools/build_map.py first"
+            )
+        array = blob[start : start + count * pd.RECORD_SIZE]
         origin = "game table"
     else:
         rows = json.loads((ROOT / "data" / "damage_records.json")
@@ -49,6 +63,7 @@ def main() -> int:
             rows = rows.get("records", rows)
         if isinstance(rows, dict):
             rows = [rows[k] for k in sorted(rows, key=int)]
+        count = len(rows)
         array = bytearray()
         for row in rows:
             ap = list(row["armor_penetration_per_angle"])
@@ -68,8 +83,11 @@ def main() -> int:
         array = bytes(array)
         origin = "derived JSON"
 
-    if len(array) != COUNT * pd.RECORD_SIZE:
-        raise SystemExit("short array - layout changed?")
+    if len(array) != count * pd.RECORD_SIZE:
+        raise SystemExit(
+            f"short array: wanted {count * pd.RECORD_SIZE} bytes, "
+            f"got {len(array)} - layout changed?"
+        )
 
     rng = random.Random(42)
     # Deterministic noise. Deliberately includes byte runs that look like small
@@ -81,10 +99,10 @@ def main() -> int:
     out = ROOT / "data" / "sim_memory.bin"
     out.write_bytes(image)
     (ROOT / "data" / "sim_memory.json").write_text(
-        json.dumps({"array_base": HEAD, "count": COUNT, "image_size": len(image)})
+        json.dumps({"array_base": HEAD, "count": count, "image_size": len(image)})
     )
-    print(f"wrote {out} ({len(image):,} bytes)")
-    print(f"  array base = 0x{HEAD:x}, damage[137] at 0x{HEAD + 137 * 76:x}")
+    print(f"wrote {out} ({len(image):,} bytes) from {origin}")
+    print(f"  array base = 0x{HEAD:x}, {count} rows")
     return 0
 
 

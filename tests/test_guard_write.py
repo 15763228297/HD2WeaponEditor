@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
 sys.path.insert(0, str(ROOT / "tools"))
 
+import r4_fixture  # noqa: E402
 import test_resolver as base_mod  # noqa: E402
 
 
@@ -157,24 +158,29 @@ return table.concat(parts, ";")
     return result
 
 
-R4 = {"type_id": 137, "position": 137, "damage": 220, "durable": 45,
-      "ap": [3, 3, 3, 0]}
+# R-4's row from the shipped data. These were literals until the 1.8.45850
+# rebalance moved R-4 from position 137 / id 137 to 147 / 142, at which point
+# every one of these tests was driving a row that no longer exists. Read them
+# so a rebalance updates the suite instead of breaking it.
+_R4 = r4_fixture.r4_row()
+R4 = {"type_id": _R4["type_id"], "position": _R4["position"],
+      "damage": _R4["damage"], "durable": _R4["durable"], "ap": list(_R4["ap"])}
 CHANGES = {"damage": 400, "durable": 200, "ap0": 4, "ap1": 4, "ap2": 4, "ap3": 0}
-EXPECT = {"before_id": 136, "after_id": 138,
-          "next": {"damage": 200, "durable": 50}}
+EXPECT = {"before_id": _R4["before_id"], "after_id": _R4["after_id"],
+          "next": {"damage": _R4["next_damage"], "durable": _R4["next_durable"]}}
 
 
 def script_for(*, record="R4", changes="CHANGES", baseline_note="",
                writable=True, drop_writes=False, extra=""):
     return f"""
-local R4 = {{ type_id = 137, position = 137, damage = 220, durable = 45,
-              ap = {{3,3,3,0}} }}
+local R4 = {r4_fixture.lua_record(_R4)}
 local CHANGES = {{ damage = 400, durable = 200, ap0 = 4, ap1 = 4, ap2 = 4, ap3 = 0 }}
-local EXPECT = {{ before_id = 136, after_id = 138,
-                  next = {{ damage = 200, durable = 50 }} }}
+local EXPECT = {r4_fixture.lua_expect(_R4)}
 -- The baseline the GUI captured: the values as they are right now.
-local BASELINE = {{ damage = 220, durable = 45, ap0 = 3, ap1 = 3, ap2 = 3, ap3 = 0,
-                    ap = {{3,3,3,0}} }}
+local BASELINE = {{ damage = {_R4['damage']}, durable = {_R4['durable']},
+                    ap0 = {_R4['ap'][0]}, ap1 = {_R4['ap'][1]}, ap2 = {_R4['ap'][2]},
+                    ap3 = {_R4['ap'][3]},
+                    ap = {{{', '.join(str(v) for v in _R4['ap'])}}} }}
 api.__writable = {str(writable).lower()}
 api.__drop_writes = {str(drop_writes).lower()}
 

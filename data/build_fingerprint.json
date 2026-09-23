@@ -1,0 +1,10 @@
+{
+  "game_dll_sha256": "73374bd4e38386beb9a23bef480082b67d457ebc77485fbec5f488b4e95e201f",
+  "exe_version": "1.8.45850.0",
+  "game_dll_path": "D:\\program files (x86)\\steam\\steamapps\\common\\Helldivers 2\\data\\game\\game.dll",
+  "generated_at": "2026-09-23T09:57:31+00:00",
+  "tables": {
+    "damage_records": 649,
+    "weapon_names": 98
+  }
+}

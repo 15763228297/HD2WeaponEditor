@@ -62,9 +62,11 @@ pcall(ffi.cdef, [[
     } ShMemoryRegion;
 ]])
 
--- Where the table's array begins inside the allocation (24-byte container
--- header, array at 0x1e0). Mirrors 10_resolver.lua.
-M.ARRAY_START = 0x1e0
+-- Where the table's array begins inside the allocation. Mirrors
+-- 10_resolver.lua; see the derivation in tools/gen_mod.py - this is the DLArray
+-- descriptor's own offset field, and 0x1e0 was only correct while the parser
+-- mislabelled every row by five positions.
+M.ARRAY_START = 100
 M.RECORD_SIZE = 76
 
 -- The route, as measured. Kept in a table rather than hardcoded into the

@@ -1,17 +1,18 @@
 """Parse Helldivers 2 `.dl_bin` data tables.
 
-Layout authority: `xypwn/filediver` Go sources (`datalibrary/damage_settings.go`,
-`datalibrary/datalib_instance.go`). The binary is little-endian throughout.
+Layout authority: `xypwn/filediver` Go sources (`datalibrary/damage_settings.go`)
+and the container format itself, verified byte-for-byte on two game builds.
+Little-endian throughout.
 
-Why this module exists: the game ships its tables as encrypted `.dl_bin`
-(entropy ~7.996/8, so not editable in place). `filediver` republishes the same
-tables decrypted and gzipped, so parsing them yields the pristine weapon values
-offline - no game run and no memory access. The GUI displays these values; the
-generated mod writes the user's replacements into the live process.
+Why this module exists: the game ships its tables as encrypted `.dl_bin`, so
+they cannot be read or edited in place. `filediver` republishes the same tables
+decrypted, so parsing them yields the pristine weapon values offline - no game
+run and no memory access. The GUI displays these values; the generated mod
+writes the user's replacements into the live process.
 
-Record layout (filediver's `rawDamageInfo`), 76 bytes, verified against the file:
+Record layout (`rawDamageInfo`), 76 bytes:
 
-    +0   int32   type index
+    +0   int32   type id (DamageInfoType enum value)
     +4   int32   damage (standard)
     +8   int32   durable damage
     +12  uint32  armor_penetration_per_angle[0..3]
@@ -22,16 +23,30 @@ Record layout (filediver's `rawDamageInfo`), 76 bytes, verified against the file
     +44  status_effects[4] of {int32 type, float32 value}     -> 32 bytes
     ---- 4 + 4 + 4 + 16 + 4 + 4 + 4 + 4 + 32 = 76
 
-Two earlier readings were wrong and are recorded so they are not repeated:
+TWO EARLIER READINGS WERE WRONG. They are recorded because the second one
+shipped, and it is the reason the mod broke on the 1.8.45850 update.
 
 * **72 bytes** - from eyeballing adjacent rows. It "worked" because most rows
-  leave the trailing status-effect slots zeroed, so a 72-byte read of a 76-byte
-  array still showed a plausible next row. The Go struct settled it.
-* **Container walk** - guessing header sizes. The authoritative way to locate
-  the array is to use one independently verified record (index 137 @ 0x2a8c)
-  as an anchor and subtract `index * RECORD_SIZE`; that lands on a start offset
-  which divides the remaining file exactly and whose last record has a sane
-  index. Prefer that over reimplementing the container reader.
+  leave the trailing status-effect slots zeroed, so a 72-byte read of a
+  76-byte array still showed a plausible next row. The Go struct settled it.
+
+* **Content anchor** - locating the array by searching for the R-4 row's
+  fingerprint (137, 220, 45, AP[3,3,3,0], 10, 20, 14) and subtracting
+  `137 * 76`. It failed twice over. It used a *balance-dependent* value as a
+  structural anchor, so the renumbered build stopped matching it. And even in
+  the build it was written for it subtracted the wrong row number: the anchor
+  row sat at position 142, not 137, so the derived start was 480 instead of
+  100 and the parse silently dropped the first five rows. Every offset
+  downstream inherited that 380-byte shift - and the mod's `ARRAY_START`
+  constant had been tuned to cancel it, which hid the bug until the build
+  changed. See `dlbin_tables` for the container walk that replaces it.
+
+THE ID / POSITION DISTINCTION (the other half of the same bug)
+
+`type_id` (record +0) is a `DamageInfoType` enum value. Projectile records
+reference it at +60 and explosion records at +4. It is NOT the row position:
+in the current build 614 of 639 rows have `type_id != position`. Resolve one to
+the other with `position_of_type_id`; never index the array with an enum value.
 """
 
 from __future__ import annotations
@@ -42,15 +57,44 @@ import struct
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
-RECORD_SIZE = 76
+import dlbin_tables
 
-# Anchor: the R-4 Hyena damage row. Offset inside the shipped
-# `generated_damage_settings.dl_bin`. Verified by decoding the fields and
-# matching the wiki's 220/45/AP3 + 10/20/14 exactly. Also serves as a
-# regression check: if this row stops matching, the table layout moved.
-ANCHOR_INDEX = 137
-ANCHOR_DAMAGE = (220, 45)
-ANCHOR_AP = [3, 3, 3, 0]
+RECORD_SIZE = dlbin_tables.DAMAGE_RECORD_SIZE
+
+# The reference row used by the diagnostics and by the tests: the R-4 Hyena
+# damage row, identified by its *enum id* rather than by its array position.
+#
+# This is deliberately no longer a gate on parsing. It used to be one, and
+# gating on a balance-dependent value is exactly what broke on the update: a
+# buff to R-4 would have made the whole editor refuse to start. Parsing is now
+# structural (see `array_start`); this row is only cross-checked and reported.
+#
+# The values move with the game: 1.8.45317 had id 137 / position 137, and
+# 1.8.45850 has id 142 / position 147 (damage, AP and forces are unchanged).
+# They are read from `data/weapon_names.json` when it is available so the
+# diagnostic tracks the shipped data; the literals below are only a fallback for
+# a checkout with no derived data. A mismatch is reported, never fatal.
+def _reference_from_map() -> dict | None:
+    try:
+        p = Path(__file__).resolve().parent.parent / "data" / "weapon_names.json"
+        doc = json.loads(p.read_text(encoding="utf-8"))
+        w = next(x for x in doc["weapons"] if x["page"] == "R-4 Hyena")
+        return {
+            "type_id": w["damage_index"],
+            "position": w["damage_position"],
+            "damage": (w["damage"], w["durable"]),
+            "ap": list(w["ap"]),
+        }
+    except Exception:
+        return None
+
+
+_ref = _reference_from_map()
+ANCHOR_TYPE_ID = _ref["type_id"] if _ref else 142
+ANCHOR_INDEX = _ref["position"] if _ref else 147
+ANCHOR_DAMAGE = _ref["damage"] if _ref else (220, 45)
+ANCHOR_AP = _ref["ap"] if _ref else [3, 3, 3, 0]
+# Forces are not in the map, so they stay literal and are reported only.
 ANCHOR_FORCES = (10, 20, 14)
 
 
@@ -60,16 +104,16 @@ class DamageInfo:
 
     Two numbers identify a record and they are NOT interchangeable:
 
-    * `index` - the row's position in the array (0..633). This is the number the
-      projectile table's `damage_info_type` field references, and the number the
-      GUI shows. Use it to *address* a row.
-    * `type_id` - the raw value stored at record offset 0 (4..639, unique). Use
-      it to *identify* a row: 519 of 634 rows have `type_id != index`, and the
-      array's own order is unrelated to either (ids run 4, 5, 18, 19, 337, ...).
+    * `index` - the row's position in the array (0..638). Use it to *address*
+      a row in memory: the runtime record address is
+      `array_base + index * 76`.
+    * `type_id` - the raw value stored at record offset 0. Use it to *identify*
+      a row. This is the number projectiles and explosions reference, and the
+      number that stays stable across builds when rows are reordered.
 
     The runtime resolver builds its search pattern from `type_id` and pins the
     neighbours by their `type_id`s. Using `index` there made most rows
-    unfindable while still passing a test on R-4, where the two coincide.
+    unfindable while still passing a test on a row where the two coincide.
     """
 
     index: int
@@ -85,7 +129,7 @@ class DamageInfo:
 
     @property
     def ap_direct(self) -> int:
-        """Armor penetration on a direct hit - the number the wiki calls 'pen'."""
+        """Armor penetration on a direct hit - what the wiki calls "pen"."""
         return self.armor_penetration_per_angle[0]
 
     def as_dict(self) -> dict:
@@ -114,53 +158,95 @@ def _decode_record(blob: bytes, base: int, index: int) -> DamageInfo:
     )
 
 
+def array_start(blob: bytes) -> int:
+    """Offset where damage record 0 begins, read from the container.
+
+    Structural and build-independent: it reads the `DamageSettings` LDLD block
+    and its DLArray descriptor. No record content is consulted, so a rebalance
+    or a renumbering cannot move it.
+    """
+    _, start, end = dlbin_tables.find_block(blob, dlbin_tables.TYPE_DAMAGE)
+    arr, count = dlbin_tables.dl_array(blob, start, RECORD_SIZE, limit=end)
+    if arr + count * RECORD_SIZE != end:
+        raise ValueError(
+            f"the damage array does not fill its LDLD block: records "
+            f"{arr}..{arr + count * RECORD_SIZE} but the block ends at {end}; "
+            "the container layout changed - re-derive before trusting output"
+        )
+    return arr
+
+
+def anchor_start(blob: bytes) -> int:
+    """Deprecated alias for `array_start`, kept so callers keep working.
+
+    It no longer searches for the R-4 fingerprint. See the module docstring for
+    why that search was removed.
+    """
+    return array_start(blob)
+
+
 def parse_damage_records(blob: bytes, start: int = 0) -> list[DamageInfo]:
     """Decode a damage-record array that begins at `start`."""
     if (len(blob) - start) % RECORD_SIZE != 0:
         raise ValueError(
-            f"{(len(blob) - start)} bytes from offset {start} is not a multiple of "
-            f"the {RECORD_SIZE}-byte record size - wrong start offset or layout"
+            f"{(len(blob) - start)} bytes from offset {start} is not a multiple "
+            f"of the {RECORD_SIZE}-byte record size - wrong start offset"
         )
     n = (len(blob) - start) // RECORD_SIZE
     return [_decode_record(blob, start + i * RECORD_SIZE, i) for i in range(n)]
 
 
-def anchor_start(blob: bytes, index: int = ANCHOR_INDEX) -> int:
-    """Locate the record array using the verified anchor row.
-
-    Returns the offset where index 0 begins. Raises if the anchor row is not
-    where the known layout predicts, which is the signal that the table changed.
-    """
-    want = struct.pack("<iii", index, *ANCHOR_DAMAGE)
-    # Search the whole container region, not a fixed window: the array sits after
-    # the header and the angle table, which put the anchor past 8 KiB in the
-    # shipped file. A too-small window fails as "anchor not found", which reads
-    # like a layout change - so scan the file.
-    for candidate in range(0, len(blob) - RECORD_SIZE):
-        if blob[candidate : candidate + len(want)] != want:
-            continue
-        start = candidate - index * RECORD_SIZE
-        if start < 0:
-            continue
-        if (len(blob) - start) % RECORD_SIZE:
-            continue
-        ap = list(struct.unpack_from("<4I", blob, candidate + 12))
-        if ap != ANCHOR_AP:
-            continue
-        forces = struct.unpack_from("<3I", blob, candidate + 28)
-        if list(forces) != list(ANCHOR_FORCES):
-            continue
-        return start
-    raise ValueError(
-        f"anchor row (index {index} = {ANCHOR_DAMAGE} ap {ANCHOR_AP}) not found - "
-        "the damage table layout or content changed; re-derive before trusting output"
-    )
-
-
 def parse_damage_settings_file(path: str | Path) -> list[DamageInfo]:
-    """Parse a full `generated_damage_settings.dl_bin` (gunzipped)."""
-    blob = Path(path).read_bytes()
-    return parse_damage_records(blob, anchor_start(blob))
+    """Parse a full `generated_damage_settings.dl_bin`."""
+    blob = load_any(path)
+    return parse_damage_records(blob, array_start(blob))
+
+
+def position_of_type_id(records, type_id: int) -> int | None:
+    """Map a `DamageInfoType` enum value to its row position, or None.
+
+    Accepts either a list of records or a `{position: record}` mapping, because
+    the two call shapes exist in this codebase and both mean the same thing.
+    """
+    if isinstance(records, dict):
+        records = records.values()
+    for rec in records:
+        if rec.type_id == type_id:
+            return rec.index
+    return None
+
+
+def reference_row(records: list[DamageInfo]) -> DamageInfo | None:
+    """The R-4 reference row, found by enum id. None when it is absent."""
+    pos = position_of_type_id(records, ANCHOR_TYPE_ID)
+    return None if pos is None else records[pos]
+
+
+def reference_row_differs(records: list[DamageInfo]) -> str | None:
+    """Describe how the reference row differs from its recorded values.
+
+    Returns None when it matches, or a human-readable difference. This is a
+    *diagnostic*, not a gate: a balance change legitimately moves these
+    numbers, and refusing to run over one is what made the editor brittle.
+    """
+    row = reference_row(records)
+    if row is None:
+        return f"no row carries type id {ANCHOR_TYPE_ID}"
+    problems = []
+    if (row.damage, row.durable_damage) != ANCHOR_DAMAGE:
+        problems.append(
+            f"damage is {row.damage}/{row.durable_damage}, recorded "
+            f"{ANCHOR_DAMAGE[0]}/{ANCHOR_DAMAGE[1]}"
+        )
+    if row.armor_penetration_per_angle != ANCHOR_AP:
+        problems.append(
+            f"armor penetration is {row.armor_penetration_per_angle}, recorded "
+            f"{ANCHOR_AP}"
+        )
+    forces = (row.demolition_strength, row.force_strength, row.force_impulse)
+    if forces != ANCHOR_FORCES:
+        problems.append(f"forces are {forces}, recorded {ANCHOR_FORCES}")
+    return "; ".join(problems) if problems else None
 
 
 def load_any(path: str | Path) -> bytes:
@@ -174,25 +260,30 @@ def load_any(path: str | Path) -> bytes:
 if __name__ == "__main__":
     import sys
 
-    target = sys.argv[1] if len(sys.argv) > 1 else "data/raw/generated_damage_settings.dl_bin"
-    recs = parse_damage_settings_file(target)
+    target = (sys.argv[1] if len(sys.argv) > 1
+              else "data/raw/generated_damage_settings.dl_bin")
+    blob = load_any(target)
+    start = array_start(blob)
+    recs = parse_damage_records(blob, start)
     print(f"parsed {len(recs)} damage records from {target}")
+    print(f"  array starts at {start} (0x{start:x})")
 
-    r4 = recs[ANCHOR_INDEX]
-    ok = (
-        (r4.damage, r4.durable_damage) == ANCHOR_DAMAGE
-        and r4.armor_penetration_per_angle == ANCHOR_AP
-        and (r4.demolition_strength, r4.force_strength, r4.force_impulse)
-        == ANCHOR_FORCES
-    )
-    print(
-        f"  anchor[{ANCHOR_INDEX}] damage={r4.damage}/{r4.durable_damage} "
-        f"ap={r4.armor_penetration_per_angle} "
-        f"dem/force/imp={r4.demolition_strength}/{r4.force_strength}/{r4.force_impulse}"
-    )
-    print(f"  anchor check: {'PASS' if ok else 'FAIL'}")
+    diff = reference_row_differs(recs)
+    row = reference_row(recs)
+    if row is None:
+        print(f"  reference row (type id {ANCHOR_TYPE_ID}): MISSING")
+    else:
+        print(
+            f"  reference row: position {row.index}, type id {row.type_id}, "
+            f"damage {row.damage}/{row.durable_damage}, "
+            f"ap {row.armor_penetration_per_angle}, "
+            f"forces {row.demolition_strength}/{row.force_strength}/"
+            f"{row.force_impulse}"
+        )
+        print(f"  cross-check vs recorded values: {diff or 'MATCH'}")
 
     out = Path("data/damage_records.json")
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps([r.as_dict() for r in recs], indent=1), encoding="utf-8")
+    out.write_text(json.dumps([r.as_dict() for r in recs], indent=1),
+                   encoding="utf-8")
     print(f"wrote {out}")

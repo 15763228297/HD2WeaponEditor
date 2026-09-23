@@ -61,10 +61,11 @@ M.ALIGN = 8
 -- cap keeps a pathological module from filling memory with hits.
 M.MAX_HITS = 32
 
--- Where the array begins inside the table allocation, from the parsed .dl_bin
--- layout (24-byte container header, array at 0x1e0). Kept as a default because
--- callers pass the resolver's own constant through.
-M.ARRAY_START = 0x1e0
+-- Where the array begins inside the table allocation. This is the DLArray
+-- descriptor's own offset field, not a tunable - see the derivation in
+-- tools/gen_mod.py. It was 0x1e0 while the parser mislabelled rows by five
+-- positions; that compensation is gone now that positions are true.
+M.ARRAY_START = 100
 M.HEADER_END = 0x18
 
 local MEM_IMAGE = 0x1000000

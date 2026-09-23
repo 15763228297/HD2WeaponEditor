@@ -27,6 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
 sys.path.insert(0, str(ROOT / "tools"))
 
+import r4_fixture  # noqa: E402
 import test_resolver as base_mod  # noqa: E402
 
 
@@ -34,6 +35,10 @@ def main() -> int:
     check = base_mod.check
     meta = json.loads((ROOT / "data" / "sim_memory.json").read_text())
     image = (ROOT / "data" / "sim_memory.bin").read_bytes()
+    # R-4's row from the shipped data: its position and id move with every
+    # balance patch, and a hardcoded copy would search for a row that is not
+    # there any more. See tests/r4_fixture.py.
+    row = r4_fixture.r4_row()
     resolver_src = (ROOT / "mod_template" / "src" / "10_resolver.lua").read_text(
         encoding="utf-8"
     )
@@ -79,10 +84,8 @@ local R = (function()
   return assert(loadstring(s, "resolver"))()
 end)()
 
-local rec = {{ type_id = 137, position = 137, damage = 220, durable = 45,
-              ap = {{3,3,3,0}} }}
-local ok, err = R.find_record(api, MODULE_BASE, rec,
-  {{ before_id = 136, after_id = 138, next = {{ damage = 200, durable = 50 }} }})
+local rec = RECORD_PLACEHOLDER
+local ok, err = R.find_record(api, MODULE_BASE, rec, EXPECT_PLACEHOLDER)
 
 -- Format as hex: tostring() renders values above 2^53 in scientific notation,
 -- which cannot be parsed back as an integer.
@@ -96,7 +99,9 @@ return table.concat({{
 }}, ";")
 """
 
-    raw = base_mod.run_probe(probe)
+    raw = base_mod.run_probe(probe
+                             .replace("RECORD_PLACEHOLDER", r4_fixture.lua_record(row))
+                             .replace("EXPECT_PLACEHOLDER", r4_fixture.lua_expect(row)))
     result: dict = {}
     for part in raw.split(";"):
         if "=" in part:

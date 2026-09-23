@@ -185,15 +185,28 @@ def main() -> int:
           any("no row" in n for n in notes) or not notes,
           "silently dropped")
 
-    # -- 6. the flame sentinels are not row numbers --------------------------
-    sentinels = [p for p in projectiles if p.damage_type in build_map.PROJECTILE_STATUS_SENTINELS]
-    check("flame-weapon status references are recognised",
-          len(sentinels) > 0, "none found - the sentinel set may be stale")
-    check("they are not mapped to a damage row",
-          all(p.damage_position is None for p in sentinels),
-          "a status reference was used as a row number")
-    check("they are reported as status references",
-          any("status reference" in n for n in notes))
+    # -- 6. the low ids are real rows, not status references -----------------
+    # An earlier version carried `PROJECTILE_STATUS_SENTINELS = {1, 2, 3}` and
+    # refused to map any projectile whose +60 was one of them, on the theory
+    # that flame weapons store a burning-status reference there. That theory was
+    # wrong. ids 1/2/3 are ordinary damage rows (50/50, 60/60, 35/35, all with
+    # element_type 3 = fire), and they exist in both builds at the same ids. The
+    # six projectiles that reference them - the flamethrower family - are
+    # unnamed in the game's string table, which is why the wiki matcher cannot
+    # reach them; the sentinel set was a misdiagnosis of "no name", and it
+    # excluded six real weapons from being editable.
+    #
+    # What must hold now: a projectile whose +60 names an existing row resolves
+    # to that row, regardless of how small the id is.
+    low = [p for p in projectiles if p.damage_type in (1, 2, 3)]
+    check("the low-id projectiles exist", len(low) > 0, "none found")
+    check("their ids resolve to real rows",
+          all(p.damage_position is not None for p in low),
+          "an id that names a real row was left unmapped")
+    check("and those rows are the fire rows",
+          all(rows[p.damage_position]["element_type"] == 3
+              for p in low if p.damage_position is not None),
+          "resolved to a non-fire row")
 
     # -- 7. EAT-17 specifically: the case the user reported ------------------
     eat = next((w for w in weapons

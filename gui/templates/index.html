@@ -71,6 +71,10 @@
      unreadable paragraph and the user cannot tell where the tool looked. */
   .banner { white-space: pre-wrap; word-break: break-word; }
   .banner code { font-size: 11.5px; }
+  /* The build warning sits above the two-column layout, so it needs the page's
+     own gutter rather than the banner's bottom margin alone. */
+  #buildwarn { padding: 0 20px; }
+  #buildwarn .banner { margin: 14px 0 0; }
   .banner.warn { background: #3a2f14; border-color: #6b5518; color: #fde68a; }
   .banner.bad { background: #3a1a1a; border-color: #6b2020; color: #fecaca; }
   .banner.info { background: #16283a; border-color: #27496b; color: #bae6fd; }
@@ -109,6 +113,8 @@
   <h1>HD2 武器数值编辑器</h1>
   <span class="stats" id="stats">载入中…</span>
 </header>
+
+<div id="buildwarn" hidden></div>
 
 <div class="wrap">
   <aside>
@@ -160,7 +166,33 @@ async function boot() {
     const hit = DATA.weapons.find(w => w.page === want);
     if (hit) { SEL = hit; document.querySelector('.chip[data-f="verified"]').classList.remove("on"); }
   }
+  renderBuildBanner();
   render();
+}
+
+// Say so when the data no longer matches the installed game.
+//
+// A stale map does not fail loudly: the mod searches for a row that moved,
+// never finds it, and the player sees "the game stuttered and nothing changed".
+// That is how the 1.8.45850 update presented, and it cost a game launch and a
+// log reading to diagnose. Naming it up front turns that into one sentence.
+function renderBuildBanner() {
+  const b = DATA.build || {};
+  const el = document.getElementById("buildwarn");
+  if (!el) return;
+  if (b.status === "ok") { el.innerHTML = ""; el.hidden = true; return; }
+  el.hidden = false;
+  if (b.status === "stale") {
+    el.className = "banner bad";
+    el.innerHTML = `<b>游戏已更新，当前数据可能已过期</b><br>` +
+      `数据基于 <code>${b.data_version || "未知版本"}</code>，` +
+      `当前游戏 <code>${b.game_version || "未知版本"}</code>。<br>` +
+      `武器行号会随更新变化，用过期数据生成的 Mod 会改错武器、或者完全找不到目标` +
+      `（表现为进游戏卡顿后没有任何效果）。<br>请重新生成数据后再使用。`;
+  } else {
+    el.className = "banner warn";
+    el.innerHTML = `<b>无法确认数据对应的游戏版本</b><br>${b.message || ""}`;
+  }
 }
 
 function visible() {

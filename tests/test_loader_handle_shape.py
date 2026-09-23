@@ -17,6 +17,7 @@ Run:  python tests/test_loader_handle_shape.py
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -28,7 +29,8 @@ sys.path.insert(0, str(ROOT / "tools"))
 import test_resolver as base_mod  # noqa: E402
 
 
-def probe(generated_src: str, image: bytes, array_base: int, handle_kind: str) -> dict:
+def probe(generated_src: str, image: bytes, array_base: int, handle_kind: str,
+          position: int) -> dict:
     lua_image = base_mod.lua_bytes(image)
     script = f"""
 local ffi = require("ffi")
@@ -119,7 +121,7 @@ local hooked = _G.update
 for i = 1, 400 do if hooked then hooked(0.016) end end
 
 -- Read back the record.
-local buf = api.read(IMAGE_BASE + {array_base} + 137 * 76, 76)
+local buf = api.read(IMAGE_BASE + {array_base} + {position} * 76, 76)
 local function u32at(b, o)
   return b[o] + b[o+1]*256 + b[o+2]*65536 + b[o+3]*16777216
 end
@@ -177,8 +179,17 @@ def main() -> int:
         check=True, capture_output=True, cwd=str(ROOT))
     generated = gen_path.read_text(encoding="utf-8")
 
+    # Read back from the row the mod actually targets. Hardcoding it here made
+    # the test read a different row after the 1.8.45850 rebalance (R-4 moved
+    # from 137 to 147), so a working mod reported as broken.
+    m = re.search(r"position\s*=\s*(\d+)", generated)
+    if not m:
+        print("could not find the row position in the generated mod")
+        return 2
+    position = int(m.group(1))
+
     print("== the handle shape the shared loader actually returns (no flush) ==")
-    out = probe(generated, image, meta["array_base"], "no_flush")
+    out = probe(generated, image, meta["array_base"], "no_flush", position)
     check("the mod ran to completion", out.get("loaded") is True,
           f"err={out.get('err')}")
     check("damage is 400", out.get("damage") == 400, f"got {out.get('damage')}")
@@ -192,7 +203,7 @@ def main() -> int:
 
     print()
     print("== a handle that also has flush ==")
-    out2 = probe(generated, image, meta["array_base"], "with_flush")
+    out2 = probe(generated, image, meta["array_base"], "with_flush", position)
     check("the mod ran to completion", out2.get("loaded") is True,
           f"err={out2.get('err')}")
     check("damage is 400", out2.get("damage") == 400, f"got {out2.get('damage')}")

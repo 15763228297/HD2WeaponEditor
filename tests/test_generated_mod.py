@@ -16,6 +16,7 @@ Run:  python tests/test_generated_mod.py
 from __future__ import annotations
 
 import json
+import re
 import struct
 import subprocess
 import sys
@@ -183,11 +184,24 @@ def main() -> int:
         check=True, capture_output=True, cwd=str(ROOT))
     generated = gen_path.read_text(encoding="utf-8")
 
+    # Where to read back from. Taken from the generated mod's own PLANS block
+    # rather than hardcoded: the row position changes with every balance patch
+    # (R-4 moved from 137 to 147 in 1.8.45850), and a stale number here would
+    # make the test read a different row than the mod wrote - reporting a
+    # failure that is really the test being out of date, or worse, passing
+    # because two wrong numbers cancel.
+    m = re.search(r"position\s*=\s*(\d+)", generated)
+    if not m:
+        print("could not find the row position in the generated mod")
+        return 2
+    position = int(m.group(1))
+    print(f"  (the generated mod targets row {position})")
+
     print("== the generated mod loads and runs ==")
     script = """
     -- Read back the record to report what the mod did.
     local rec = (function()
-      local addr = IMAGE_BASE + ARRAY_BASE_PLACEHOLDER + 137 * 76
+      local addr = IMAGE_BASE + ARRAY_BASE_PLACEHOLDER + POSITION_PLACEHOLDER * 76
       local buf = api.read(addr, 76)
       return {
         damage = buf[4] + buf[5]*256 + buf[6]*65536 + buf[7]*16777216,
@@ -203,18 +217,19 @@ def main() -> int:
 
     -- The neighbours must be untouched: this is the "only my weapon" check.
     local nb = (function()
-      local addr = IMAGE_BASE + ARRAY_BASE_PLACEHOLDER + 136 * 76
+      local addr = IMAGE_BASE + ARRAY_BASE_PLACEHOLDER + (POSITION_PLACEHOLDER - 1) * 76
       local buf = api.read(addr, 76)
       return buf[4] + buf[5]*256 + buf[6]*65536 + buf[7]*16777216
     end)()
     local na = (function()
-      local addr = IMAGE_BASE + ARRAY_BASE_PLACEHOLDER + 138 * 76
+      local addr = IMAGE_BASE + ARRAY_BASE_PLACEHOLDER + (POSITION_PLACEHOLDER + 1) * 76
       local buf = api.read(addr, 76)
       return buf[4] + buf[5]*256 + buf[6]*65536 + buf[7]*16777216
     end)()
     out.prev_damage = nb
     out.next_damage = na
-    """.replace("ARRAY_BASE_PLACEHOLDER", str(array_base))
+    """.replace("ARRAY_BASE_PLACEHOLDER", str(array_base)).replace(
+        "POSITION_PLACEHOLDER", str(position))
 
     out = probe(generated, image, script)
 

@@ -13,6 +13,7 @@ Run:  python tests/test_multi_weapon.py
 
 from __future__ import annotations
 
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -26,6 +27,20 @@ import test_resolver as base_mod  # noqa: E402
 WEAPONS = [("R-4 Hyena", 400, 200, 7),
            ("R-63 Diligence", 300, 120, 5),
            ("P-4 Senator", 250, 100, 5)]
+
+
+def positions_of(src: str) -> dict[str, int]:
+    """Map weapon name -> row position, read from the generated mod's PLANS.
+
+    Read rather than hardcoded: positions shift with every balance patch (R-4
+    moved 137 -> 147, R-63 136 -> 146 in 1.8.45850), and a stale table here
+    would make the test read rows the mod never wrote.
+    """
+    out = {}
+    for block in re.finditer(
+            r'weapon\s*=\s*"([^"]+)".*?position\s*=\s*(\d+)', src, re.S):
+        out[block.group(1)] = int(block.group(2))
+    return out
 
 
 def build_multi() -> Path:
@@ -68,12 +83,22 @@ def main() -> int:
 
     print()
     print("== at runtime: one scan, then offsets ==")
+    # Row positions come from the generated mod, so this stays correct when a
+    # balance patch moves a weapon's row.
+    pos = positions_of(src)
+    for name, _, _, _ in WEAPONS:
+        if name not in pos:
+            print(f"could not find {name} in the generated mod")
+            return 2
+    print(f"  (rows: {', '.join(f'{n}={pos[n]}' for n, _, _, _ in WEAPONS)})")
+
     # Drive the real generated mod against a fake process and count walks.
     probe = f"""
 local ffi = require("ffi")
 local out = {{}}
 local image = {base_mod.lua_bytes((ROOT / "data" / "sim_memory.bin").read_bytes())}
 local IMAGE_BASE = {base_mod.IMAGE_BASE}
+local POS = {{ R4 = {pos['R-4 Hyena']}, R63 = {pos['R-63 Diligence']}, P4 = {pos['P-4 Senator']} }}
 
 local reads = 0
 local writes = 0
@@ -157,10 +182,10 @@ local function rd32(off)
 end
 local AB = 4096   -- array_base from sim_memory.json
 local R  = 76
-out.v_r4   = rd32(AB + 137 * R + 4) .. "/" .. rd32(AB + 137 * R + 8)
-out.v_r63  = rd32(AB + 136 * R + 4) .. "/" .. rd32(AB + 136 * R + 8)
-out.ap_r4  = rd32(AB + 137 * R + 12)
-out.ap_r63 = rd32(AB + 136 * R + 12)
+out.v_r4   = rd32(AB + POS.R4 * R + 4) .. "/" .. rd32(AB + POS.R4 * R + 8)
+out.v_r63  = rd32(AB + POS.R63 * R + 4) .. "/" .. rd32(AB + POS.R63 * R + 8)
+out.ap_r4  = rd32(AB + POS.R4 * R + 12)
+out.ap_r63 = rd32(AB + POS.R63 * R + 12)
 
 out.r4 = count("R-4 Hyena")
 out.r63 = count("R-63 Diligence")

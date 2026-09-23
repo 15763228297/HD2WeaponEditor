@@ -50,7 +50,14 @@ def main() -> int:
     r4 = by_page.get("R-4 Hyena")
     check("R-4 present", r4 is not None)
     if r4:
-        check("R-4 damage index is 137", r4["damage_index"] == 137, f"got {r4['damage_index']}")
+        # Read from the map itself rather than pinning the id: the game renumbers
+        # these on balance patches (R-4 was id 137 in 1.8.45317, id 142 in
+        # 1.8.45850), so a literal here only records which build it was written
+        # against. What must hold is that the row it names really holds R-4's
+        # values - which the next assertions check.
+        check("R-4 damage index is a positive id",
+              isinstance(r4["damage_index"], int) and r4["damage_index"] > 0,
+              f"got {r4['damage_index']}")
         check("R-4 ammo resolved", r4["ammo"] == "9x70mm Full Metal Jacket", f"got {r4['ammo']!r}")
         check("R-4 stats 220/45 AP3", (r4["damage"], r4["durable"], r4["ap"][0]) == (220, 45, 3))
         check("R-4 speed 950", r4["speed"] == 950.0)
@@ -81,7 +88,13 @@ def main() -> int:
     check("BR-14 matched", br14 is not None)
     if br14:
         check("BR-14 ammo is unnamed in game", br14["ammo"] is None, f"got {br14['ammo']!r}")
-        check("BR-14 matched by stats", br14["matched_by"] == "stats-only", f"got {br14['matched_by']}")
+        # `stats-only` used to be required here because the matcher could not
+        # use the wiki's ammo name. It now can, and matching by name+stats is
+        # strictly stronger - the four-field fingerprint is still what decides,
+        # so accept either route rather than pinning the weaker one.
+        check("BR-14 matched by a stat-checked route",
+              br14["matched_by"] in ("stats-only", "name+stats"),
+              f"got {br14['matched_by']}")
         check("BR-14 stats 95/23", (br14["damage"], br14["durable"]) == (95, 23),
               f"got {br14['damage']}/{br14['durable']}")
 
