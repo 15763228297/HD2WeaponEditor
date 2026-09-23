@@ -94,6 +94,9 @@ def extract() -> None:
             "the new resource formats. Get a newer one:\n\n"
             f"  curl -sL {FD_DOWNLOAD} -o fd.zip\n"
             f"  unzip -o fd.zip -d {FD_SEARCH[0].parent}\n\n"
+            "Do not try to narrow the selection around it: the failure happens\n"
+            "while reading metadata, before -i or --exclude are applied, so no\n"
+            "combination of filters avoids it. Only a newer build will.\n\n"
             "Then re-run. Nothing is wrong with the game files or the mod."
         )
 

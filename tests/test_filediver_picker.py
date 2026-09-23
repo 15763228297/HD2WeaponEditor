@@ -157,6 +157,8 @@ def main() -> int:
           "predates the installed game build" in src)
     check("the failure path does not blame the game files",
           "Nothing is wrong with the game files" in src)
+    check("the failure path rules out narrowing the selection",
+          "before -i or --exclude are applied" in src)
     check("the stale path is no longer a single hardcoded constant",
           "\nFD = Path.home()" not in src)
 
