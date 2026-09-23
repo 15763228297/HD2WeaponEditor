@@ -414,6 +414,29 @@ function renderMain() {
     row("初速", w.speed, prov.velocity, eq(w.speed, prov.velocity)),
   ];
   const provBody = provLines.join(" ·\n        ");
+  // A hand-registered weapon has no wiki figures to compare against, so the
+  // comparison table would render a row of dashes and read as "checked and
+  // agreed". Say what actually happened instead: the numbers came from a
+  // measurement, and here it is.
+  const manual = !!w.manual_source;
+  const provCard = manual
+    ? `<div class="card">
+      <h3>来源校验</h3>
+      <div class="note" style="line-height:1.9">
+        <b>该武器不在 wiki 的数据表里</b>，数值来自实测登记：<br>
+        <span style="color:var(--dim)">${w.manual_source}</span>
+        ${(w.manual_notes || []).map(n => `<br><span style="color:var(--dim)">· ${n}</span>`).join("")}
+        <br><span style="color:var(--ok)">✓ 指纹与游戏表一致</span>
+      </div>
+    </div>`
+    : `<div class="card">
+      <h3>来源校验</h3>
+      <div class="note" style="line-height:1.9">
+        游戏记录 vs Wiki：<br>
+        ${provBody}
+        ${w.verified ? '<br><span style="color:var(--ok)">✓ 全部一致</span>' : '<br><span style="color:var(--bad)">✗ 有不一致</span>'}
+      </div>
+    </div>`;
   main.innerHTML = `
     <h2>${w.page}</h2>
     <div class="meta">
@@ -426,14 +449,7 @@ function renderMain() {
     </div>
     ${banner}
     ${editors}
-    <div class="card">
-      <h3>来源校验</h3>
-      <div class="note" style="line-height:1.9">
-        游戏记录 vs Wiki：<br>
-        ${provBody}
-        ${w.verified ? '<br><span style="color:var(--ok)">✓ 全部一致</span>' : '<br><span style="color:var(--bad)">✗ 有不一致</span>'}
-      </div>
-    </div>
+    ${provCard}
     <div class="btns">
       <button class="primary" id="gen" ${w.verified ? "" : "disabled"}>生成 Mod</button>
       <button id="queue" ${w.verified ? "" : "disabled"}>加入列表</button>

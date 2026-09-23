@@ -30,6 +30,9 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import manual_map  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "data" / "wiki" / "pages"
 API = "https://helldivers.wiki.gg/api.php"
@@ -388,6 +391,127 @@ def _norm_ammo(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip().lower()
 
 
+def _match_manual(entry, projectiles, damages, strings) -> dict | None:
+    """Resolve a hand-registered fingerprint to a mapping row, or None.
+
+    Returns None unless the fingerprint singles out EXACTLY ONE projectile row.
+    Uniqueness is the whole safety property: if two rows fitted, the choice would
+    be a guess, and a guess here means editing another weapon's damage. The
+    automatic matcher refuses ambiguity for the same reason.
+
+    The result is shaped like an automatic match and carries the same `checks`
+    and `verified` fields, so nothing downstream needs to know it was manual -
+    except `matched_by`, which says so, and `manual_source`, which records where
+    the figures came from. A row that looks derived when it is not would be the
+    worst of both worlds.
+    """
+    sys.path.insert(0, str(ROOT / "tools"))
+    from build_map import position_of_type_id
+    from explosions import parse_explosions, projectile_explosion
+
+    fp = entry.fingerprint
+    eblob = (ROOT / "data/raw/generated_explosion_settings.dl_bin").read_bytes()
+    exp_table = parse_explosions(eblob)
+    pblob = (ROOT / "data/raw/generated_projectile_settings.dl_bin").read_bytes()
+
+    # `damages` is keyed by position, not by type id: the rest of this module
+    # indexes it with `damages.get(match.damage_position)`. Both numbers are
+    # needed here - the projectile's field is a type id, the table is addressed
+    # by position - so an id-index is built alongside.
+    by_id = {d.type_id: d for d in damages.values()}
+
+    fits = []
+    for p in projectiles:
+        d = by_id.get(p.damage_type)
+        if d is None:
+            continue
+        # The direct tuple must match exactly - no partial credit.
+        if (d.damage, d.durable_damage,
+                d.armor_penetration_per_angle[0]) != fp.direct:
+            continue
+
+        if fp.explosion is None and fp.radii is None:
+            fits.append((p, d, None, None, None))
+            continue
+
+        et = projectile_explosion(pblob, p.row)
+        e = exp_table.get(et) if et is not None else None
+        if e is None:
+            continue
+        if fp.radii is not None:
+            if (abs(e.inner_radius - fp.radii[0]) > 0.01
+                    or abs(e.outer_radius - fp.radii[1]) > 0.01):
+                continue
+        ed = None
+        ed_pos = None
+        if fp.explosion is not None:
+            ed_pos = position_of_type_id(damages, e.damage_index)
+            ed = damages.get(ed_pos) if ed_pos is not None else None
+            if ed is None:
+                continue
+            if (ed.damage, ed.armor_penetration_per_angle[0]) != fp.explosion:
+                continue
+        fits.append((p, d, e, ed, ed_pos))
+
+    if len(fits) != 1:
+        # Zero means the game no longer holds these values (a rebalance, or a
+        # wrong entry). More than one means the fingerprint is not specific
+        # enough. Both are reported; neither is guessed at.
+        return None
+
+    p, d, e, ed, ed_pos = fits[0]
+    match_position = p.damage_position
+    match_index = d.type_id
+    impact_position = None
+    impact_type_id = None
+    payload = entry.payload
+
+    if payload == "explosion" and ed is not None:
+        # Mirror the automatic path: the numbers the user edits live on the
+        # explosion's damage row, and the projectile's own row is the impact
+        # token (GL-15: 50/2). Keep both so the panel can show each half.
+        # The position comes from the damage table's key, because DamageInfo
+        # does not carry its own position.
+        impact_position = match_position
+        impact_type_id = d.type_id
+        match_position = ed_pos
+        match_index = ed.type_id
+
+    checks = {
+        "damage": True,
+        "durable": True,
+        "ap": True,
+        "fingerprint": True,
+    }
+    return {
+        "page": entry.page,
+        "damage_index": match_index,
+        "damage_position": match_position,
+        "impact_damage_index": impact_type_id,
+        "impact_damage_position": impact_position,
+        "payload": payload,
+        "projectile_row": p.row,
+        "ammo": strings.get(str(_name_key(pblob, p.row)), None),
+        "ammo_wiki": None,
+        "speed": p.speed,
+        "damage": ed.damage if (payload == "explosion" and ed is not None) else d.damage,
+        "durable": (ed.durable_damage if (payload == "explosion" and ed is not None)
+                    else d.durable_damage),
+        "ap": (ed.armor_penetration_per_angle if (payload == "explosion" and ed is not None)
+               else d.armor_penetration_per_angle),
+        "forces": [d.demolition_strength, d.force_strength, d.force_impulse],
+        # No wiki dict: the page has no Attack Data row. The GUI shows provenance
+        # from whatever is here, and an empty dict reads as "nothing to compare"
+        # rather than as agreement.
+        "wiki": {},
+        "checks": checks,
+        "matched_by": "manual fingerprint",
+        "manual_source": entry.fingerprint.source,
+        "manual_notes": list(entry.notes),
+        "verified": True,
+    }
+
+
 def match_all(pblob: bytes, damages, projectiles) -> dict:
     """Match every cached wiki page to a projectile row.
 
@@ -423,10 +547,26 @@ def match_all(pblob: bytes, damages, projectiles) -> dict:
     # Weapons whose fingerprint fitted more than one projectile row. Taking the
     # first would be a guess, so they are reported instead of mapped.
     ambiguous: list[tuple[str, str, list]] = []
+    manual = manual_map.by_page()
+    manual_used: set[str] = set()
     for f in sorted(CACHE.glob("*.json")):
         data = json.loads(f.read_text(encoding="utf-8"))
         title = data["title"]
         parsed = parse_page(data["html"])
+
+        # A hand-registered fingerprint takes precedence over the wiki, because
+        # the cases it covers are exactly the ones the wiki cannot supply. It is
+        # resolved through the same uniqueness check and the same four-field
+        # verification as an automatic match - see `_match_manual`.
+        if title in manual:
+            row = _match_manual(manual[title], projectiles, damages, strings)
+            if row is None:
+                unmatched.append((title, "manual fingerprint did not match"))
+                continue
+            manual_used.add(title)
+            rows.append(row)
+            continue
+
         if not parsed or "ammo_raw" not in parsed:
             # Two other page shapes carry damage but no projectile table:
             #   * arc weapons (ARC-3, ARC-12) - an `arc` table instead
@@ -870,6 +1010,25 @@ def build() -> None:
     print(f"matched {len(rows)} weapons | verified {len(ok)} | mismatch {len(bad)} | unmatched {len(unmatched)}")
     print(f"exclusive rows: {len(rows) - sum(len(v) for v in shared.values())} | shared rows: {len(shared)}")
     print(f"shared impact rows: {len(impact_shared)}")
+
+    # Hand-registered entries, reported every build.
+    #
+    # They are the one part of the map that is not derived from the wiki, so they
+    # are the part most likely to go stale unnoticed - a rebalance stops the
+    # fingerprint matching and the weapon simply disappears from the list, which
+    # looks identical to it never having been supported. Printing both states
+    # (matched / present but unmatched) means a silent loss shows up in the build
+    # log, and a stale entry left behind after the wiki catches up is visible too.
+    manual_pages = [e.page for e in manual_map.MANUAL]
+    if manual_pages:
+        used = [p for p in manual_pages if any(r["page"] == p for r in rows)]
+        unused = [p for p in manual_pages if p not in used]
+        print(f"manual entries: {len(used)} matched | {len(unused)} NOT matched")
+        for line in manual_map.describe():
+            print(f"  manual {line}")
+        for p in unused:
+            print(f"  manual NOT MATCHED: {p} - its fingerprint is absent from the "
+                  f"game tables; the weapon is unmapped and the entry is stale")
     for r in bad[:15]:
         print(f"  MISMATCH {r['page']}: {r['checks']}")
     for t, why in unmatched[:10]:

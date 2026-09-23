@@ -1445,6 +1445,64 @@
    "impact_exclusive": true
   },
   {
+   "page": "GL-15 Evictor",
+   "damage_index": 376,
+   "damage_position": 365,
+   "impact_damage_index": 33,
+   "impact_damage_position": 34,
+   "payload": "explosion",
+   "projectile_row": 82,
+   "ammo": {
+    "Portuguese (Brazil)": "Granada DT de 40 mm",
+    "Japanese": "40mm HE\u30b0\u30ec\u30cd\u30fc\u30c9",
+    "Spanish (Spain)": "Granada ME de 40 mm",
+    "Italian": "Granata esplosiva da 40mm",
+    "Polish": "40 mm granat od\u0142amkowo-burz\u0105cy",
+    "Spanish (Mexico)": "Granada AE de 40\u00a0mm",
+    "English (UK)": "40mm HE Grenade",
+    "German": "40-mm-HE-Granate",
+    "English (US)": "40mm HE Grenade",
+    "Russian": "\u041e\u0424 \u0433\u0440\u0430\u043d\u0430\u0442\u0430 40 \u043c\u043c",
+    "Chinese (Traditional)": "40mm\u9ad8\u7206\u624b\u69b4\u5f48",
+    "Portuguese (Europe)": "Granada AE de 40 mm",
+    "Korean": "40mm \uace0\ud3ed \uc720\ud0c4",
+    "French": "Grenade HE de 40\u00a0mm"
+   },
+   "ammo_wiki": null,
+   "speed": 100.0,
+   "damage": 440,
+   "durable": 440,
+   "ap": [
+    3,
+    0,
+    0,
+    0
+   ],
+   "forces": [
+    10,
+    30,
+    10
+   ],
+   "wiki": {},
+   "checks": {
+    "damage": true,
+    "durable": true,
+    "ap": true,
+    "fingerprint": true
+   },
+   "matched_by": "manual fingerprint",
+   "manual_source": "in-game measurement by the maintainer, 2026-09-23: direct hit 50 damage / 2 durable / AP3, explosion 440 / AP3. Note 50 + 440 = 490, which is the figure the wiki page states - so the wiki's bare 490 is the sum of the two segments.",
+   "manual_notes": [
+    "The wiki has no Attack Data row for this weapon yet, and the game gives it the same ammo string as GL-21 Grenade Launcher, so this cannot be derived. Remove this entry once the wiki table catches up.",
+    "The fingerprint is unique in the table: the direct tuple, the explosion tuple and the radii each single out exactly one row."
+   ],
+   "verified": true,
+   "shared_with": [],
+   "exclusive": true,
+   "impact_shared_with": [],
+   "impact_exclusive": true
+  },
+  {
    "page": "GL-21 Grenade Launcher",
    "damage_index": 375,
    "damage_position": 364,
@@ -4944,10 +5002,6 @@
   ],
   [
    "G/SH-39 Shield",
-   "no ammo parsed"
-  ],
-  [
-   "GL-15 Evictor",
    "no ammo parsed"
   ],
   [

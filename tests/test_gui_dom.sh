@@ -123,11 +123,24 @@ echo "== an explosion-payload weapon explains its two records =="
 GL=$(render "GL-21+Grenade+Launcher")
 check "the impact segment is shown" "$GL" "'弹头直击' in main"
 check "the explosion segment is shown" "$GL" "'爆炸伤害' in main"
-check "banner names payload row" "$GL" "'#352' in main"
-# The impact row number moved from 32 to 28 when the projectile's +60 was
-# corrected from an array index to a damage-type id: GL-21's projectile
-# references id 32, which lives at position 28.
-check "banner names impact row" "$GL" "'#28' in main"
+# The row numbers are read from the mapping, not written here. Hardcoding them
+# broke this test twice for the wrong reason: once when the projectile's +60 was
+# corrected from an array index to a damage-type id (impact 32 -> 28), and again
+# when a game update renumbered the table (GL-21 payload 352 -> 364, impact
+# 28 -> 33). In both cases the panel was correct and the test was stale, which
+# trains you to ignore a red test.
+GL_POS=$(python3 -c "
+import json,pathlib
+d=json.loads(pathlib.Path('data/weapon_names.json').read_text(encoding='utf-8'))
+w=next(x for x in d['weapons'] if x['page']=='GL-21 Grenade Launcher')
+print(w['damage_position'])")
+GL_IMP=$(python3 -c "
+import json,pathlib
+d=json.loads(pathlib.Path('data/weapon_names.json').read_text(encoding='utf-8'))
+w=next(x for x in d['weapons'] if x['page']=='GL-21 Grenade Launcher')
+print(w['impact_damage_position'])")
+check "banner names payload row" "$GL" "'#$GL_POS' in main"
+check "banner names impact row" "$GL" "'#$GL_IMP' in main"
 check "no #undefined in explosion banner" "$GL" "'undefined' not in main"
 # Each segment has its own inputs, so both can be edited without a mode switch.
 check "impact half has its own input row" "$GL" "'f_imp_damage' in main"

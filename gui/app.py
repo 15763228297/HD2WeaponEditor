@@ -154,6 +154,13 @@ def api_weapons():
             "exclusive": w["exclusive"],
             "shared_with": w.get("shared_with", []),
             "matched_by": w["matched_by"],
+            # A hand-registered row is not derived from the wiki, so the panel
+            # must be able to say where its numbers came from. Without this the
+            # GUI shows the same provenance block as a derived weapon and leaves
+            # the comparison fields empty, which reads as "the wiki agrees"
+            # rather than "there is no wiki figure for this weapon".
+            "manual_source": w.get("manual_source"),
+            "manual_notes": w.get("manual_notes", []),
             # Raw wiki figures, so the UI can show provenance rather than
             # presenting parsed numbers as if they were beyond question.
             #
