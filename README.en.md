@@ -28,7 +28,7 @@ Every weapon has a damage record holding:
 |---|---|
 | 肉伤 / damage | damage against unarmoured targets |
 | 耐伤 / durable | damage against armoured parts |
-| 穿甲 / armor penetration | per impact angle (4 values, usually all the same) |
+| 穿甲 / armor penetration | per impact angle (4 values). The first three (direct / slight / large) are set independently; the fourth is not editable |
 | 爆破力 / 硬直力 / 推力 | demolition strength, stagger force, push impulse |
 
 Explosive weapons deal damage **twice** — once when the projectile hits, once
@@ -220,8 +220,8 @@ memory.
 
 Damage table layout and archive format were derived with
 [`xypwn/filediver`](https://github.com/xypwn/filediver). Weapon and ammunition
-names come from the community wiki. The runtime-memory approach follows the
-technique used by existing published mods.
+names come from the game's own string resources and the community wiki. The
+runtime-memory approach follows the technique used by existing published mods.
 
 ## Legal
 
