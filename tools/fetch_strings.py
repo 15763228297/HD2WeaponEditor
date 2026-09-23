@@ -26,26 +26,76 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 GAME = Path(r"D:\program files (x86)\steam\steamapps\common\Helldivers 2")
-FD = Path.home() / "AppData/Local/Temp/hd2mod/assessment/fdtool/filediver-cli"
 OUT = ROOT / "data" / "strings_out"
+
+# Where a filediver install may live. Searched in order; the newest wins.
+#
+# Why this is a search rather than one fixed path: filediver parses the game's
+# own resource formats, so a build of it that predates a game update can fail
+# outright on the new data - "error parsing hash lookup ... expected final bytes
+# read to be 0xDEADBEE7 but were 0x00000000". That is a filediver limitation, not
+# a corrupt install, and the fix is a newer filediver. A hardcoded path silently
+# kept using the old one, so a working install elsewhere was never found.
+FD_SEARCH = [
+    Path.home() / "AppData/Local/Temp/fd_new/filediver-cli",
+    Path.home() / "AppData/Local/Temp/hd2mod/assessment/fdtool/filediver-cli",
+    Path.home() / "AppData/Local/filediver",
+    ROOT / ".tools" / "filediver-cli",
+]
+FD_DOWNLOAD = ("https://github.com/xypwn/filediver/releases/latest/download/"
+               "filediver-cli-windows.zip")
 
 # Language preference when a key exists in several packs.
 PREFERRED = ["English (US)", "English (UK)"]
 
 
+def find_filediver() -> Path:
+    """The newest filediver.exe among the known locations.
+
+    Newest by mtime, not by list order: the point is to prefer a build that
+    postdates the installed game, and the one that does is the one most recently
+    downloaded. A stale build still parses the *old* formats, so picking the
+    wrong one fails in a way that looks like the game data is broken.
+    """
+    found = [d / "filediver.exe" for d in FD_SEARCH
+             if (d / "filediver.exe").is_file()]
+    if not found:
+        sys.exit(
+            f"filediver not found. Looked in:\n"
+            + "\n".join(f"  {d}" for d in FD_SEARCH)
+            + f"\n\nDownload it with:\n"
+              f"  curl -sL {FD_DOWNLOAD} -o fd.zip && unzip fd.zip -d "
+              f"{FD_SEARCH[0].parent}"
+        )
+    found.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+    return found[0]
+
+
 def extract() -> None:
-    if not FD.exists():
-        sys.exit(f"filediver not found at {FD}; download filediver-cli-windows.zip")
+    fd = find_filediver()
+    if fd.parent != FD_SEARCH[0]:
+        print(f"note: using {fd} (newest of {len(FD_SEARCH)} known locations)")
     OUT.mkdir(parents=True, exist_ok=True)
     cmd = [
-        str(FD / "filediver.exe"),
+        str(fd),
         "--gamedir", str(GAME),
         "-i", "*.strings",
         "-o", str(OUT),
         "--text-format", "json",
     ]
     print(" ".join(cmd))
-    subprocess.run(cmd, check=True)
+    try:
+        subprocess.run(cmd, check=True)
+    except subprocess.CalledProcessError as exc:
+        sys.exit(
+            f"\nfilediver exited {exc.returncode}.\n\n"
+            "If the error mentions a hash lookup or 'expected final bytes read',\n"
+            "this filediver predates the installed game build and cannot parse\n"
+            "the new resource formats. Get a newer one:\n\n"
+            f"  curl -sL {FD_DOWNLOAD} -o fd.zip\n"
+            f"  unzip -o fd.zip -d {FD_SEARCH[0].parent}\n\n"
+            "Then re-run. Nothing is wrong with the game files or the mod."
+        )
 
 
 def build() -> None:
