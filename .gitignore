@@ -28,3 +28,9 @@ data/wiki/pages/
 .idea/
 Thumbs.db
 desktop.ini
+
+# Local debugging scratch: one-off probe scripts and the previous build's
+# extracted tables, kept only for before/after comparisons on this machine.
+# Not part of the tool, and the .dl_bin copies are game data.
+.tools/
+.dsh-meow/
