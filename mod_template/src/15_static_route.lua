@@ -68,6 +68,11 @@ M.MAX_HITS = 32
 M.ARRAY_START = 100
 M.HEADER_END = 0x18
 
+-- Bytes per damage record. Declared here rather than borrowed from the
+-- resolver: the blind walk below measures a candidate table against it, and
+-- this module is loaded on its own in tests.
+M.RECORD_SIZE = 76
+
 local MEM_IMAGE = 0x1000000
 
 -- The struct is declared by 10_resolver.lua, but this module can be loaded on
@@ -375,6 +380,258 @@ function M.describe_hits(state)
                 :format(h.rva, h.name, h.value)
         end
         lines[#lines + 1] = "  (the same rva on the next launch means a static route exists)"
+    end
+    return lines
+end
+
+-- ===========================================================================
+-- Self-bootstrapping mode
+--
+-- The search above looks for a KNOWN address: the caller supplies `table_base`
+-- and the scan finds the slots holding that exact value. That works when
+-- something else has already located the table - which is exactly what is
+-- unavailable after a game update, when the scan is the thing that stopped
+-- working. So the probe could not run in the only situation it exists for.
+--
+-- This mode inverts it. It walks the module's writable data for values that
+-- could be a heap pointer, then asks of each: does this point at something that
+-- LOOKS LIKE the damage table? No prior knowledge of the address is needed.
+--
+-- Cost. The writable sections hold ~3.4 M aligned slots (26 MB). Testing every
+-- one would mean ~0.7 GB of reads, so there is a cheap arithmetic pre-filter
+-- first, and only survivors cost a read:
+--
+--   * value < 0x10000              - null-ish, small integer, not an address
+--   * value inside the module image - a self-reference, and the table is on the
+--                                     heap (module ~0x7ff..., heap ~0x1a...)
+--   * value >= 0x800000000000      - kernel space
+--
+-- What survives is a few hundred slots at most in practice, each costing one
+-- small read. That is the same order as the original probe's cost.
+--
+-- The identity test is deliberately weaker than the runtime's: the runtime
+-- knows which row it wants and can check its neighbours, whereas this must
+-- accept "a damage table" without knowing which weapon is being edited. So it
+-- checks invariants that hold for EVERY row of the real table, measured rather
+-- than assumed:
+--
+--   +0  type id     1..2000      (real range 1..649)
+--   +4  damage      -1..100000   (-1 is a real sentinel value, 3 rows use it)
+--   +8  durable     -1..100000
+--   +12 AP[0]       0..20        (20 is real - a row uses it)
+--   +28 forces      within the measured range (below)
+--   +40 element     0..8
+--
+-- and then that 32 consecutive rows satisfy it, with mostly-distinct ids.
+--
+-- WHAT THIS CANNOT DO, stated plainly because the limit matters more than the
+-- test: a synthetic buffer that fills in plausible values for every one of
+-- these fields passes. There is no static check that distinguishes "the game's
+-- damage table" from "32 records that look exactly like it" - that is a
+-- property of provenance, not of bytes. A test asserting otherwise would be
+-- asserting the impossible.
+--
+-- So the probe is not a decision procedure. It produces CANDIDATES, and the
+-- thing that identifies the right one is comparing the rva across two launches:
+-- the game's real pointer is at the same offset every run, whereas a
+-- coincidence in a heap object that happens to be shaped like a table will not
+-- repeat. That is why the output is a list of rvas to compare, not a single
+-- answer. The invariants above exist to make the candidate list short, not to
+-- make it certain.
+-- ===========================================================================
+
+M.CANDIDATE_ROWS = 32          -- rows that must satisfy the invariants
+M.MIN_UNIQUE_RATIO = 0.8       -- ids must be mostly distinct
+M.MAX_CANDIDATES = 64          -- stop after this many hits
+
+-- Measured on the real table; see the comment above for why they are ranges
+-- rather than exact sets. The forces are the tightest signal available: the
+-- real table uses 14 distinct demolition values, 26 force_strength values and
+-- 32 impulse values across 649 rows.
+M.MAX_FORCE = 10000            -- real max is 8000 (force_impulse)
+M.MAX_ELEMENT = 16             -- real max is 8
+
+local function plausible_pointer(value, module_base, module_size)
+    if value < 0x10000 then return false end
+    if value >= 0x800000000000 then return false end
+    local mb = uptr(module_base)
+    if value >= mb and value < mb + module_size then return false end
+    return true
+end
+
+-- Does the memory at `address` look like a damage table?
+--
+-- Returns ok, detail. Reads only what it must: the first row's id decides most
+-- negatives, and a short read fails immediately.
+function M.looks_like_table(api, address)
+    local need = M.CANDIDATE_ROWS * M.RECORD_SIZE
+    local blob = read_range(api, ffi.cast("uint8_t *", address), need)
+    if blob == nil then
+        return false, "unreadable"
+    end
+    local p32 = ffi.cast("uint32_t *", blob)
+    local p_i32 = ffi.cast("int32_t *", blob)
+    local ids = {}
+    local seen = {}
+    local unique = 0
+    for i = 0, M.CANDIDATE_ROWS - 1 do
+        local base = (i * M.RECORD_SIZE) / 4
+        local tid = p_i32[base]
+        if tid < 1 or tid > 2000 then
+            return false, ("row %d: type id %d out of range"):format(i, tid)
+        end
+        local dmg = p_i32[base + 1]
+        local dur = p_i32[base + 2]
+        if dmg < -1 or dmg > 100000 or dur < -1 or dur > 100000 then
+            return false, ("row %d: damage %d/%d out of range"):format(i, dmg, dur)
+        end
+        local ap0 = p32[base + 3]
+        if ap0 > 20 then
+            return false, ("row %d: ap %d out of range"):format(i, ap0)
+        end
+        -- Forces and element type: the tightest signals available. A heap
+        -- object that happens to hold a run of small ints will usually fail
+        -- here even when it passes the damage ranges.
+        local dem = p32[base + 7]
+        local fs = p32[base + 8]
+        local fi = p32[base + 9]
+        if dem > M.MAX_FORCE or fs > M.MAX_FORCE or fi > M.MAX_FORCE then
+            return false, ("row %d: forces %d/%d/%d out of range"):format(i, dem, fs, fi)
+        end
+        local elem = p32[base + 10]
+        if elem > M.MAX_ELEMENT then
+            return false, ("row %d: element %d out of range"):format(i, elem)
+        end
+        ids[i + 1] = tid
+        if not seen[tid] then seen[tid] = true unique = unique + 1 end
+    end
+    local ratio = unique / M.CANDIDATE_ROWS
+    if ratio < M.MIN_UNIQUE_RATIO then
+        return false, ("ids not distinct enough (%.2f)"):format(ratio)
+    end
+    return true, ("%d rows, %.2f unique"):format(M.CANDIDATE_ROWS, ratio)
+end
+
+-- Begin a self-bootstrapping run: no table_base required.
+function M.begin_blind(api, module_base)
+    local regions, readonly_bytes, writable_bytes
+    if api.module_regions then
+        regions, readonly_bytes, writable_bytes = api.module_regions(api, module_base)
+    else
+        regions, readonly_bytes, writable_bytes = M.module_regions(api, module_base)
+    end
+
+    local mb = uptr(module_base)
+    -- The module's own span, to reject self-references.
+    local module_size = 0
+    for _, r in ipairs(regions) do
+        local base, size
+        if api.region_span then base, size = api.region_span(r)
+        else base, size = uptr(r.base), r.size end
+        local endp = base + size
+        if endp - mb > module_size then module_size = endp - mb end
+    end
+
+    return {
+        module_base = module_base,
+        module_size = module_size,
+        regions = regions,
+        readonly_bytes = readonly_bytes or 0,
+        writable_bytes = writable_bytes or 0,
+        ri = 1,
+        at = nil,
+        hits = {},
+        scanned = 0,
+        tested = 0,
+        skipped = 0,
+        total = total_size(regions),
+        blind = true,
+    }
+end
+
+-- One budget's worth of the blind walk.
+function M.step_blind(api, state)
+    local budget = M.BUDGET
+    local chunk_limit = M.CHUNK
+
+    while state.ri <= #state.regions do
+        local region = state.regions[state.ri]
+        local rbase, rsize
+        if api.region_span then rbase, rsize = api.region_span(region)
+        else rbase, rsize = uptr(region.base), region.size end
+
+        if state.at == nil then state.at = rbase end
+        if state.at >= rbase + rsize then
+            state.ri = state.ri + 1
+            state.at = nil
+        elseif rsize >= M.ALIGN then
+            local remaining = rbase + rsize - state.at
+            local chunk = math.min(chunk_limit, remaining, math.max(budget, 0))
+            chunk = chunk - (chunk % M.ALIGN)
+            if chunk < M.ALIGN then
+                state.ri = state.ri + 1
+                state.at = nil
+            else
+                local blob = read_range(api, ffi.cast("uint8_t *", state.at), chunk)
+                if blob == nil then
+                    state.ri = state.ri + 1
+                    state.at = nil
+                else
+                    local p32 = ffi.cast("uint32_t *", blob)
+                    local last = chunk - M.ALIGN
+                    for off = 0, last, M.ALIGN do
+                        local idx = off / 4
+                        local lo = p32[idx]
+                        local hi = p32[idx + 1]
+                        local value = hi * 4294967296 + lo
+                        if plausible_pointer(value, state.module_base, state.module_size) then
+                            state.tested = state.tested + 1
+                            local ok, detail = M.looks_like_table(api, value)
+                            if ok and #state.hits < M.MAX_CANDIDATES then
+                                local address = state.at + off
+                                state.hits[#state.hits + 1] = {
+                                    address = address,
+                                    rva = address - uptr(state.module_base),
+                                    name = "table-candidate",
+                                    value = value,
+                                    detail = detail,
+                                }
+                            elseif not ok then
+                                state.skipped = state.skipped + 1
+                            end
+                        end
+                    end
+                    state.scanned = state.scanned + chunk
+                    state.at = state.at + chunk
+                    budget = budget - chunk
+                    if budget <= 0 and state.ri <= #state.regions then
+                        return false, ("blind probe: scanned %d of %d bytes, "
+                            .. "%d candidate(s) tested"):format(
+                            state.scanned, state.total, state.tested)
+                    end
+                end
+            end
+        else
+            state.ri = state.ri + 1
+            state.at = nil
+        end
+    end
+    return true, nil
+end
+
+function M.describe_blind(state)
+    local lines = {}
+    lines[#lines + 1] = ("blind probe: %d byte(s) scanned, %d slot(s) looked like "
+        .. "pointers, %d hit(s)"):format(state.scanned, state.tested, #state.hits)
+    if #state.hits == 0 then
+        lines[#lines + 1] = "  no pointer in game.dll points at anything table-shaped"
+        lines[#lines + 1] = "  (the table may be reached through several hops)"
+    else
+        for _, h in ipairs(state.hits) do
+            lines[#lines + 1] = ("  rva 0x%x -> 0x%x  (%s)")
+                :format(h.rva, h.value, h.detail)
+        end
+        lines[#lines + 1] = "  (an rva that repeats across two launches is the route)"
     end
     return lines
 end

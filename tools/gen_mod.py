@@ -440,12 +440,20 @@ def lua_table(mapping: dict, indent: str = "    ") -> str:
     return "\n".join(parts)
 
 
-def render_module(specs: list, sources: dict[str, str]) -> str:
+def render_module(specs: list, sources: dict[str, str],
+                  probe_static_route: bool = False) -> str:
     """Assemble the four modules into one Lua chunk.
 
     The pieces are concatenated rather than required: the generated file must be
     a single resource, and each module returns a table, so the assembly binds
     them explicitly and keeps load order visible.
+
+    `probe_static_route` turns on the static-route probe, which reports the
+    rvas that currently hold a pointer to the damage table. It is off for normal
+    builds: the routes are already recorded, and the probe costs a scan of the
+    module's data on every launch. It is turned on when a game patch has moved
+    the table and the recorded routes no longer resolve, because then those rvas
+    are the thing that needs re-deriving.
     """
     parts = []
     parts.append(
@@ -488,6 +496,7 @@ def render_module(specs: list, sources: dict[str, str]) -> str:
         )
     plans_block = chr(10).join(plan_entries)
 
+    probe_flag = "true" if probe_static_route else "false"
     parts.append(
         f"""
 local ffi = require("ffi")
@@ -565,61 +574,93 @@ local function main()
 
     -- Static-route probe (see 15_static_route.lua).
     --
-    -- DISABLED. It did its job: two independent launches reported the same
-    -- three rvas, which is what 16_static_chain.lua now uses to address the
-    -- table in one read. Re-running it would scan 24 MB of game.dll on every
-    -- launch to re-derive a fact that is already baked in.
+    -- Normally DISABLED. It did its job once: two independent launches reported
+    -- the same three rvas, which is what 16_static_chain.lua then used to
+    -- address the table in one read. Re-running it costs 24 MB of game.dll
+    -- reads per launch to re-derive a fact that is already baked in.
     --
-    -- Kept as a switch rather than deleted: if the static route ever stops
-    -- resolving (a game patch moving the table), turning this back on prints
-    -- the rvas that ARE live for the new build, which is the whole diagnosis.
-    local PROBE_STATIC_ROUTE = false
+    -- Kept as a switch rather than deleted, and now reachable from the CLI
+    -- (`--probe-static-route`): when a game patch moves the table the routes
+    -- stop resolving, and the mod falls back to the full address-space scan -
+    -- which is the 35-57 second stall the routes were built to remove. Turning
+    -- this on prints the rvas that ARE live for the new build, which is the
+    -- whole diagnosis.
+    local PROBE_STATIC_ROUTE = {probe_flag}
     local probe_state = nil
     local probe_finished = false
+    local probe_passes = 0
+    local probe_next_at = WARMUP_FRAMES
 
+    -- How many times to sweep the module before concluding there is no route.
+    -- One pass can legitimately come up empty: the damage table is loaded when
+    -- the game needs it, and a sweep that runs before that finds no pointer to
+    -- it. Concluding "no route" from one empty pass would report a fact about
+    -- timing as a fact about the build.
+    local PROBE_MAX_PASSES = 6
+    local PROBE_RETRY_GAP = 600     -- ~10s at 60fps between passes
+
+    -- The probe reports which rvas currently hold a pointer to the damage table,
+    -- so a route that stopped resolving can be re-derived.
+    --
+    -- It uses the BLIND walk unconditionally. The precise walk (searching for a
+    -- known `table_base`) needs the scan to have succeeded first - but the only
+    -- reason to run the probe is that the routes are dead, and when the routes
+    -- are dead the scan is usually dead too, because the scan is what supplies
+    -- `table_base`. Waiting for it would mean waiting out the full attempt
+    -- budget (~1000 attempts, about a minute) to then run a probe that could
+    -- have started on frame one.
+    --
+    -- Blind also finds strictly more: it reports any pointer to anything
+    -- table-shaped, which includes every pointer the precise walk would name.
+    -- The only thing it loses is the label ("array_start" vs "record"), and the
+    -- rva is what a route needs.
     local function probe_frame()
         if probe_finished or not PROBE_STATIC_ROUTE then return end
+        if frame_number < probe_next_at then return end
 
-        local table_base = resolver.table_base()
-        if table_base == nil then return end
         local mb = resolver.module_base("game.dll")
         if mb == nil then return end
 
         if probe_state == nil then
-            -- The record address, when one is known, is carried as an extra
-            -- target: a module global might hold the record rather than the
-            -- table, and which of the two it holds changes the chain shape.
-            local record_address = nil
-            for _, plan in ipairs(PLANS) do
-                local known = resolver.known_addresses
-                    and resolver.known_addresses[plan.type_id]
-                if known ~= nil then record_address = known break end
-            end
-
-            local ok, state = pcall(static_route.begin, api, mb, table_base, {{
-                array_start = resolver.ARRAY_START,
-                record_address = record_address,
-            }})
+            local ok, state = pcall(static_route.begin_blind, api, mb)
             if not ok then
                 probe_finished = true
-                log.line("static route probe failed to start: " .. tostring(state))
+                log.line("blind probe failed to start: " .. tostring(state))
                 return
             end
             probe_state = state
-            log.section("static route probe")
-            log.line(("table_base 0x%x; scanning game.dll writable data (%d bytes) "
-                .. "for a pointer to it"):format(table_base, state.total or 0))
+            probe_passes = probe_passes + 1
+            if probe_passes == 1 then
+                log.section("static route probe (blind)")
+            end
+            log.line(("pass %d: scanning game.dll writable data (%d bytes) for a "
+                .. "pointer to anything table-shaped")
+                :format(probe_passes, state.total or 0))
         end
 
-        local ok, finished, message = pcall(static_route.step, api, probe_state)
+        local ok, finished, message = pcall(static_route.step_blind, api, probe_state)
         if not ok then
             probe_finished = true
-            log.line("static route probe error: " .. tostring(finished))
+            log.line("blind probe error: " .. tostring(finished))
             return
         end
-        if finished then
+        if not finished then return end
+
+        if #probe_state.hits > 0 then
             probe_finished = true
-            for _, line in ipairs(static_route.describe_hits(probe_state)) do
+            for _, line in ipairs(static_route.describe_blind(probe_state)) do
+                log.line(line)
+            end
+        elseif probe_passes < PROBE_MAX_PASSES then
+            -- Empty pass. The table may simply not be loaded yet, so sweep
+            -- again later rather than reporting "no route" from one sample.
+            log.line(("pass %d found nothing; the table may not be loaded yet, "
+                .. "retrying"):format(probe_passes))
+            probe_state = nil
+            probe_next_at = frame_number + PROBE_RETRY_GAP
+        else
+            probe_finished = true
+            for _, line in ipairs(static_route.describe_blind(probe_state)) do
                 log.line(line)
             end
         end
@@ -630,8 +671,29 @@ local function main()
     end
 
     local function frame(dt, ...)
+        frame_number = frame_number + 1
+
+        -- The probe runs from the first frame, not after the edits settle.
+        --
+        -- It used to be called only once `done` was true, which meant it could
+        -- not run in the situation it exists for: after a game update the scan
+        -- finds nothing, `done` only becomes true when the attempt budget is
+        -- exhausted (~1000 attempts, about a minute), and the whole point is to
+        -- diagnose exactly that failure. The blind walk needs nothing the scan
+        -- produces, so there is no reason to wait for the scan.
+        --
+        -- While it is running it also HOLDS the scan off. Both walk memory in
+        -- the same frame callback, and letting them interleave would put the
+        -- probe's reads on top of the stall the scan already causes - making the
+        -- launch worse than the problem being diagnosed. The probe finishes in a
+        -- few seconds; the scan then proceeds exactly as before.
+        if PROBE_STATIC_ROUTE and not probe_finished then
+            probe_frame()
+            if previous_update then return previous_update(dt, ...) end
+            return
+        end
+
         if not done then
-            frame_number = frame_number + 1
             if frame_number > WARMUP_FRAMES
                and (frame_number - WARMUP_FRAMES) % ATTEMPT_EVERY == 1 then
                 attempts = attempts + 1
@@ -955,6 +1017,12 @@ def main() -> int:
     parser.add_argument("--out", default="build", help="output directory")
     parser.add_argument("--emit-lua", default=None,
                         help="also write the generated Lua source here (for review)")
+    parser.add_argument("--probe-static-route", action="store_true",
+                        help="build a diagnostic mod that reports which rvas in "
+                             "game.dll currently point at the damage table. Use "
+                             "after a game update when the recorded routes stop "
+                             "resolving; the mod it produces still applies its "
+                             "edits, but logs the rvas to look for.")
     args = parser.parse_args()
 
     # Either the legacy single-weapon form or one or more --edit entries.
@@ -991,7 +1059,8 @@ def main() -> int:
         name: (ROOT / "mod_template" / "src" / name).read_text(encoding="utf-8")
         for name in MODULES
     }
-    source = render_module(specs, sources)
+    source = render_module(specs, sources,
+                           probe_static_route=args.probe_static_route)
 
     if args.emit_lua:
         Path(args.emit_lua).write_text(source, encoding="utf-8")
