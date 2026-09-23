@@ -48,6 +48,19 @@ FD_DOWNLOAD = ("https://github.com/xypwn/filediver/releases/latest/download/"
 # Language preference when a key exists in several packs.
 PREFERRED = ["English (US)", "English (UK)"]
 
+# Packs whose Language block carries only a hash and no friendly name.
+#
+# The hash is the game's own stable identifier, so it is keyed on rather than
+# guessed at. The evidence for this one: its 18 packs are the only unnamed ones
+# in the build, they hold 4,419 entries containing Simplified-only characters
+# and none containing Traditional-only ones, and their values differ from the
+# Traditional pack on 2,507 of 2,807 shared keys - the same relationship those
+# two scripts have everywhere else.
+#
+# A "no name means Simplified" rule would have been shorter and would mislabel
+# the next unnamed pack, which is why the hash is spelled out instead.
+LANG_BY_HASH = {"0x5942ccf7": "Chinese (Simplified)"}
+
 
 def find_filediver() -> Path:
     """The newest filediver.exe among the known locations.
@@ -108,10 +121,14 @@ def build() -> None:
     files = 0
     for f in sorted(OUT.glob("*.strings.json")):
         data = json.loads(f.read_text(encoding="utf-8"))
-        lang = (data.get("Language") or {}).get("KnownFriendlyName")
+        language = data.get("Language") or {}
+        lang = language.get("KnownFriendlyName") or LANG_BY_HASH.get(
+            str(language.get("Hash")))
         if not lang:
-            # One pack has no Language block; skip rather than mislabel it.
-            print(f"  skip (no language): {f.name}")
+            # Skip rather than mislabel: an unrecognised hash is a language this
+            # script has not been taught, not one to guess at.
+            print(f"  skip (unknown language hash {language.get('Hash')!r}): "
+                  f"{f.name}")
             continue
         files += 1
         for item in data.get("Items") or []:

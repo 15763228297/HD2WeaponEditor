@@ -31,7 +31,7 @@ render() {  # render <weapon-with-+>  -> echoes path to dumped DOM
   echo "$out"
 }
 
-check() {  # check <label> <file> <python-bool-expr on main/prov>
+check() {  # check <label> <file> <python-bool-expr on main/prov/list>
   local label="$1" file="$2" expr="$3"
   checks=$((checks + 1))
   if python3 -c "
@@ -47,6 +47,10 @@ main=m.group(1) if m else ''
 # satisfied by text from another part of the panel.
 p=re.search(r'来源校验(.*?)(?:<div class=\"btns\"|</main>)', main, re.S)
 prov=p.group(1) if p else ''
+# The weapon sidebar is a SIBLING of main, not part of it. A check about the
+# list that reads the main block finds nothing and looks like a failure.
+l=re.search(r'<ul id=\"list\">(.*?)</ul>', h, re.S)
+lst=l.group(1) if l else ''
 sys.exit(0 if ($expr) else 1)
 "; then
     echo "  [PASS] $label"
@@ -67,7 +71,15 @@ sys.exit(0 if m and re.search(r'\d+\s*把武器', m.group(1)) else 1)
 checks=$((checks + 1))
 
 echo "== selecting a weapon renders its detail panel, not the placeholder =="
-check "R-4 panel shows the weapon name" "$R4" "'R-4 Hyena' in main"
+# The panel title is the game's Simplified-Chinese name now, read from
+# data/weapon_names.json rather than hardcoded here, so a rename does not need
+# this test edited.
+R4_ZH=$(python3 -c "
+import json
+d=json.load(open('data/weapon_names.json',encoding='utf-8'))
+print(next(w['name_zh'] for w in d['weapons'] if w['page']=='R-4 Hyena'))
+")
+check "R-4 panel shows the Chinese name" "$R4" "'''$R4_ZH''' in main"
 check "R-4 panel is not the placeholder" "$R4" "'从左侧选择' not in main"
 check "R-4 fields are present" "$R4" "main.count('input type=\"number\"') >= 9"
 
@@ -166,6 +178,31 @@ check "every provenance comparison resolves to a value" "$GR8" \
   "'—' not in prov"
 check "a non-explosive weapon shows a single segment" "$R4" \
   "'弹头直击' not in prov and '肉伤 220 / 220' in prov"
+
+echo "== the sidebar lists the game's Chinese names =="
+# The list used to show the English page title. It shows the game's own
+# Simplified-Chinese name now, falling back to the page title when the name
+# could not be resolved.
+check "the sidebar shows R-4's Chinese name" "$R4" "'''$R4_ZH''' in lst"
+GL_ZH=$(python3 -c "
+import json
+d=json.load(open('data/weapon_names.json',encoding='utf-8'))
+print(next(w['name_zh'] for w in d['weapons'] if w['page']=='GL-15 Evictor'))
+")
+GLZ=$(render "GL-15+Evictor")
+check "the sidebar shows GL-15's Chinese name" "$GLZ" "'''$GL_ZH''' in lst"
+check "the English title is not shown beside it" "$GLZ" "'GL-15 Evictor' not in lst"
+# Every weapon's name must be rendered, not just the two sampled: a list that
+# silently dropped most names would still pass a two-weapon check. The expected
+# names come from the data file, so this test does not need editing on a rename.
+python3 -c "
+import json
+d=json.load(open('data/weapon_names.json',encoding='utf-8'))
+names=[w['name_zh'] for w in d['weapons'] if w.get('name_zh')]
+open(r'$TMP/gui_dom_expected.txt','w',encoding='utf-8').write('\n'.join(names))
+"
+check "every weapon with a name renders that name" "$GLZ" \
+  "sum(1 for n in open(r'$TMP/gui_dom_expected.txt',encoding='utf-8').read().split(chr(10)) if n and n in lst) >= 95"
 
 echo
 if [ "$fail" -eq 0 ]; then

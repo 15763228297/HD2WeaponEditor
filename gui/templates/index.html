@@ -148,6 +148,12 @@ const EDITABLE = ["damage", "durable", "ap0", "ap1", "ap2", "ap3", "demolition_s
 
 function fmt(n) { return n === null || n === undefined ? "—" : n; }
 
+// The name to show. The game's own Simplified-Chinese name when it could be
+// resolved, otherwise the English page title - never a guessed Chinese one.
+// `w.page` remains the identity everywhere else: it is what the generate request
+// sends and what the server matches on.
+function dispName(w) { return w.name_zh || w.page; }
+
 async function boot() {
   const r = await fetch("/api/weapons");
   DATA = await r.json();
@@ -206,7 +212,10 @@ function visible() {
     if (on("exclusive") && !(w.exclusive && w.impact_exclusive)) return false;
     if (on("explosion") && w.payload !== "explosion") return false;
     if (q) {
-      const hay = `${w.page} ${w.ammo || ""}`.toLowerCase();
+      // Search both names: the display name is Chinese now, but the user may
+      // know a weapon by its English title from the wiki, and the ammo string
+      // is English either way.
+      const hay = `${w.page} ${w.name_zh || ""} ${w.ammo || ""}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -243,7 +252,7 @@ function render() {
     // Prefer the game's own name; fall back to the wiki's, marked so the user
     // knows which side it came from.
     const an = w.ammo ? w.ammo : (w.ammo_wiki ? w.ammo_wiki + " ⟨wiki⟩" : "(弹种未记录)");
-    li.innerHTML = `<div><div class="nm">${w.page}</div>
+    li.innerHTML = `<div><div class="nm">${dispName(w)}</div>
         <div class="sub">${an} · ${w.damage}/${w.durable} AP${w.ap[0]}</div></div>
       <div>${badges.join(" ")}</div>`;
     li.onclick = () => { SEL = w; render(); };
@@ -438,7 +447,7 @@ function renderMain() {
       </div>
     </div>`;
   main.innerHTML = `
-    <h2>${w.page}</h2>
+    <h2>${dispName(w)}</h2>
     <div class="meta">
       弹种 ${ammoCell} ·
       载荷 <code>${w.payload}</code> ·

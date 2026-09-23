@@ -121,6 +121,11 @@ def api_weapons():
     for w in data["weapons"]:
         out.append({
             "page": w["page"],
+            # The game's own Simplified-Chinese name, for display. `page` stays
+            # the identity - matching and generation key on it - so this is an
+            # addition, not a rename. Absent when the name could not be decided,
+            # and the template then falls back to `page` rather than inventing one.
+            "name_zh": w.get("name_zh"),
             # Two numbers, both surfaced: `damage_index` is the row's type_id
             # (what identifies it) and `damage_position` is its array index
             # (what addresses it). They differ on 519 of 634 rows.

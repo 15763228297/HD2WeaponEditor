@@ -23,6 +23,7 @@ Usage:
 
 from __future__ import annotations
 
+import importlib
 import json
 import re
 import subprocess
@@ -491,7 +492,15 @@ def _match_manual(entry, projectiles, damages, strings) -> dict | None:
         "impact_damage_position": impact_position,
         "payload": payload,
         "projectile_row": p.row,
-        "ammo": strings.get(str(_name_key(pblob, p.row)), None),
+        # `strings` maps key -> {language: text}, so this must be narrowed to one
+        # language. Returning the whole dict rendered as `[object Object]` in the
+        # GUI's ammo cell for GL-15 - the one weapon that reaches this path.
+        "ammo": (strings.get(str(_name_key(pblob, p.row))) or {}).get(
+            "English (US)")
+        or (strings.get(str(_name_key(pblob, p.row))) or {}).get("English (UK)")
+        or None,
+        "ammo_zh": (strings.get(str(_name_key(pblob, p.row))) or {}).get(
+            "Chinese (Simplified)"),
         "ammo_wiki": None,
         "speed": p.speed,
         "damage": ed.damage if (payload == "explosion" and ed is not None) else d.damage,
@@ -991,6 +1000,29 @@ def build() -> None:
             r["impact_exclusive"] = not peers
 
     impact_shared = {k: v for k, v in impact_owners.items() if len(v) > 1}
+
+    # The game's own Simplified-Chinese name, for display only.
+    #
+    # `page` stays the identity: matching, generation and cross-table references
+    # all key on it, and renaming it would mean rewriting every one of them. This
+    # field is what the GUI shows, and it is resolved from the game's string
+    # resources rather than translated, so a player comparing the tool with the
+    # game sees the same words. Weapons whose name cannot be decided get no field
+    # and the GUI falls back to `page` - a wrong name would be worse than an
+    # English one, because the user cannot tell it is wrong.
+    zh_names_mod = importlib.import_module("zh_names")
+    zh_strings, zh_by_text, zh_packs = zh_names_mod.load()
+    zh_hits = 0
+    for r in rows:
+        name = zh_names_mod.zh_name(r["page"], zh_strings, zh_by_text, zh_packs)
+        if name:
+            r["name_zh"] = name
+            zh_hits += 1
+    print(f"Simplified names: {zh_hits} of {len(rows)} resolved")
+    missing = [r["page"] for r in rows if "name_zh" not in r]
+    for p in missing:
+        print(f"  no Simplified name: {p}")
+
     out.write_text(
         json.dumps(
             {
