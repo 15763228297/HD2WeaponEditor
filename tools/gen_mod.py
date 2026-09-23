@@ -188,12 +188,23 @@ def find_weapon(names: dict, page: str) -> dict:
 def parse_edits(raw_edits: list[str] | None,
                 default_damage: int | None,
                 default_durable: int | None,
-                default_ap: int | None) -> list[tuple[str, int, int, int]]:
-    """Parse `--edit 'Weapon::D/DUR/AP'` into (page, damage, durable, ap).
+                default_ap: int | None) -> list[tuple[str, int, int, list[int]]]:
+    """Parse `--edit 'Weapon::D/DUR/AP'` into (page, damage, durable, ap_angles).
 
     Every value must be explicit per weapon. Allowing a weapon to inherit a
     default silently applies the first weapon's numbers to the rest, which is
     not something to guess at.
+
+    PENETRATION accepts either form:
+
+        Weapon::400/200/7        - one tier, applied to all three angles
+        Weapon::400/200/7/5/3    - direct / slight angle / large angle
+
+    The single-tier form stays because it is what most weapons use and what the
+    existing documentation and scripts send. The three-value form exists because
+    the game's own rows frequently differ per angle - (3, 0, 0) is more common
+    than (3, 3, 3) - so a caller that knows the three values must be able to
+    say them. The fourth angle is never settable; see `build_spec`.
     """
     out = []
     for raw in raw_edits or []:
@@ -203,14 +214,21 @@ def parse_edits(raw_edits: list[str] | None,
         page, values = raw.split("::", 1)
         page = page.strip()
         bits = [b.strip() for b in values.split("/")]
-        if len(bits) != 3:
+        if len(bits) not in (3, 5):
             raise SystemExit(
-                f"--edit {raw!r}：需要三个数值（肉伤/耐伤/穿甲）")
+                f"--edit {raw!r}：需要 3 个数值（肉伤/耐伤/穿甲）"
+                f"或 5 个（肉伤/耐伤/直射/小角/大角）")
         try:
-            damage, durable, ap = (int(b) for b in bits)
+            nums = [int(b) for b in bits]
         except ValueError:
             raise SystemExit(f"--edit {raw!r}：数值必须为整数")
-        out.append((page, damage, durable, ap))
+        if len(nums) == 3:
+            damage, durable, ap = nums
+            angles = [ap, ap, ap]
+        else:
+            damage, durable = nums[0], nums[1]
+            angles = nums[2:]
+        out.append((page, damage, durable, angles))
     return out
 
 
@@ -229,12 +247,14 @@ def build_specs(raw_edits: list[str] | None,
     if not edits:
         raise SystemExit("未提供 --edit，无可生成内容")
     specs = []
-    for page, damage, durable, ap in edits:
+    for page, damage, durable, ap_angles in edits:
         if not (0 <= damage <= 100000 and 0 <= durable <= 100000):
             raise SystemExit(f"{page}：肉伤与耐伤需在 0..100000 之间")
-        if not (0 <= ap <= 10):
-            raise SystemExit(f"{page}：穿甲等级需在 0..10 之间")
-        specs.append(build_spec(page, damage=damage, durable=durable, ap=ap,
+        for v in ap_angles:
+            if not (0 <= v <= 10):
+                raise SystemExit(f"{page}：穿甲等级需在 0..10 之间")
+        specs.append(build_spec(page, damage=damage, durable=durable,
+                                ap_angles=ap_angles,
                                 allow_shared=allow_shared))
     # Two edits that resolve to the same row would write twice; refuse early
     # rather than let the second one overwrite the first at runtime.
@@ -248,14 +268,27 @@ def build_specs(raw_edits: list[str] | None,
     return specs
 
 
-def build_impact_spec(page: str, damage: int, durable: int, ap: int,
+def build_impact_spec(page: str, damage: int, durable: int, ap: int | None = None,
+                      ap_angles: list[int] | None = None,
                       allow_shared: bool = False) -> Spec:
     """Build a Spec for the IMPACT half of an explosive weapon.
 
     Explosive weapons deal damage in two independent halves: the projectile
     hitting the target, and the explosion. They are two separate damage records
     with separate values and separate owners, so they need separate edits.
+
+    Penetration angles work the same way as in `build_spec`: the first three are
+    independent, the fourth is left alone.
     """
+    if ap_angles is None:
+        if ap is None:
+            raise SystemExit(f"{page}：必须给出穿甲等级")
+        ap_angles = [ap, ap, ap]
+    if len(ap_angles) != 3:
+        raise SystemExit(f"{page}：穿甲需要三个角度（直射/小角/大角），收到 {len(ap_angles)} 个")
+    for v in ap_angles:
+        if not isinstance(v, int) or not (0 <= v <= 10):
+            raise SystemExit(f"{page}：穿甲等级需在 0..10 之间，收到 {v!r}")
     damages, projectiles, names = load_tables()
     weapon = find_weapon(names, page)
 
@@ -300,9 +333,10 @@ def build_impact_spec(page: str, damage: int, durable: int, ap: int,
     changes = {
         "damage": damage,
         "durable": durable,
-        "ap0": ap,
-        "ap1": ap,
-        "ap2": ap,
+        "ap0": ap_angles[0],
+        "ap1": ap_angles[1],
+        "ap2": ap_angles[2],
+        # Fourth angle left alone - 0 there means "Unarmored", not a tier.
         "ap3": rec.armor_penetration_per_angle[3],
     }
     changes = {k: v for k, v in changes.items() if baseline[k] != v}
@@ -330,7 +364,8 @@ def build_impact_spec(page: str, damage: int, durable: int, ap: int,
     )
 
 
-def build_spec(page: str, damage: int, durable: int, ap: int,
+def build_spec(page: str, damage: int, durable: int, ap: int | None = None,
+               ap_angles: list[int] | None = None,
                keep: bool = True, allow_shared: bool = False) -> Spec:
     """Assemble a Spec for `page` with the requested new values.
 
@@ -339,11 +374,32 @@ def build_spec(page: str, damage: int, durable: int, ap: int,
     weapon without touching others; turning it on changes every weapon listed
     in the row's shared set.
 
-    `ap` sets all four penetration angles to the same value except the last,
-    which is left as-is: the fourth angle is 0 on every weapon checked and is not
-    a penetration tier, so copying the new tier over it would be inventing a
-    change the user did not ask for.
+    PENETRATION ANGLES
+
+    The record stores four penetration values - direct, slight angle, large
+    angle, extreme angle - and they are genuinely independent in the game's
+    data: 346 of 649 rows have the first three differ, most commonly
+    (3, 0, 0) rather than (3, 3, 3). So they are set independently here.
+
+    `ap_angles` carries the three per-angle tiers when the caller has them.
+    `ap` remains as the single-tier shorthand and is applied to all three,
+    which is what the CLI and any older client send.
+
+    The FOURTH angle is deliberately not settable. 568 of 649 rows hold 0
+    there and the wiki renders that as "Unarmored", so 0 is a sentinel
+    ("this angle does not penetrate") rather than a tier. Copying a tier over
+    it would invent a change nobody asked for; leaving it alone preserves
+    whatever the row already means.
     """
+    if ap_angles is None:
+        if ap is None:
+            raise SystemExit(f"{page}：必须给出穿甲等级")
+        ap_angles = [ap, ap, ap]
+    if len(ap_angles) != 3:
+        raise SystemExit(f"{page}：穿甲需要三个角度（直射/小角/大角），收到 {len(ap_angles)} 个")
+    for v in ap_angles:
+        if not isinstance(v, int) or not (0 <= v <= 10):
+            raise SystemExit(f"{page}：穿甲等级需在 0..10 之间，收到 {v!r}")
     damages, projectiles, names = load_tables()
     weapon = find_weapon(names, page)
     # Address the row by POSITION; identify it by TYPE_ID. Conflating the two
@@ -398,11 +454,11 @@ def build_spec(page: str, damage: int, durable: int, ap: int,
     changes = {
         "damage": damage,
         "durable": durable,
-        "ap0": ap,
-        "ap1": ap,
-        "ap2": ap,
-        # The fourth angle stays at its original value unless it was non-zero,
-        # in which case it keeps its tier relationship.
+        "ap0": ap_angles[0],
+        "ap1": ap_angles[1],
+        "ap2": ap_angles[2],
+        # The fourth angle keeps its original value. See the docstring: 0 there
+        # means "Unarmored", not "tier 0", so it is not a field to overwrite.
         "ap3": rec.armor_penetration_per_angle[3],
     }
     changes = {k: v for k, v in changes.items() if baseline.get(k) != v or keep is False}

@@ -536,7 +536,10 @@ function currentEdit(seg, prefix) {
   };
   const angles = [num("ap0"), num("ap1"), num("ap2")];
   return { weapon: w.page, damage: num("damage"), durable: num("durable"),
-           ap: num("ap0"), angles,
+           // The three penetration tiers travel as a list. They are genuinely
+           // independent in the game's data - (3, 0, 0) is more common than
+           // (3, 3, 3) - so they are not collapsed to one value here.
+           ap: angles[0], angles,
            // Carried so a queued edit can be checked for shared peers at
            // generation time, when the user confirms. Nothing is pre-authorised
            // here - the decision is made in the dialog, not by a checkbox.
@@ -600,11 +603,7 @@ function askShared(items) {
 function addToQueue(seg, prefix) {
   const out = document.getElementById("out");
   const e = currentEdit(seg, prefix);
-  if (e.angles.some(a => a !== e.angles[0])) {
-    out.innerHTML = '<span style="color:var(--bad)">穿甲前三个角度不一致，生成器只接受一个穿甲等级。</span>';
-    return;
-  }
-  if ([e.damage, e.durable, e.ap].some(Number.isNaN)) {
+  if ([e.damage, e.durable, ...e.angles].some(Number.isNaN)) {
     out.innerHTML = '<span style="color:var(--bad)">数值必须是整数。</span>';
     return;
   }
@@ -677,23 +676,15 @@ async function generateAll() {
 async function generate(seg, prefix) {
   const out = document.getElementById("out");
   const e = currentEdit(seg, prefix);
-  const num = k => {
-    const el = document.getElementById("f_" + (prefix || "") + k);
-    return el ? parseInt(el.value, 10) : NaN;
-  };
-  // The panel exposes all four AP angles; the generator takes one tier and
-  // applies it to the first three. Refuse rather than silently pick one if the
-  // user made them disagree.
-  const angles = [num("ap0"), num("ap1"), num("ap2")];
-  if (angles.some(a => a !== angles[0])) {
-    out.innerHTML = '<span style="color:var(--bad)">穿甲前三个角度不一致，生成器只接受一个穿甲等级。</span>';
-    return;
-  }
-  const damage = num("damage"), durable = num("durable"), ap = num("ap0");
-  if ([damage, durable, ap].some(Number.isNaN)) {
+  // The three penetration tiers are independent values in the game's data and
+  // are sent as they were entered. They are no longer required to agree: 346 of
+  // 649 rows have them differ, most commonly (3, 0, 0).
+  const angles = e.angles;
+  if ([e.damage, e.durable, ...angles].some(Number.isNaN)) {
     out.innerHTML = '<span style="color:var(--bad)">数值必须是整数。</span>';
     return;
   }
+  const damage = e.damage, durable = e.durable, ap = angles[0];
   // A shared record changes other weapons too, so ask before building. The
   // answer is per-generation, not remembered: the next edit asks again, because
   // by then the numbers - and what they affect - are different.
@@ -708,6 +699,9 @@ async function generate(seg, prefix) {
   const body = {
     weapon: SEL.page,
     damage, durable, ap,
+    // The three tiers, sent alongside `ap` so the server has the per-angle
+    // values rather than one collapsed number. `ap` stays for compatibility.
+    angles,
     allow_shared: peers.length > 0,
     segment: e.segment,
   };

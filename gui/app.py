@@ -219,6 +219,22 @@ def _build_status() -> dict:
                 "data_version": None, "game_version": None}
 
 
+def _angles_of(payload: dict) -> list[int] | None:
+    """The three penetration tiers a request carries, or None if it carries none.
+
+    Two shapes are accepted because the GUI sends `angles` and older callers
+    (and the CLI-shaped payloads in the tests) send a single `ap`. Returning None
+    rather than a default lets the caller's own error message explain what was
+    missing, instead of silently substituting a tier.
+    """
+    angles = payload.get("angles")
+    if isinstance(angles, list) and len(angles) == 3:
+        return [int(a) for a in angles]
+    if payload.get("ap") is not None:
+        return [int(payload["ap"])] * 3
+    return None
+
+
 @app.route("/api/generate", methods=["POST"])
 def api_generate():
     """Build a mod from the values the user entered.
@@ -240,13 +256,31 @@ def api_generate():
         try:
             damage = int(payload.get("damage"))
             durable = int(payload.get("durable"))
-            ap = int(payload.get("ap"))
         except (TypeError, ValueError):
-            return jsonify({"ok": False, "error": "肉伤、耐伤、穿甲必须为数值"}), 400
+            return jsonify({"ok": False, "error": "肉伤、耐伤必须为数值"}), 400
+
+        # Penetration arrives either as one tier (`ap`) or as the three
+        # per-angle tiers (`angles`). The single value stays supported because
+        # most weapons use one tier across all angles; the list exists because
+        # the game's own rows often differ per angle.
+        angles = payload.get("angles")
+        if angles is None:
+            try:
+                angles = [int(payload.get("ap"))] * 3
+            except (TypeError, ValueError):
+                return jsonify({"ok": False, "error": "穿甲必须为数值"}), 400
+        else:
+            if not isinstance(angles, list) or len(angles) != 3:
+                return jsonify({"ok": False,
+                                "error": "angles 需要三个值（直射/小角/大角）"}), 400
+            try:
+                angles = [int(a) for a in angles]
+            except (TypeError, ValueError):
+                return jsonify({"ok": False, "error": "穿甲必须为数值"}), 400
 
         if not (0 <= damage <= 100000 and 0 <= durable <= 100000):
             return jsonify({"ok": False, "error": "伤害数值超出允许范围（0..100000）"}), 400
-        if not (0 <= ap <= 10):
+        if not all(0 <= a <= 10 for a in angles):
             return jsonify({"ok": False, "error": "穿甲等级需在 0..10 之间"}), 400
 
     try:
@@ -270,31 +304,33 @@ def api_generate():
             for e in edits:
                 seg = e.get("segment", "damage")
                 allow = bool(e.get("allow_shared", False))
+                angles = _angles_of(e)
                 if seg == "impact":
                     specs.append(gen_mod.build_impact_spec(
                         e["weapon"], damage=int(e["damage"]),
-                        durable=int(e["durable"]), ap=int(e["ap"]),
+                        durable=int(e["durable"]), ap_angles=angles,
                         allow_shared=allow))
                 else:
-                    raw = [f"{e['weapon']}::{e['damage']}/{e['durable']}/{e['ap']}"]
-                    sp = gen_mod.build_specs(
-                        raw, allow_shared=allow)[0]
-                    specs.append(sp)
+                    specs.append(gen_mod.build_spec(
+                        e["weapon"], damage=int(e["damage"]),
+                        durable=int(e["durable"]), ap_angles=angles,
+                        allow_shared=allow))
         else:
             allow = bool(payload.get("allow_shared", False))
+            angles = _angles_of(payload)
             if payload.get("segment") == "impact":
                 specs = [gen_mod.build_impact_spec(
                     payload.get("weapon"),
                     damage=int(payload["damage"]),
                     durable=int(payload["durable"]),
-                    ap=int(payload["ap"]),
+                    ap_angles=angles,
                     allow_shared=allow)]
             else:
                 specs = [gen_mod.build_spec(
                     payload.get("weapon"),
                     damage=int(payload["damage"]),
                     durable=int(payload["durable"]),
-                    ap=int(payload["ap"]),
+                    ap_angles=angles,
                     allow_shared=allow)]
 
         sources = {
