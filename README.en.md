@@ -97,13 +97,23 @@ reverse. The list badges (`直击共享` / `爆炸共享`) and the detail panel 
 each half separately, because they are independent rows with independent
 owners.
 
+**Weapons added in the newest game update cannot be edited yet.** The tool joins
+the chain weapon name (wiki) → ammo name (wiki) → projectile record (game) →
+damage record (game), and every hop needs a key that exists on both sides. The
+new weapons are missing the middle hop: the wiki's machine-readable data table
+has not been updated for them yet (the page prose has figures, but the table the
+tool reads is still empty), so there is no ammo name to match on and the
+four-field check cannot run. **This fixes itself once the wiki catches up — no
+tool change needed.** Run `python tools/diagnose_new_weapons.py` to see which hop
+fails for a given weapon.
+
 ## Repository contents
 
 ```
 gui/            the interface (Flask + HTML, wrapped in a native window)
 tools/          data parsing, weapon mapping, mod generation
 mod_template/   the Lua that ships inside a generated mod
-tests/          31 offline suites + a headless-browser DOM test
+tests/          39 offline suites + a headless-browser DOM test
 data/           derived tables (see below)
 docs/           status notes and screenshots
 ```
