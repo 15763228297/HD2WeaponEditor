@@ -31,27 +31,62 @@ import dlbin_tables  # noqa: E402,F401  (kept for the layout constants it owns)
 from ljcompile import LuaJIT  # noqa: E402
 
 MODULE_BASE = 0x7FF000000000
-MODULE_SIZE = 0x3000000          # 48 MB: must cover the route rva 0x2ac7cb0
 ARRAY_BASE = 0x1A2B0000
-ROUTE_ARRAY_RVA = 0x2AC7CB0      # -> array_start
-ROUTE_TABLE_RVA = 0x2791748      # -> table_base (container)
-# Read from the module under test rather than repeated here: this test builds a
-# synthetic memory image whose addresses must agree with what 16_static_chain.lua
-# computes, so a stale copy of the constant here would make the arithmetic
-# disagree with the shipped code and the test would pass while the mod was wrong.
-# It also fails loudly if the module stops exporting it.
-def _module_constant(name: str, fallback: int) -> int:
-    src = (ROOT / "mod_template" / "src" / "16_static_chain.lua").read_text(
+
+
+# Every constant this test builds its synthetic image around is read from the
+# module under test rather than repeated here.
+#
+# That matters most for the rvas: they change whenever the game is recompiled
+# (1.8.45850 moved them from 0x2ac7cb0/0x2791748 to 0x37c60c8), and a hardcoded
+# copy would make the test build an image around an offset the module no longer
+# uses - so it would test the test, not the code.
+def _module_source() -> str:
+    return (ROOT / "mod_template" / "src" / "16_static_chain.lua").read_text(
         encoding="utf-8")
-    for line in src.splitlines():
+
+
+def _module_constant(name: str, fallback: int) -> int:
+    for line in _module_source().splitlines():
         if line.startswith(f"M.{name} ="):
             return int(line.split("=", 1)[1].strip(), 0)
     return fallback
 
 
+def _routes() -> list[tuple[int, str]]:
+    """The (rva, kind) pairs the module ships, in order."""
+    import re
+
+    out = []
+    for m in re.finditer(r'\{\s*rva\s*=\s*(0x[0-9a-fA-F]+)\s*,\s*kind\s*=\s*"(\w+)"',
+                         _module_source()):
+        out.append((int(m.group(1), 16), m.group(2)))
+    return out
+
+
+ROUTES = _routes()
+ARRAY_ROUTES = [(rva, kind) for rva, kind in ROUTES if kind == "array"]
+ROUTE_ARRAY_RVA = ARRAY_ROUTES[0][0] if ARRAY_ROUTES else 0x37C60C8
+
+# Big enough to contain every route the module ships, plus room for the probe's
+# second slot. Sized from the routes rather than written down: this was 0x3000000
+# while the route sat at 0x2ac7cb0, and when the new build moved the route past
+# that the mock module no longer covered its own slot, so every read came back
+# "unreadable" and 6 of 14 checks failed for a reason that had nothing to do
+# with the code under test.
+MODULE_SIZE = max((rva for rva, _ in ROUTES), default=0x400000) + 0x20000
+
 ARRAY_START = _module_constant("ARRAY_START", 100)
 RECORD_SIZE = _module_constant("RECORD_SIZE", 76)
-POSITION = 137
+# R-4's row in the shipped data, not a literal: it moved from 137 to 147.
+import json  # noqa: E402
+
+POSITION = next(
+    w["damage_position"]
+    for w in json.loads(
+        (ROOT / "data" / "weapon_names.json").read_text(encoding="utf-8"))["weapons"]
+    if w["page"] == "R-4 Hyena"
+)
 
 failures = 0
 checks = 0
@@ -106,21 +141,21 @@ def make_probe(stored_value: int, *, route_rva: int = ROUTE_ARRAY_RVA,
     `row_ok=False` makes the verify callback reject, standing in for an offset
     that lands in readable memory that is not the table.
 
-    BOTH route slots are always populated, with the value that slot would
-    legitimately hold: `route_rva` gets `stored_value`, and the other gets a
-    pointer that fails verification. A single populated slot would make the
-    chain's fall-through order the thing under test rather than the arithmetic.
+    A SECOND slot is populated as well, with a value that fails verification, so
+    the module always has something for its fall-through to reject. Its rva is
+    picked to differ from `route_rva`: this build ships one route, so deriving
+    "the other" from the route table would name the same offset and the two
+    writes would overwrite each other - which is what made the module report
+    "unreadable" (the slot held the wrong one of the two values).
     """
     chain_src = (ROOT / "mod_template" / "src" / "16_static_chain.lua").read_text(
         encoding="utf-8")
-    # The other slot holds a live-but-wrong pointer, so a route that picks it
-    # fails the identity check rather than being reported as unreadable.
-    other_rva = ROUTE_TABLE_RVA if route_rva == ROUTE_ARRAY_RVA else ROUTE_ARRAY_RVA
-    if route_rva == ROUTE_ARRAY_RVA:
-        # array route under test; the container slot holds array - ARRAY_START
-        other_value = stored_value
-    else:
-        other_value = stored_value
+    # A distinct offset from the one under test. Offset far enough that it is
+    # still inside MODULE_SIZE, and 8-byte aligned like any pointer slot.
+    other_rva = route_rva + 0x1000 if route_rva == ROUTE_ARRAY_RVA else ROUTE_ARRAY_RVA
+    # A live-but-wrong pointer: a route that picks it must fail the identity
+    # check rather than be reported as unreadable.
+    other_value = stored_value
 
     seam = """
 function api.read(address, size)
@@ -273,11 +308,22 @@ def main() -> int:
           int(out.get("reads", 0)) <= 2, f"reads={out.get('reads')}")
 
     # -- 2. The container route folds in ARRAY_START -------------------------
-    # 0x2791748 points at the allocation start, not the array. Getting that
-    # correction wrong would address a row 0x1e0 bytes early - a valid-looking
-    # pointer into the wrong structure.
-    out = parse(run_lua(make_probe(ARRAY_BASE - ARRAY_START,
-                                   route_rva=ROUTE_TABLE_RVA)))
+    # A "table" route points at the allocation start rather than the array, so
+    # the lookup must add ARRAY_START. Getting that correction wrong would
+    # address a row 100 bytes early - a valid-looking pointer into the wrong
+    # structure.
+    #
+    # This build ships no "table" route (the probe found one array route and 63
+    # row routes), so the capability is exercised by injecting the route rather
+    # than by reading it out of the module. Keeping the branch covered matters
+    # because the next build's probe may well report a table route, and the
+    # arithmetic is the part that would be wrong.
+    table_probe = make_probe(ARRAY_BASE - ARRAY_START, route_rva=ROUTE_ARRAY_RVA)
+    # Point the module's own route at the container instead, keeping its rva.
+    table_probe = table_probe.replace(
+        f'{{ rva = {hex(ROUTE_ARRAY_RVA)}, kind = "array",  name = "array_start" }}',
+        f'{{ rva = {hex(ROUTE_ARRAY_RVA)}, kind = "table",  name = "table_base" }}')
+    out = parse(run_lua(table_probe))
     check("the table_base route adds ARRAY_START to reach the array",
           out.get("array_base") == expected_array, f"got {out.get('array_base')}")
     check("it reports which route was used",

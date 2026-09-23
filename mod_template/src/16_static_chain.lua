@@ -11,24 +11,43 @@
 --
 -- A probe run (15_static_route.lua) found fixed offsets inside game.dll whose
 -- contents are pointers to the table, and two independent launches reported the
--- IDENTICAL rvas:
+-- IDENTICAL rvas.
+--
+-- CURRENT BUILD (1.8.45850)
+--
+--     rva 0x37c60c8  ->  array_start  (the row-0 address)
+--
+-- Measured on 2026-09-23 with the blind probe, two runs, ~35 MB of module data
+-- scanned per run:
+--
+--     run 1 (18:54)  table_base 0x19acb140000  rva 0x37c60c8 -> 0x19acb140064
+--     run 2 (18:58)  table_base 0x21e4a180000  rva 0x37c60c8 -> 0x21e4a180064
+--
+-- The table moved (ASLR) and the rva did not, which is the property a route
+-- needs. The route's value was also cross-checked against the SCAN's own
+-- finding in each run - an unrelated mechanism - and agreed exactly:
+--
+--     route value + 147 * 76 = 0x...182c08 = the row the scan located
+--
+-- PREVIOUS BUILD (1.8.45317), now dead
 --
 --     rva 0x2791748  ->  table_base   (start of the heap allocation)
 --     rva 0x2ac7cb0  ->  array_start  (table_base + 0x1e0)
 --     rva 0x2ac80d8  ->  record       (a row address, R-4 specific)
 --
--- Three fixed offsets, three different absolute values across those runs. So
--- the address is reachable in one read:
+-- None of those resolve any more: the module was recompiled and all three read
+-- as null. They are recorded here only so the next person can see that a route
+-- moving is normal and what the previous values were.
 --
---     table = *(game_dll_base + 0x2791748)
+-- WHY THIS ONE ROUTE, AND WHY IT IS `array`
 --
--- WHICH ONE
+-- The probe reports 64 slots in the module that point into the table's
+-- allocation - one per row, it turns out: every hit is a multiple of 76 from
+-- the first. The lowest is the array itself, so `kind = "array"` and a record
+-- is `*(base + rva) + position * 76` with no correction term.
 --
--- 0x2ac7cb0 (array_start) is the route to use: it points straight at the
--- weapons array, so a record is `*(base + rva) + position * 76` with no
--- correction term. 0x2791748 points at the container, which would work but
--- needs +0x1e0 folded in. 0x2ac80d8 is not a general route at all - it holds
--- the address of the R-4 ROW, so it is only useful for that one weapon.
+-- The probe's hit list is not ordered by address, so "lowest" is decided here
+-- rather than by taking the first line of the log.
 --
 -- WHAT MAKES THIS SAFE
 --
@@ -43,7 +62,11 @@
 --      caller falls back to the scan that has always worked
 --
 -- Falling back on failure is the whole point: a wrong static offset must cost
--- the user nothing beyond the scan they were already paying for.
+-- the user nothing beyond the scan they were already paying for. That property
+-- is what made this update survivable - the routes went dead, the mod scanned
+-- as it did before the routes existed, and the only cost was the stall. The
+-- damage was that the SCAN also failed, for an unrelated reason (the data was
+-- from the old build, so the fingerprint it searched for no longer existed).
 
 local ffi = require("ffi")
 
@@ -77,10 +100,24 @@ M.RECORD_SIZE = 76
 --   "array"    - the array itself; record = value + position * 76
 --   "table"    - the container;  record = value + ARRAY_START + position * 76
 --   "record"   - one specific row; only usable if the offset is per-weapon
+--
+-- One entry, because this build's probe reported one slot pointing at the
+-- array (and 63 more pointing at later rows of the same allocation, which are
+-- not routes: they would pin the mod to specific weapons). Measured twice, same
+-- rva, different table addresses - see the header.
 M.ROUTES = {
-    { rva = 0x2ac7cb0, kind = "array",  name = "array_start" },
-    { rva = 0x2791748, kind = "table",  name = "table_base" },
+    { rva = 0x37c60c8, kind = "array",  name = "array_start" },
 }
+
+-- The previous build's routes. Dead - they read as null on 1.8.45850 - but kept
+-- as a comment rather than as entries, because a route that resolves to null
+-- costs a read and a log line on every launch for no benefit. If a future build
+-- moves the table again, run the probe (gen_mod.py --probe-static-route) and
+-- replace the entry above; these values are here to show what "moved" looks
+-- like.
+--
+--     { rva = 0x2ac7cb0, kind = "array", name = "array_start" }   -- 1.8.45317
+--     { rva = 0x2791748, kind = "table", name = "table_base"  }   -- 1.8.45317
 
 -- The rva that held a row address, kept only so the log can explain why it is
 -- not used as a route: it is R-4-specific and would break for every other
