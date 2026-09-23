@@ -1,5 +1,5 @@
 {
-  "_comment": "The probe's measurements, transcribed from WeaponEditor.log. Two runs on 2026-09-23, game build 1.8.45850. The rva repeated and the table address did not, which is what makes the rva a route. Kept as data rather than prose so a test can check the module against it: the rva is a fact about the game, and a test that reads it from the module cannot notice it being wrong.",
+  "_comment": "The probe's measurements, transcribed from WeaponEditor.log. Three runs on 2026-09-23, game build 1.8.45850. The rva repeated and the table address did not, which is what makes the rva a route. Kept as data rather than prose so a test can check the module against it: the rva is a fact about the game, and a test that reads it from the module cannot notice it being wrong.",
   "game_build": "1.8.45850.0",
   "game_dll_sha256": "73374bd4e38386beb9a23bef480082b67d457ebc77485fbec5f488b4e95e201f",
   "position": 147,
@@ -20,9 +20,22 @@
       "route_value": "0x21e4a180064",
       "located_row": "0x21e4a182c08",
       "hits": 64
+    },
+    {
+      "when": "2026-09-23 19:04",
+      "table_base": "0x1ad4aaf0000",
+      "route_rva": "0x37c60c8",
+      "route_value": "0x1ad4aaf0064",
+      "located_row": "0x1ad4aaf2c08",
+      "hits": 64,
+      "note": "First run with the route in the mod: 'static route hit ... (no scan needed)', settled after 1 attempt."
     }
   ],
-  "dead_routes": ["0x2ac7cb0", "0x2791748", "0x2ac80d8"],
+  "dead_routes": [
+    "0x2ac7cb0",
+    "0x2791748",
+    "0x2ac80d8"
+  ],
   "dead_routes_note": "1.8.45317's offsets. All three read as null on 1.8.45850; the module was recompiled.",
   "hits_note": "64 slots in the module point into the table's allocation, one per row: every hit is a multiple of 76 from the first. Only the lowest is a route, because the others would pin the mod to whichever row they name."
 }
